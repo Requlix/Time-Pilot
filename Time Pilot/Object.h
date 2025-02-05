@@ -9,8 +9,8 @@ public:
 	~Object();
 	sf::Vector2f getLocation();
 	sf::Vector2f getVelocity();
-	void setLocation();
-	void setVelocity();
+	void setLocation(sf::Vector2f);
+	void setVelocity(sf::Vector2f);
 	void die();
 	void move();
 	void outOfBounds();
@@ -25,9 +25,8 @@ private:
 	sf::Vector2f location;
 	sf::Vector2f velocity;
 	sf::Sprite sprite;
-	std::vector<sf::Texture> textures;
 	int rotation, rotateSpeed;
 	Animation animation;
-	bool alive;
+	bool alive = true;
 };
 

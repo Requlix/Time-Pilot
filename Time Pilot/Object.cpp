@@ -12,26 +12,31 @@ Object::~Object()
 sf::Vector2f Object::getLocation()
 {
 	//returns location of object
+	return location;
 }
 
 sf::Vector2f Object::getVelocity()
 {
 	//returns velocity of objects
+	return velocity;
 }
 
-void Object::setLocation()
+void Object::setLocation(sf::Vector2f place)
 {
 	//sets location of object
+	location = place;
 }
 
-void Object::setVelocity()
+void Object::setVelocity(sf::Vector2f vel)
 {
 	//sets velocity of object
+	velocity = vel;
 }
 
 void Object::die()
 {
 	//kills object
+	alive = false;
 }
 
 void Object::move()
@@ -57,7 +62,7 @@ bool Object::inBounds()
 bool Object::collision(Object thing)
 {
 	//returns if objects collides with other object
-
+	return false;
 }
 
 bool Object::isAlive()
