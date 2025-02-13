@@ -1,5 +1,11 @@
 #pragma once
-class Enemy
+#include "Object.h"
+class Enemy : public Object
 {
+public:
+	Enemy();
+	~Enemy();
+	void move();
+private:
 };
 

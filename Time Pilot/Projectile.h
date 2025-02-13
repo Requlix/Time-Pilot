@@ -1,5 +1,10 @@
 #pragma once
-class Projectile
+#include "Object.h"
+class Projectile : public Object
 {
+public:
+	Projectile();
+	~Projectile();
+private:
 };
 

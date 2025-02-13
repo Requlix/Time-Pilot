@@ -1,5 +1,10 @@
 #pragma once
-class Airman
+#include "Object.h"
+class Airman : public Object
 {
+public:
+	Airman();
+	~Airman();
+private:
 };
 

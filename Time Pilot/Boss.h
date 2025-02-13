@@ -1,5 +1,10 @@
 #pragma once
-class Boss
+#include "Tgrunt.h"
+class Boss : public Tgrunt
 {
+public:
+	Boss();
+	~Boss();
+private:
 };
 

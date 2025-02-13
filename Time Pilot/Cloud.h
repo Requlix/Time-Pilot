@@ -1,5 +1,10 @@
 #pragma once
-class Cloud
+#include "Object.h"
+class Cloud : public Object
 {
+public:
+	Cloud();
+	~Cloud();
+private:
 };
 

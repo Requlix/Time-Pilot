@@ -1,5 +1,10 @@
 #pragma once
-class Tgrunt
+#include "Enemy.h"
+class Tgrunt : public Enemy
 {
+public:
+	Tgrunt();
+	~Tgrunt();
+private:
 };
 

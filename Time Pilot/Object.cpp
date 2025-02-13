@@ -9,10 +9,9 @@ Object::~Object()
 
 }
 
-sf::Vector2f Object::getLocation()
+int Object::getRotation()
 {
-	//returns location of object
-	return location;
+	return rotation;
 }
 
 sf::Vector2f Object::getVelocity()
@@ -21,10 +20,22 @@ sf::Vector2f Object::getVelocity()
 	return velocity;
 }
 
-void Object::setLocation(sf::Vector2f place)
+bool Object::inBounds()
 {
-	//sets location of object
-	location = place;
+	//returns if objects is in bounds
+
+}
+
+bool Object::collision(Object other)
+{
+	//returns if objects collides with other object
+	return false;
+}
+
+bool Object::isAlive()
+{
+	//checks if object is alive
+	return alive;
 }
 
 void Object::setVelocity(sf::Vector2f vel)
@@ -42,6 +53,7 @@ void Object::die()
 void Object::move()
 {
 	//moves object given with velocity
+	animation.move(velocity);//velocity minus player velocity
 }
 
 void Object::outOfBounds()
@@ -52,26 +64,7 @@ void Object::outOfBounds()
 void Object::rotate()
 {
 	//rotates object
-}
-
-bool Object::inBounds()
-{
-	//returns if objects is in bounds
-}
-
-bool Object::collision(Object thing)
-{
-	//returns if objects collides with other object
-	return false;
-}
-
-bool Object::isAlive()
-{
-	//checks if object is alive
-	return alive;
-}
-
-int Object::getRotation()
-{
-	return rotation;
+	velocity.x = speed * cos(((2 * asin(1)) / 32) * rotation);
+	velocity.y = speed * sin(((2 * asin(1)) / 32) * rotation);
+	animation.setFrame(rotation);
 }
