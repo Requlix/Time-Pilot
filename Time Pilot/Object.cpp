@@ -23,7 +23,7 @@ sf::Vector2f Object::getVelocity()
 bool Object::inBounds()
 {
 	//returns if objects is in bounds
-
+	return true;
 }
 
 bool Object::collision(Object other)
