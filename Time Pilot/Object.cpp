@@ -2,7 +2,7 @@
 
 Object::Object()
 {
-
+	winSize = { 896,1024 };
 }
 Object::~Object()
 {
@@ -59,6 +59,14 @@ void Object::move()
 void Object::outOfBounds()
 {
 	//moves object if it goes out of bounds
+	if (animation.getPosition().x < -50)
+		animation.setPosition(animation.getPosition().x + 900, animation.getPosition().y);
+	if (animation.getPosition().x > winSize.x + 50)
+		animation.setPosition(animation.getPosition().x - 900, animation.getPosition().y);
+	if (animation.getPosition().y < -50)
+		animation.setPosition(animation.getPosition().x, animation.getPosition().y + 900);
+	if (animation.getPosition().y > winSize.y + 50)
+		animation.setPosition(animation.getPosition().x, animation.getPosition().y - 900);
 }
 
 void Object::rotate()

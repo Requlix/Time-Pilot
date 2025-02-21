@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
-#include <math.h>
+#include <Math.h>
 #include "Player.h"
 
 class Object
@@ -25,5 +25,6 @@ private:
 	int rotation, rotateSpeed, speed = 1;
 	Animation animation;
 	bool alive = true;
+	sf::Vector2f winSize;
 };
 
