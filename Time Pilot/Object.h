@@ -16,6 +16,7 @@ public:
 	bool collision(Object thing);
 	bool isAlive();
 	void setVelocity(sf::Vector2f);
+	void setRotation(double);
 	void die();
 	void move();
 	void outOfBounds();

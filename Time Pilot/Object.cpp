@@ -38,6 +38,11 @@ bool Object::isAlive()
 	return alive;
 }
 
+void Object::setRotation(double angle)
+{
+	rotation = angle;
+}
+
 void Object::setVelocity(sf::Vector2f vel)
 {
 	//sets velocity of object
