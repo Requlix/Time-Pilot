@@ -9,15 +9,20 @@ Object::~Object()
 
 }
 
-int Object::getRotation()
-{
-	return rotation;
-}
-
 sf::Vector2f Object::getVelocity()
 {
 	//returns velocity of objects
 	return velocity;
+}
+
+sf::Vector2f Object::getPosition()
+{
+	return animation.getPosition();
+}
+
+Animation Object::getAnimation()
+{
+	return animation;
 }
 
 bool Object::inBounds()
@@ -38,15 +43,11 @@ bool Object::isAlive()
 	return alive;
 }
 
-void Object::setRotation(double angle)
-{
-	rotation = angle;
-}
-
-void Object::setVelocity(sf::Vector2f vel)
+void Object::setVelocity(double x, double y)
 {
 	//sets velocity of object
-	velocity = vel;
+	velocity.x = x;
+	velocity.y = y;
 }
 
 void Object::die()
@@ -64,6 +65,7 @@ void Object::move()
 void Object::outOfBounds()
 {
 	//moves object if it goes out of bounds
+	animation.move(speed * cos(rotation * 6.28 / 360.), speed * sin(rotation * 6.28 / 360.));
 	if (animation.getPosition().x < -50)
 		animation.setPosition(animation.getPosition().x + 900, animation.getPosition().y);
 	if (animation.getPosition().x > winSize.x + 50)

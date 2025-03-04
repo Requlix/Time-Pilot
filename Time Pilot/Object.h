@@ -10,22 +10,23 @@ public:
 	Object();
 	~Object();
 	sf::Vector2f getVelocity();
+	sf::Vector2f getPosition();
 	Animation getAnimation();
-	int getRotation();
 	bool inBounds();
 	bool collision(Object thing);
 	bool isAlive();
-	void setVelocity(sf::Vector2f);
-	void setRotation(double);
+	void setVelocity(double, double);
 	void die();
 	void move();
 	void outOfBounds();
 	void rotate();
-private:
+	
+protected:
 	sf::Vector2f velocity;
-	int rotation, rotateSpeed, speed = 1;
+	double rotation, rotateSpeed, speed = 1;
+	sf::Vector2f winSize;
+private:
 	Animation animation;
 	bool alive = true;
-	sf::Vector2f winSize;
 };
 

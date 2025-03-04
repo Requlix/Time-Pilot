@@ -6,7 +6,6 @@ public:
 	Enemy();
 	~Enemy();
 	void move();
-	double findAngle();
 private:
 };
 
