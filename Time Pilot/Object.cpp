@@ -43,12 +43,18 @@ bool Object::isAlive()
 	return alive;
 }
 
-void Object::setVelocity(double x, double y)
+void Object::setOffset()
 {
 	//sets velocity of object
+	setVelocity(-Player::speed * cos(Player::rotation), -Player::speed * sin(Player::rotation));
+}
+
+void Object::setVelocity(double x, double y)
+{
 	velocity.x = x;
 	velocity.y = y;
 }
+
 
 void Object::die()
 {

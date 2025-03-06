@@ -1,10 +1,11 @@
 #pragma once
-#include "Projectile.h"
-class Bullet : public Projectile
+#include "Object.h"
+class Bullet : public Object
 {
 public:
-	Bullet();
+	Bullet(sf::Vector2f, double);
 	~Bullet();
+	void move();
 private:
 };
 

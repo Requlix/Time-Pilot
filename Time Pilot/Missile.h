@@ -1,6 +1,6 @@
 #pragma once
-#include "Projectile.h"
-class Missile : public Projectile
+#include "Enemy.h"
+class Missile : public Enemy
 {
 public:
 	Missile();

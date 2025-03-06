@@ -154,7 +154,6 @@
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Tgrunt.cpp" />
     <ClCompile Include="Time Pilot.cpp" />
   </ItemGroup>
@@ -171,10 +170,10 @@
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Tgrunt.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="1983plane4.png" />
     <Image Include="airman0.png" />
     <Image Include="1940planer7.png" />
   </ItemGroup>

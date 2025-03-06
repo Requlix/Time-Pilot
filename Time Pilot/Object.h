@@ -15,7 +15,8 @@ public:
 	bool inBounds();
 	bool collision(Object thing);
 	bool isAlive();
-	void setVelocity(double, double);
+	void setOffset();
+	void setVelocity(double x, double y);
 	void die();
 	void move();
 	void outOfBounds();

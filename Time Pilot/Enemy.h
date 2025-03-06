@@ -5,9 +5,8 @@ class Enemy : public Object
 public:
 	Enemy();
 	~Enemy();
-	void move(sf::RenderWindow& window);
+	void move();
+	void setVelocity();
 private:
-	sf::Sprite taco;
-	sf::Texture bell;
 };
 

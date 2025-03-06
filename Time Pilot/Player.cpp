@@ -2,10 +2,7 @@
 
 Player::Player()
 {
-    bell.loadFromFile("airman0.png");
-    taco.setTexture(bell);
-    taco.setOrigin(32, 32);
-    taco.setPosition(448, 512);
+    
 }
 
 Player::~Player()
@@ -15,9 +12,9 @@ Player::~Player()
 
 int Player::tick = 0;
 double Player::rotation = 0;
-double Player::speed = 2;
+double Player::speed = 1.5;
 
-void Player::move(sf::RenderWindow& window)
+void Player::move()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
@@ -63,9 +60,13 @@ void Player::move(sf::RenderWindow& window)
         rotation -= 360;
     if (rotation < -179)
         rotation += 360;
-    taco.setRotation(rotation);
-    window.draw(taco);
+    
     tick++;
+}
+
+void shoot()
+{
+
 }
 
 

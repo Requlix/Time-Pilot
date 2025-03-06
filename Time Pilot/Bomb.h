@@ -1,6 +1,6 @@
 #pragma once
-#include "Projectile.h"
-class Bomb : public Projectile
+#include "Object.h"
+class Bomb : public Object
 {
 public:
 	Bomb();
