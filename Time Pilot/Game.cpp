@@ -13,7 +13,7 @@ Game::~Game()
 void Game::run()
 {
     window.setFramerateLimit(60);
-    
+
     while (window.isOpen())
     {
         while (window.isOpen())
