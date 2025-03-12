@@ -1,13 +1,19 @@
+#pragma once
 #include <SFML/Graphics.hpp>
+#include <string>
 
-class Animation : public sf::Sprite
+
+class Animation
 {
 public:
 	Animation();
 	~Animation();
+	sf::Sprite getSprite();
 	void setFrame(int);
-	void setTextures(std::vector<sf::Texture>);
+	void setTextures(std::string, std::string, int);
 private:
-	std::vector<sf::Texture> textures;
+	sf::Sprite sprite;
+	std::vector<sf::Texture> textures[2];
+	int tick = 0;
 };
 

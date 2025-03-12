@@ -10,12 +10,22 @@ Animation::~Animation()
 
 }
 
-void Animation::setFrame(int angle)
+void Animation::setTextures(std::string text1, std::string text2, int length)
 {
-	setTexture(textures[angle]);
+	for (int i = 0; i < length; i++)
+	{
+		textures[i][0].loadFromFile(text1 + std::to_string(i) + ".png");
+		textures[i][1].loadFromFile(text2 + std::to_string(i) + ".png");
+	}
 }
 
-void Animation::setTextures(std::vector<sf::Texture> temp)
+sf::Sprite Animation::getSprite()
 {
-	textures = temp;
+	return sprite;
+}
+
+void Animation::setFrame(int angle)
+{
+	sprite.setTexture(textures[angle][tick%2]);
+	tick++;
 }
