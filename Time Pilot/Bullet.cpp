@@ -2,7 +2,7 @@
 
 Bullet::Bullet(sf::Vector2f position, double angle)
 {
-	getAnimation().setPosition(position);
+	getAnimation().getSprite().setPosition(position);
 	rotation = angle;
 	speed = 5;
 }

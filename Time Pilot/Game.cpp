@@ -14,6 +14,8 @@ void Game::run()
 {
     window.setFramerateLimit(60);
 
+    Player player;
+    
     while (window.isOpen())
     {
         while (window.isOpen())
@@ -24,7 +26,9 @@ void Game::run()
                 if (event.type == sf::Event::Closed)
                     window.close();
             }
+            player.move();
 
+            window.draw(player.getAnimation().getSprite());
             window.display();
             window.clear();
         }

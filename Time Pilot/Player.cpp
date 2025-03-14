@@ -2,7 +2,9 @@
 
 Player::Player()
 {
-    
+    animation.setTextures("player", "player", 32);
+    animation.getSprite().setOrigin(32, 32);
+    getAnimation().getSprite().setPosition(448, 512);
 }
 
 Player::~Player()
@@ -13,6 +15,11 @@ Player::~Player()
 int Player::tick = 0;
 double Player::rotation = 0;
 double Player::speed = 1.5;
+
+Animation Player::getAnimation()
+{
+    return animation;
+}
 
 void Player::move()
 {
@@ -36,7 +43,7 @@ void Player::move()
                 rotation += rotateSpeed;
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         if (rotation != 90)
         {
@@ -46,7 +53,7 @@ void Player::move()
                 rotation -= rotateSpeed;
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         if (rotation != -90)
         {
@@ -56,11 +63,14 @@ void Player::move()
                 rotation += rotateSpeed;
         }
     }
+
     if (rotation > 180)
         rotation -= 360;
     if (rotation < -179)
         rotation += 360;
-    
+
+    animation.setFrame((int)(((int)(rotation+360)%360) / 11.25));
+
     tick++;
 }
 
