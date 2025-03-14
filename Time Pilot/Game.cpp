@@ -26,6 +26,7 @@ void Game::run()
                 if (event.type == sf::Event::Closed)
                     window.close();
             }
+            
             player.move();
 
             window.draw(player.getAnimation().getSprite());

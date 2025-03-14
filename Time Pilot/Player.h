@@ -13,7 +13,7 @@ public:
 	static double rotation;
 	static double speed;
 private:
-	double rotateSpeed = 2;
+	double rotateSpeed = 3.75;
 	Animation animation;
 };
 

@@ -3,8 +3,8 @@
 Player::Player()
 {
     animation.setTextures("player", "player", 32);
-    animation.getSprite().setOrigin(32, 32);
-    getAnimation().getSprite().setPosition(448, 512);
+    animation.setOrigin(sf::Vector2f(32, 32));
+    animation.setPosition(sf::Vector2f(448, 512));
 }
 
 Player::~Player()
