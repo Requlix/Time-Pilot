@@ -18,35 +18,20 @@ void Enemy::move()
     goal.x = winSize.x / 2. - getPosition().x;
     goal.y = winSize.y / 2. - getPosition().y;
     int q = atan2(goal.y, goal.x) * 360. / 6.28;
+    int agoal;
     if (q < 0)
         q += 360;
     
     if (Player::tick % 20 == 0)
     {
-        if (rotation != q && q > 180)
-        {
-            if (rotation > (q + 180) % 360 && rotation < q)
-            {
-                rotation += rotateSpeed;
-            }
-            else
-            {
-                rotation -= rotateSpeed;
-            }
-        }
-        if (rotation != q && q <= 180)
-        {
-            if (rotation < (q + 180) % 360 && rotation > q)
-            {
-                rotation -= rotateSpeed;
-            }
-            else
-            {
-                rotation += rotateSpeed;
-            }
-        }
+        agoal = rotation - q;
+        if (abs(agoal) > 180)
+            agoal *= -1;
+        if (agoal > 0)
+            roation -= rotatespeed;
+        else
+            rotation += rotatespeed;
     }
-    
     if (rotation > 360)
         rotation -= 360;
     if (rotation < 0)

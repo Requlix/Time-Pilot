@@ -64,7 +64,11 @@ void Object::die()
 
 void Object::move()
 {
-	//moves object given with velocity
+	int x = velocity.x;
+	int y = velocity.y;
+	setOffset();
+	velocity.x += x;
+	velocity.y += y;
 	animation.getSprite().move(velocity);//velocity minus player velocity
 }
 
