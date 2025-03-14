@@ -32,3 +32,13 @@ void Animation::setFrame(int angle)
 	sprite.setTexture(textures[tick % 2][angle]);
 	tick++;
 }
+
+void Animation::setPosition(sf::Vector2f position)
+{
+	sprite.setPosition(position);
+}
+
+void Animation::setOrigin(sf::Vector2f origin)
+{
+	sprite.setOrigin(origin);
+}
