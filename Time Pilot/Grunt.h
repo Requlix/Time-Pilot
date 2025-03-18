@@ -3,8 +3,10 @@
 class Grunt : public Enemy
 {
 public:
-	Grunt(sf::String, sf::Vector2f);
+	Grunt(int, sf::Vector2f);
 	~Grunt();
+	void move();
 private:
+	int gruntType;
 };
 
