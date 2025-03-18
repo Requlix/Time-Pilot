@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include <Math.h>
 #include "Player.h"
+#include <iostream>
 
 class Object
 {
@@ -26,8 +27,8 @@ protected:
 	sf::Vector2f velocity;
 	double rotation, rotateSpeed, speed = 1;
 	sf::Vector2f winSize;
-private:
 	Animation animation;
 	bool alive = true;
+private:
 };
 

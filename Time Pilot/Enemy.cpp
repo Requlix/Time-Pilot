@@ -28,9 +28,9 @@ void Enemy::move()
         if (abs(agoal) > 180)
             agoal *= -1;
         if (agoal > 0)
-            roation -= rotatespeed;
+            rotation -= rotateSpeed;
         else
-            rotation += rotatespeed;
+            rotation += rotateSpeed;
     }
     if (rotation > 360)
         rotation -= 360;

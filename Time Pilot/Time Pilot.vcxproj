@@ -173,9 +173,42 @@
     <ClInclude Include="Tgrunt.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="1983plane4.png" />
+    <Image Include="1918planel0.png" />
+    <Image Include="1918planel1.png" />
+    <Image Include="1918planel10.png" />
+    <Image Include="1918planel11.png" />
+    <Image Include="1918planel12.png" />
+    <Image Include="1918planel13.png" />
+    <Image Include="1918planel14.png" />
+    <Image Include="1918planel15.png" />
+    <Image Include="1918planel2.png" />
+    <Image Include="1918planel3.png" />
+    <Image Include="1918planel4.png" />
+    <Image Include="1918planel5.png" />
+    <Image Include="1918planel6.png" />
+    <Image Include="1918planel7.png" />
+    <Image Include="1918planel8.png" />
+    <Image Include="1918planel9.png" />
+    <Image Include="1918planer0.png" />
+    <Image Include="1918planer1.png" />
+    <Image Include="1918planer10.png" />
+    <Image Include="1918planer11.png" />
+    <Image Include="1918planer12.png" />
+    <Image Include="1918planer13.png" />
+    <Image Include="1918planer14.png" />
+    <Image Include="1918planer15.png" />
+    <Image Include="1918planer2.png" />
+    <Image Include="1918planer3.png" />
+    <Image Include="1918planer4.png" />
+    <Image Include="1918planer5.png" />
+    <Image Include="1918planer6.png" />
+    <Image Include="1918planer7.png" />
+    <Image Include="1918planer8.png" />
+    <Image Include="1918planer9.png" />
     <Image Include="airman0.png" />
-    <Image Include="1940planer7.png" />
+    <Image Include="airman1.png" />
+    <Image Include="airman2.png" />
+    <Image Include="airman3.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

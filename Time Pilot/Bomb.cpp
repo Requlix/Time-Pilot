@@ -2,6 +2,7 @@
 
 Bomb::Bomb(double x,double y)
 {
+	/*
 	speed = 3;
 	getAnimation().setPosition(x, y);
 	tick = Player::tick;
@@ -10,6 +11,7 @@ Bomb::Bomb(double x,double y)
 		getAnimation().rotate(180);
 		speed = -speed;
 	}
+	*/
 }
 
 Bomb::~Bomb()
