@@ -176,6 +176,7 @@
     <Image Include="1983plane4.png" />
     <Image Include="airman0.png" />
     <Image Include="1940planer7.png" />
+    <Image Include="cloud0.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

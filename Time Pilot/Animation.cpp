@@ -42,3 +42,8 @@ void Animation::setOrigin(sf::Vector2f origin)
 {
 	sprite.setOrigin(origin);
 }
+
+void Animation::move(sf::Vector2f velocity)
+{
+	sprite.move(velocity);
+}

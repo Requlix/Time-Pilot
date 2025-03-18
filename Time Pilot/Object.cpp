@@ -54,7 +54,7 @@ bool Object::isAlive()
 void Object::setOffset()
 {
 	//sets velocity of object
-	setVelocity(-Player::speed * cos(Player::rotation), Player::speed * sin(Player::rotation));
+	setVelocity(-Player::speed * cos(Player::rotation*6.28/360.), Player::speed * sin(Player::rotation*6.28/360.));
 }
 
 void Object::setVelocity(double x, double y)
@@ -72,18 +72,15 @@ void Object::die()
 
 void Object::move()
 {
-	int x = velocity.x;
-	int y = velocity.y;
-	setOffset();
-	velocity.x += x;
-	velocity.y += y;
-	animation.getSprite().move(velocity);//velocity minus player velocity
+	
+	animation.move(velocity);//velocity minus player velocity
+	
 }
 
 void Object::outOfBounds()
 {
 	//moves object if it goes out of bounds
-	animation.getSprite().move(speed * cos(rotation * 6.28 / 360.), speed * sin(rotation * 6.28 / 360.));
+	//animation.getSprite().move(speed * cos(rotation * 6.28 / 360.), speed * sin(rotation * 6.28 / 360.));
 	if (animation.getSprite().getPosition().x < -50)
 		animation.getSprite().setPosition(animation.getSprite().getPosition().x + 900, animation.getSprite().getPosition().y);
 	if (animation.getSprite().getPosition().x > winSize.x + 50)

@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Enemy.h"
-#include "Bomb.h"
+#include "Cloud.h"
 
 class Game
 {

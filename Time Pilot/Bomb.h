@@ -3,7 +3,7 @@
 class Bomb : public Object
 {
 public:
-	Bomb(double,double);
+	Bomb(sf::Vector2f);
 	~Bomb();
 	void move();
 private:

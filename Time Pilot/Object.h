@@ -26,8 +26,9 @@ protected:
 	sf::Vector2f velocity;
 	double rotation, rotateSpeed, speed = 1;
 	sf::Vector2f winSize;
-private:
 	Animation animation;
 	bool alive = true;
+private:
+	
 };
 

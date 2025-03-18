@@ -109,5 +109,8 @@
     <Image Include="1983plane4.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="cloud0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@ public:
 	void setTextures(std::string, std::string, int);
 	void setPosition(sf::Vector2f);
 	void setOrigin(sf::Vector2f);
+	void move(sf::Vector2f);
 private:
 	sf::Sprite sprite;
 	std::vector<sf::Texture> textures[2];

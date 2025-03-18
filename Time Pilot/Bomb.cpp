@@ -1,13 +1,13 @@
 #include "Bomb.h"
 
-Bomb::Bomb(double x,double y)
+Bomb::Bomb(sf::Vector2f place)
 {
 	speed = 3;
-	getAnimation().setPosition(x, y);
+	getAnimation().setPosition(place);
 	tick = Player::tick;
-	if (x > 112*4) 
+	if (place.x > 112*4) 
 	{
-		getAnimation().rotate(180);
+		getAnimation().getSprite().rotate(180);
 		speed = -speed;
 	}
 }
