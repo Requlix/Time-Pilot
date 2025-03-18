@@ -14,7 +14,7 @@ void Game::run()
 {
     window.setFramerateLimit(60);
     Player player;
-    Cloud cloud;
+    Cloud cloud[4] = { 0,1,2,3 };
     while (window.isOpen())
     {
         while (window.isOpen())
@@ -25,13 +25,18 @@ void Game::run()
                 if (event.type == sf::Event::Closed)
                     window.close();
             }
-            
             player.move();
-            cloud.setOffset();
-            cloud.move();
-            cloud.outOfBounds();
+            for (int i = 0; i < 4; i++)
+            {
+                cloud[i].setOffset();
+                cloud[i].move();
+                cloud[i].outOfBounds();
+                window.draw(cloud[i].getAnimation().getSprite());
+            }
+            
+            
             window.draw(player.getAnimation().getSprite());
-            window.draw(cloud.getAnimation().getSprite());
+            
             window.display();
             window.clear();
         }

@@ -3,7 +3,7 @@
 class Cloud : public Object
 {
 public:
-	Cloud();
+	Cloud(int);
 	~Cloud();
 private:
 };
