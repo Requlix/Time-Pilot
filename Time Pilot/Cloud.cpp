@@ -16,8 +16,11 @@ Cloud::Cloud(int number)
 	case 2:
 		animation.setPosition(sf::Vector2f(winSize.x*4./5., winSize.y/5.));
 		break;
-	default:
+	case 3:
 		animation.setPosition(sf::Vector2f(winSize.x*2./5., winSize.y));
+		break;
+	default:
+		//mini clouds
 	}
 	
 }
