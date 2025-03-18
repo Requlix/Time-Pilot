@@ -69,6 +69,7 @@ void Player::move()
     if (rotation < -179)
         rotation += 360;
 
+    
     animation.setFrame((int)(((int)(rotation+360)%360) / 11.25));
 
     tick++;

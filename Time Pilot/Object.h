@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include <Math.h>
 #include "Player.h"
+#include <iostream>
 
 class Object
 {
@@ -29,6 +30,5 @@ protected:
 	Animation animation;
 	bool alive = true;
 private:
-	
 };
 

@@ -2,6 +2,7 @@
 
 Bomb::Bomb(sf::Vector2f place)
 {
+	/*
 	speed = 3;
 	getAnimation().setPosition(place);
 	tick = Player::tick;
@@ -10,6 +11,7 @@ Bomb::Bomb(sf::Vector2f place)
 		getAnimation().getSprite().rotate(180);
 		speed = -speed;
 	}
+	*/
 }
 
 Bomb::~Bomb()
