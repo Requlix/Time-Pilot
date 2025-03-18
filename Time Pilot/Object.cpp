@@ -82,13 +82,13 @@ void Object::outOfBounds()
 	//moves object if it goes out of bounds
 	//animation.getSprite().move(speed * cos(rotation * 6.28 / 360.), speed * sin(rotation * 6.28 / 360.));
 	if (animation.getSprite().getPosition().x < -50)
-		animation.getSprite().setPosition(animation.getSprite().getPosition().x + 900, animation.getSprite().getPosition().y);
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x + winSize.x+100, animation.getSprite().getPosition().y));
 	if (animation.getSprite().getPosition().x > winSize.x + 50)
-		animation.getSprite().setPosition(animation.getSprite().getPosition().x - 900, animation.getSprite().getPosition().y);
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x - (winSize.x+100), animation.getSprite().getPosition().y));
 	if (animation.getSprite().getPosition().y < -50)
-		animation.getSprite().setPosition(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y + 900);
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y + winSize.y+100));
 	if (animation.getSprite().getPosition().y > winSize.y + 50)
-		animation.getSprite().setPosition(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y - 900);
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y - (winSize.y+100)));
 }
 
 void Object::rotate()
