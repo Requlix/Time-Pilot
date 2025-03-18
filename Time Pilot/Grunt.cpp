@@ -1,34 +1,52 @@
 #include "Grunt.h"
 
-Grunt::Grunt(sf::String type, sf::Vector2f spawn)
+Grunt::Grunt(int type, sf::Vector2f spawn)
 {
-	sf::String temp1, temp2;
+	gruntType = type;
+	sf::String year = std::to_string(type);
 
-	if (type == "1918")
+	switch (gruntType)
 	{
-		
+	case 1918:
+	case 1920:
+		animation.setTextures(year + "planer", year + "planel", 16);
+		break;
+	case 1970:
+		animation.setTextures(year + "plane", year + "plane", 16);
+		break;
+	case 1980:
+		animation.setTextures(year + "planer", year + "planel", 5);
+		break;
+	case 2000:
+		animation.setTextures(year + "plane", year + "plane", 4);
+		break;
+	default:
+		std::cout << "Error: Not a valid year of grunt" << std::endl;
 	}
-	else if (type == "1940")
-	{
-
-	}
-	else if (type == "1970")
-	{
-
-	}
-	else if (type == "1980")
-	{
-
-	}
-	else if (type == "2000")
-	{
-
-	}
-	else
-		std::cout << "Error: dumb dumb thats a not a grunt type" << std::endl;
 }
 
 Grunt::~Grunt()
 {
 
+}
+
+void Grunt::move()
+{
+	Enemy::move();
+	switch (gruntType)
+	{
+	case 1918:
+	case 1920:
+	case 1970:
+		animation.setFrame((int)(((int)(rotation + 360) % 360) / 22.5));
+		break;
+	case 1980:
+		//animation.setFrame();
+		break;
+	case 2000:
+		//animation.setFrame();
+		break;
+	default:
+		std::cout << "Error: Not a valid year of grunt" << std::endl;
+	}
 }
