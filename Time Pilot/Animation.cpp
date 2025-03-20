@@ -22,7 +22,7 @@ void Animation::setTextures(std::string text1, std::string text2, int length)
 	}
 }
 
-sf::Sprite Animation::getSprite()
+sf::Sprite& Animation::getSprite()
 {
 	return sprite;
 }

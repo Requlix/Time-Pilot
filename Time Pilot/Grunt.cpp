@@ -5,6 +5,10 @@ Grunt::Grunt(int type, sf::Vector2f spawn)
 	gruntType = type;
 	sf::String year = std::to_string(type);
 
+	speed = 1;
+
+	animation.setPosition(spawn);
+
 	switch (gruntType)
 	{
 	case 1918:
@@ -38,7 +42,7 @@ void Grunt::move()
 	case 1918:
 	case 1920:
 	case 1970:
-		animation.setFrame((int)(((int)(rotation + 360) % 360) / 22.5));
+		animation.setFrame(((int)(abs(rotation - 360) / 22.5))%16);
 		break;
 	case 1980:
 		//animation.setFrame();

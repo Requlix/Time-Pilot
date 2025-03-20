@@ -208,7 +208,10 @@
     <Image Include="airman3.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="cloud0.png">
+    <Image Include="eBullet0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pBullet0.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

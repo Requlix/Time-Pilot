@@ -14,7 +14,7 @@ Player::~Player()
 
 int Player::tick = 0;
 double Player::rotation = 0;
-double Player::speed = 1.5;
+double Player::speed = 3;
 
 Animation Player::getAnimation()
 {
@@ -33,7 +33,7 @@ void Player::move()
                 rotation -= rotateSpeed;
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         if (rotation != 0)
         {
@@ -43,7 +43,7 @@ void Player::move()
                 rotation += rotateSpeed;
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         if (rotation != 90)
         {
@@ -53,7 +53,7 @@ void Player::move()
                 rotation -= rotateSpeed;
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         if (rotation != -90)
         {

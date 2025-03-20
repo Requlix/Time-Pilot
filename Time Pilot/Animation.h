@@ -8,7 +8,7 @@ class Animation
 public:
 	Animation();
 	~Animation();
-	sf::Sprite getSprite();
+	sf::Sprite& getSprite();
 	void setFrame(int);
 	void setTextures(std::string, std::string, int);
 	void setPosition(sf::Vector2f);

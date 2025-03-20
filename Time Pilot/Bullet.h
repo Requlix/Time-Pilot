@@ -3,7 +3,7 @@
 class Bullet : public Object
 {
 public:
-	Bullet(sf::Vector2f, double);
+	Bullet(sf::Vector2f,double,std::string);
 	~Bullet();
 	void move();
 private:

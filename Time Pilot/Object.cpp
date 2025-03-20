@@ -42,6 +42,16 @@ bool Object::inBounds()
 bool Object::collision(Object other)
 {
 	//returns if objects collides with other object
+	if (animation.getSprite().getGlobalBounds().intersects(other.getAnimation().getSprite().getGlobalBounds()))
+		return true;
+	return false;
+}
+
+bool Object::collision(Player other)
+{
+	//returns if objects collides with other object
+	if (animation.getSprite().getGlobalBounds().intersects(other.getAnimation().getSprite().getGlobalBounds()))
+		return true;
 	return false;
 }
 
@@ -81,14 +91,14 @@ void Object::outOfBounds()
 {
 	//moves object if it goes out of bounds
 	//animation.getSprite().move(speed * cos(rotation * 6.28 / 360.), speed * sin(rotation * 6.28 / 360.));
-	if (animation.getSprite().getPosition().x < -50)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x + winSize.x+100, animation.getSprite().getPosition().y));
-	if (animation.getSprite().getPosition().x > winSize.x + 50)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x - (winSize.x+100), animation.getSprite().getPosition().y));
-	if (animation.getSprite().getPosition().y < -50)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y + winSize.y+100));
-	if (animation.getSprite().getPosition().y > winSize.y + 50)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y - (winSize.y+100)));
+	if (animation.getSprite().getPosition().x < -32)
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x + winSize.x+64, animation.getSprite().getPosition().y));
+	if (animation.getSprite().getPosition().x > winSize.x + 32)
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x - (winSize.x+64), animation.getSprite().getPosition().y));
+	if (animation.getSprite().getPosition().y < -32)
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y + winSize.y+64));
+	if (animation.getSprite().getPosition().y > winSize.y + 32)
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y - (winSize.y+64)));
 }
 
 void Object::rotate()

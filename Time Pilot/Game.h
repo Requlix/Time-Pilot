@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Cloud.h"
+#include "Grunt.h"
+#include "Bullet.h"
+#include <vector>
 
 class Game
 {

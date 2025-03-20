@@ -14,7 +14,8 @@ public:
 	sf::Vector2f getPosition();
 	Animation getAnimation();
 	bool inBounds();
-	bool collision(Object thing);
+	bool collision(Object);
+	bool collision(Player);
 	bool isAlive();
 	void setOffset();
 	void setVelocity(double x, double y);

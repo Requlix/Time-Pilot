@@ -4,7 +4,7 @@ Enemy::Enemy()
 {
     speed = 2;
     rotation = 0;
-    rotateSpeed = 11.25;
+    rotateSpeed = 22.5;
 }
 
 Enemy::~Enemy()
