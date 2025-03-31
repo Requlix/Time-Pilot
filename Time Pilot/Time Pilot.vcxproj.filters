@@ -190,12 +190,6 @@
     <Image Include="1918planer12.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="1918planer13.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="1918planer14.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="1918planer15.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -212,6 +206,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="pBullet0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1918planer13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1918planer14.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

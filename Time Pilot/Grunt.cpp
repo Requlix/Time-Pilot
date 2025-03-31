@@ -5,9 +5,11 @@ Grunt::Grunt(int type, sf::Vector2f spawn)
 	gruntType = type;
 	sf::String year = std::to_string(type);
 
-	speed = 1;
+	speed = 4;
 
 	animation.setPosition(spawn);
+
+
 
 	switch (gruntType)
 	{

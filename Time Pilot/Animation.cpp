@@ -29,7 +29,9 @@ sf::Sprite& Animation::getSprite()
 
 void Animation::setFrame(int angle)
 {
-	sprite.setTexture(textures[tick % 2][angle]);
+	if (tick % 5 == 0)
+		propeler++;
+		sprite.setTexture(textures[propeler % 2][angle]);
 	tick++;
 }
 

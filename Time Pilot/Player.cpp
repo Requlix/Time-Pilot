@@ -14,9 +14,9 @@ Player::~Player()
 
 int Player::tick = 0;
 double Player::rotation = 0;
-double Player::speed = 3;
+double Player::speed = 8;
 
-Animation Player::getAnimation()
+Animation& Player::getAnimation()
 {
     return animation;
 }

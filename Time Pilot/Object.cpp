@@ -20,7 +20,7 @@ sf::Vector2f Object::getPosition()
 	return animation.getSprite().getPosition();
 }
 
-Animation Object::getAnimation()
+Animation& Object::getAnimation()
 {
 	return animation;
 }
@@ -90,7 +90,6 @@ void Object::move()
 void Object::outOfBounds()
 {
 	//moves object if it goes out of bounds
-	//animation.getSprite().move(speed * cos(rotation * 6.28 / 360.), speed * sin(rotation * 6.28 / 360.));
 	if (animation.getSprite().getPosition().x < -32)
 		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x + winSize.x+64, animation.getSprite().getPosition().y));
 	if (animation.getSprite().getPosition().x > winSize.x + 32)

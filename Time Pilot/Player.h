@@ -8,7 +8,7 @@ public:
 	Player();
 	~Player();
 	void move();
-	Animation getAnimation();
+	Animation& getAnimation();
 	static int tick;
 	static double rotation;
 	static double speed;

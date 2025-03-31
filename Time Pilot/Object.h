@@ -12,7 +12,7 @@ public:
 	~Object();
 	sf::Vector2f getVelocity();
 	sf::Vector2f getPosition();
-	Animation getAnimation();
+	Animation& getAnimation();
 	bool inBounds();
 	bool collision(Object);
 	bool collision(Player);

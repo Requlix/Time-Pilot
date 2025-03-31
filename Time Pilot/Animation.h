@@ -17,6 +17,6 @@ public:
 private:
 	sf::Sprite sprite;
 	std::vector<sf::Texture> textures[2];
-	int tick = 0;
+	int tick = 0, propeler = 0;
 };
 

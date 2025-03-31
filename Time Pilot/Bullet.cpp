@@ -7,7 +7,7 @@ Bullet::Bullet(sf::Vector2f position, double angle,std::string side)
 	animation.setOrigin(sf::Vector2f(0, 0));
 	animation.setPosition(position);
 	rotation = angle;
-	speed = 5;
+	speed = 20;
 }
 
 Bullet::~Bullet()

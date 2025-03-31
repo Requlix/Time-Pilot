@@ -21,6 +21,7 @@ Cloud::Cloud(int number)
 		break;
 	default:
 		//mini clouds
+		break;
 	}
 	
 }
