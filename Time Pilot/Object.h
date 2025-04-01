@@ -18,7 +18,8 @@ public:
 	bool collision(Player);
 	bool isAlive();
 	void setOffset();
-	void setVelocity(double x, double y);
+	void setVelocity(double, double);
+	void setRotation(double);
 	void die();
 	void move();
 	void outOfBounds();

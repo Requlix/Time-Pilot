@@ -3,7 +3,7 @@
 Enemy::Enemy()
 {
     speed = 2;
-    rotation = 0;
+    rotation = ((int)(((int)(((int)(Player::rotation + 360) % 360) / 11.25) + 1) / 2) - 1) * 22.5;
     rotateSpeed = 22.5;
 }
 

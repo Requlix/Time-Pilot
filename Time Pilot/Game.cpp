@@ -16,7 +16,7 @@ void Game::run()
     Player player;
     bool shoot = true;
     std::vector<Bullet> bullets;
-    Grunt grunt(1918, sf::Vector2f(400, 300));
+    std::vector<Grunt> grunts;
     Cloud cloud[4] = { 0,1,2,3 };
     while (window.isOpen())
     {
@@ -31,7 +31,28 @@ void Game::run()
 
             //moves
             player.move();
-            grunt.move();
+
+            //Grunts
+            for (int i = 0; i < grunts.size(); i++)
+            {
+                grunts[i].move();
+                /*
+                if (grunts[i].collision(player))
+                    std::cout << "COLLISION" << std::endl;
+                */
+
+                grunts[i].outOfBounds();
+                window.draw(grunts[i].getAnimation().getSprite());
+            }
+
+            if (player.tick >= 450 && grunts.size() < 8 && player.tick % 45 == 0)
+            {
+                sf::Vector2f tempVec(448,512);
+                tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
+                tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
+                Grunt tempGrunt(1918, tempVec);
+                grunts.push_back(tempGrunt);
+            }
             
             //clouds yay
             for (int i = 0; i < 4; i++)
@@ -65,23 +86,23 @@ void Game::run()
                 if (!bullets[i].inBounds())
                 {
                     bullets.erase(bullets.begin() + i);
-                }
-                else if (grunt.collision(bullets[i]))
-                {
-                    bullets.erase(bullets.begin() + i);
                     i--;
                 }
-                    
+                else
+                {
+                    for (int z = 0; z < grunts.size(); z++)
+                    {
+                        if (grunts[z].collision(bullets[i]))
+                        {
+                            bullets.erase(bullets.begin() + i);
+                            i--;
+                        }
+                    }
+                }
             }
-            
-            //heck grunts collision with player
-            if (grunt.collision(player))
-                std::cout << "COLLISION" << std::endl;
-            grunt.outOfBounds();
             
             //draws
             window.draw(player.getAnimation().getSprite());
-            window.draw(grunt.getAnimation().getSprite());
             
             window.display();
             window.clear();

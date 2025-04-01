@@ -67,6 +67,11 @@ void Object::setOffset()
 	setVelocity(-Player::speed * cos(Player::rotation*6.28/360.), Player::speed * sin(Player::rotation*6.28/360.));
 }
 
+void Object::setRotation(double angle)
+{
+	rotation = angle;
+}
+
 void Object::setVelocity(double x, double y)
 {
 	velocity.x = x;
