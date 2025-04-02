@@ -39,7 +39,7 @@ bool Object::inBounds()
 		return true;
 }
 
-bool Object::collision(Object other)
+bool Object::collision(Object& other)
 {
 	//returns if objects collides with other object
 	if (animation.getSprite().getGlobalBounds().intersects(other.getAnimation().getSprite().getGlobalBounds()))
@@ -47,7 +47,7 @@ bool Object::collision(Object other)
 	return false;
 }
 
-bool Object::collision(Player other)
+bool Object::collision(Player& other)
 {
 	//returns if objects collides with other object
 	if (animation.getSprite().getGlobalBounds().intersects(other.getAnimation().getSprite().getGlobalBounds()))

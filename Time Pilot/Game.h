@@ -6,12 +6,14 @@
 #include "Grunt.h"
 #include "Bullet.h"
 #include <vector>
+#include <time.h>
 
 class Game
 {
 public:
 	Game();
 	~Game();
+	
 
 	void run();
 
