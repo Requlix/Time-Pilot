@@ -15,7 +15,8 @@ void Game::run()
 {
     window.setFramerateLimit(90);
     Player player;
-    bool shoot = true;
+    int shoot = 0;
+    bool shootable = true;
     std::vector<Bullet> bullets;
     std::vector<Grunt> grunts;
     Cloud cloud[4] = { 0,1,2,3 };
@@ -72,20 +73,21 @@ void Game::run()
             }
             
             //shoots bullets
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            if (shoot != 0&&player.tick%6==0)
             {
-                if (shoot)
-                {
-                    Bullet tempBullet(sf::Vector2f(448, 512), Player::rotation, "p");
-                    bullets.push_back(tempBullet);
-                    
-                }
-                shoot = false;
+                Bullet tempBullet(sf::Vector2f(448, 512), Player::rotation, "p");
+                bullets.push_back(tempBullet);
+                shoot--;
 
             }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+                if (shootable == true)
+                    shoot = 3;
+                shootable = false;
+            }
             else
-                shoot = true;
-            
+                shootable = true;
             //checks bullets collision and inbounds
             for (int i = 0; i < bullets.size(); i++)
             {
