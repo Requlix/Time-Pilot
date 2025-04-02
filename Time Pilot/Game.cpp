@@ -53,9 +53,10 @@ void Game::run()
 
             if (player.tick >= 450 && grunts.size() < 7 && player.tick % 90 == 0&& rand() % 2 == 0)
             {
+                int l = rand() % 60 - 30;
                 sf::Vector2f tempVec(448,512);
-                tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
-                tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
+                tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360+l) * (3.14 / 180.0));
+                tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360+l) * (3.14 / 180.0));
                 Grunt tempGrunt(1918, tempVec);
                 grunts.push_back(tempGrunt);
                 std::cout << "GRUNT COUNT: " << grunts.size() << std::endl;
