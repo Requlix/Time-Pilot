@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "allTextures.h"
 
 
 class Animation
@@ -18,5 +19,6 @@ private:
 	sf::Sprite sprite;
 	std::vector<sf::Texture> textures[2];
 	int tick = 0, propeler = 0;
+	static allTextures yay;
 };
 
