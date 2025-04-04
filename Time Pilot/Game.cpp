@@ -146,3 +146,36 @@ void Game::draw(std::vector<Bullet>&bullets, std::vector<Grunt>&grunts, Cloud cl
                 }
     }
 }
+
+void Game::createTextures()
+{
+    sf::Texture tempText1, tempText2;
+
+    for (int i = 0; i < 32; i++)
+    {
+        tempText1.loadFromFile("player" + std::to_string(i) + ".png");
+        player.push_back(tempText1);
+    }
+    for (int i = 0; i < 16; i++)
+    {
+        tempText1.loadFromFile("1918planer" + std::to_string(i) + ".png");
+        tempText2.loadFromFile("1918planel" + std::to_string(i) + ".png");
+        plane1918[0].push_back(tempText1);
+        plane1918[1].push_back(tempText2);
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        tempText1.loadFromFile("airman" + std::to_string(i) + ".png");
+        airman.push_back(tempText1);
+    }
+
+    tempText1.loadFromFile("eBullet0.png");
+    eBullet.push_back(tempText1);
+
+    tempText1.loadFromFile("pBullet0.png");
+    pBullet.push_back(tempText1);
+
+    tempText1.loadFromFile("cloud0.png");
+    cloud.push_back(tempText1);
+}

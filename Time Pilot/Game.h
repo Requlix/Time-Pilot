@@ -17,11 +17,20 @@ public:
 
 	void run();
 
+	void createTextures();
+
 private:
 	sf::RenderWindow window;
 
 	int sizeMult = 4;
 	int winSizeX = 224 * sizeMult, winSizeY = 256 * sizeMult;
+
+	std::vector<sf::Texture> plane1918[2];
+	std::vector<sf::Texture> player;
+	std::vector<sf::Texture> eBullet;
+	std::vector<sf::Texture> pBullet;
+	std::vector<sf::Texture> airman;
+	std::vector<sf::Texture> cloud;
 
 };
 
