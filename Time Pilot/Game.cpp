@@ -13,7 +13,7 @@ Game::~Game()
 
 void Game::run()
 {
-    window.setFramerateLimit(9);
+    window.setFramerateLimit(90);
     Player player;
     int shoot = 0;
     int lives = 3;
