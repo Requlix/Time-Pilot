@@ -10,16 +10,10 @@ Animation::~Animation()
 
 }
 
-void Animation::setTextures(std::string text1, std::string text2, int length)
+void Animation::setTextures(std::vector<sf::Texture>& temp1, std::vector<sf::Texture>& temp2)
 {
-	for (int i = 0; i < length; i++)
-	{
-		sf::Texture tempText1, tempText2;
-		tempText1.loadFromFile(text1 + std::to_string(i) + ".png");
-		tempText2.loadFromFile(text2 + std::to_string(i) + ".png");
-		textures[0].push_back(tempText1);
-		textures[1].push_back(tempText2);
-	}
+	textures[0] = temp1;
+	textures[1] = temp2;
 }
 
 sf::Sprite& Animation::getSprite()

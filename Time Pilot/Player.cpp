@@ -2,7 +2,6 @@
 
 Player::Player()
 {
-    animation.setTextures("player", "player", 32);
     animation.setOrigin(sf::Vector2f(32, 32));
     animation.setPosition(sf::Vector2f(448, 512));
 }

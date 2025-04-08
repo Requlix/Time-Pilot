@@ -10,7 +10,7 @@ public:
 	~Animation();
 	sf::Sprite& getSprite();
 	void setFrame(int);
-	void setTextures(std::string, std::string, int);
+	void setTextures(std::vector<sf::Texture>&, std::vector<sf::Texture>&);
 	void setPosition(sf::Vector2f);
 	void setOrigin(sf::Vector2f);
 	void move(sf::Vector2f);
