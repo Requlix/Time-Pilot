@@ -10,7 +10,7 @@ Animation::~Animation()
 
 }
 
-void Animation::setTextures(std::string text1, std::string text2, int length)
+void Animation::setTextures(std::vector<sf::Texture>& temp1, std::vector<sf::Texture>& temp2)
 {
 	/*
 	for (int i = 0; i < length; i++)
