@@ -21,7 +21,7 @@ void Enemy::move()
     int agoal;
     if (q < 0)
         q += 360;
-    
+
     if (Player::tick % 20 == 0)
     {
         agoal = rotation - q;
@@ -47,5 +47,3 @@ void Enemy::setVelocity()
     velocity.x += speed * cos(rotation * 6.28 / 360.);
     velocity.y += speed * sin(rotation * 6.28 / 360.);
 }
-
-

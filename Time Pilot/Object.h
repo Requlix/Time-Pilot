@@ -24,7 +24,7 @@ public:
 	void move();
 	void outOfBounds();
 	void rotate();
-	
+
 protected:
 	sf::Vector2f velocity;
 	double rotation, rotateSpeed, speed = 1;
@@ -33,4 +33,3 @@ protected:
 	bool alive = true;
 private:
 };
-

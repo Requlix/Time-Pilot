@@ -6,14 +6,14 @@ Grunt::Grunt(int type, sf::Vector2f spawn)
 	sf::String year = std::to_string(type);
 
 	speed = 4;
-	rotation = ((((int)(((int)(((int)(Player::rotation + 360) % 360) / 11.25) + 1) / 2) - 1) * 22.5) -180);
+	rotation = ((((int)(((int)(((int)(Player::rotation + 360) % 360) / 11.25) + 1) / 2) - 1) * 22.5) - 180);
 	if (rotation > 360)
 		rotation -= 360;
 	rotation -= 360;
 	rotation *= -1;
 	rotateSpeed = 22.5;
 
-	
+
 
 
 	animation.setPosition(spawn);
@@ -53,7 +53,7 @@ void Grunt::move()
 	case 1918:
 	case 1920:
 	case 1970:
-		animation.setFrame(((int)(abs(rotation - 360) / 22.5))%16);
+		animation.setFrame(((int)(abs(rotation - 360) / 22.5)) % 16);
 		break;
 	case 1980:
 		//animation.setFrame();

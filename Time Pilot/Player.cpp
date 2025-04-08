@@ -2,6 +2,7 @@
 
 Player::Player()
 {
+    animation.setTextures("player", "player", 32);
     animation.setOrigin(sf::Vector2f(32, 32));
     animation.setPosition(sf::Vector2f(448, 512));
 }
@@ -68,8 +69,8 @@ void Player::move()
     if (rotation < -179)
         rotation += 360;
 
-    
-    animation.setFrame((int)(((int)(rotation+360)%360) / 11.25));
+
+    animation.setFrame((int)(((int)(rotation + 360) % 360) / 11.25));
 
     tick++;
 }
@@ -78,5 +79,3 @@ void shoot()
 {
 
 }
-
-

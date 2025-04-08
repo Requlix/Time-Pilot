@@ -10,7 +10,7 @@ Animation::~Animation()
 
 }
 
-void Animation::setTextures(std::vector<sf::Texture>& temp1, std::vector<sf::Texture>& temp2)
+void Animation::setTextures(std::string text1, std::string text2, int length)
 {
 	/*
 	for (int i = 0; i < length; i++)
@@ -35,7 +35,7 @@ void Animation::setFrame(int angle)
 {
 	if (tick % 5 == 0)
 		propeler++;
-	
+
 	//sprite.setTexture(textures[propeler % 2][angle]);
 
 	if (propeler % 2 == 0)

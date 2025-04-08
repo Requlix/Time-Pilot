@@ -64,7 +64,7 @@ bool Object::isAlive()
 void Object::setOffset()
 {
 	//sets velocity of object
-	setVelocity(-Player::speed * cos(Player::rotation*6.28/360.), Player::speed * sin(Player::rotation*6.28/360.));
+	setVelocity(-Player::speed * cos(Player::rotation * 6.28 / 360.), Player::speed * sin(Player::rotation * 6.28 / 360.));
 }
 
 void Object::setRotation(double angle)
@@ -87,22 +87,22 @@ void Object::die()
 
 void Object::move()
 {
-	
+
 	animation.move(velocity);//velocity minus player velocity
-	
+
 }
 
 void Object::outOfBounds()
 {
 	//moves object if it goes out of bounds
 	if (animation.getSprite().getPosition().x < -32)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x + winSize.x+64, animation.getSprite().getPosition().y));
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x + winSize.x + 64, animation.getSprite().getPosition().y));
 	if (animation.getSprite().getPosition().x > winSize.x + 32)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x - (winSize.x+64), animation.getSprite().getPosition().y));
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x - (winSize.x + 64), animation.getSprite().getPosition().y));
 	if (animation.getSprite().getPosition().y < -32)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y + winSize.y+64));
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y + winSize.y + 64));
 	if (animation.getSprite().getPosition().y > winSize.y + 32)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y - (winSize.y+64)));
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y - (winSize.y + 64)));
 }
 
 void Object::rotate()

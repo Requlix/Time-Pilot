@@ -1,6 +1,6 @@
 #include "Bullet.h"
 
-Bullet::Bullet(sf::Vector2f position, double angle,std::string side)
+Bullet::Bullet(sf::Vector2f position, double angle, std::string side)
 {
 	animation.setTextures(side + "bullet", side + "bullet", 1);
 	animation.setFrame(0);
@@ -22,4 +22,3 @@ void Bullet::move()
 	velocity.y += speed * -sin(rotation * 6.28 / 360);
 	Object::move();
 }
-

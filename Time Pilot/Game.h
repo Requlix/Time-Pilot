@@ -17,8 +17,6 @@ public:
 
 	void run();
 
-	void createTextures();
-
 private:
 	sf::RenderWindow window;
 
