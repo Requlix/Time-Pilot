@@ -30,10 +30,10 @@ bool Object::inBounds()
 	//returns if objects is in bounds
 	int count = 0;
 
-	if (getPosition().y + animation.getSprite().getOrigin().y < 96 ||
+	if (getPosition().y + animation.getSprite().getOrigin().y < 128 ||
 		getPosition().y - animation.getSprite().getOrigin().y > 992 ||
 		getPosition().x - animation.getSprite().getOrigin().x > 896 ||
-		getPosition().y + animation.getSprite().getOrigin().y < 0)
+		getPosition().x + animation.getSprite().getOrigin().x < 0)
 		return false;
 	else
 		return true;

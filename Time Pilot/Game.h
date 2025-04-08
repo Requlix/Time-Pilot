@@ -13,7 +13,7 @@ class Game
 public:
 	Game();
 	~Game();
-	
+	void draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving);
 
 	void run();
 
@@ -22,6 +22,6 @@ private:
 
 	int sizeMult = 4;
 	int winSizeX = 224 * sizeMult, winSizeY = 256 * sizeMult;
-
+	sf::Sprite background;
+	sf::Texture txt1918;
 };
-

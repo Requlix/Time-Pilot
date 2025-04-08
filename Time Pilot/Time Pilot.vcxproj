@@ -209,6 +209,7 @@
     <Image Include="airman1.png" />
     <Image Include="airman2.png" />
     <Image Include="airman3.png" />
+    <Image Include="background1918.png" />
     <Image Include="eBullet0.png" />
     <Image Include="pBullet0.png" />
   </ItemGroup>
