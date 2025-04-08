@@ -12,6 +12,7 @@ Animation::~Animation()
 
 void Animation::setTextures(std::string text1, std::string text2, int length)
 {
+	/*
 	for (int i = 0; i < length; i++)
 	{
 		sf::Texture tempText1, tempText2;
@@ -20,6 +21,9 @@ void Animation::setTextures(std::string text1, std::string text2, int length)
 		textures[0].push_back(tempText1);
 		textures[1].push_back(tempText2);
 	}
+	*/
+	row1 = text1;
+	row2 = text2;
 }
 
 sf::Sprite& Animation::getSprite()
@@ -31,7 +35,15 @@ void Animation::setFrame(int angle)
 {
 	if (tick % 5 == 0)
 		propeler++;
-		sprite.setTexture(textures[propeler % 2][angle]);
+	
+	//sprite.setTexture(textures[propeler % 2][angle]);
+
+	if (propeler % 2 == 0)
+		texture.loadFromFile(row1 + std::to_string(angle) + ".png");
+	else
+		texture.loadFromFile(row2 + std::to_string(angle) + ".png");
+
+	sprite.setTexture(texture);
 	tick++;
 }
 

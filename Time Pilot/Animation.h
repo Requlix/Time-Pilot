@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
 
 
 class Animation
@@ -16,7 +17,9 @@ public:
 	void move(sf::Vector2f);
 private:
 	sf::Sprite sprite;
-	std::vector<sf::Texture> textures[2];
+	//std::vector<sf::Texture> textures[2];
 	int tick = 0, propeler = 0;
+	std::string row1, row2;
+	sf::Texture texture;
 };
 
