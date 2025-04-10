@@ -6,6 +6,7 @@ Game::Game()
         "Time Pilot");
     srand(time(NULL));
     txt1918.loadFromFile("background1918.png");
+    
 }
 
 Game::~Game()
@@ -17,6 +18,10 @@ void Game::run()
     window.setFramerateLimit(90);
     int points = 1;
     Player player;
+    sf::Text text;
+    sf::Font font;
+    if (!font.loadFromFile("GameBubble.ttf")) {}
+    text.setFont(font);
     int shoot = 0;
     int lives = 3;
     bool shootable = true;
@@ -45,6 +50,7 @@ void Game::run()
                     playerLiving = false;
                     points += 100;
                 }
+                text.setString("Your Score: " + std::to_string(points-1));
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
                 {
@@ -91,13 +97,14 @@ void Game::run()
                 //draws
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points);
                 window.draw(player.getAnimation().getSprite());
-
+                window.draw(text);
                 window.display();
                 window.clear();
             }
             int pause = player.tick;
             while (player.tick - pause < 200)
             {
+                window.draw(text);
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points);
                 window.display();
                 window.clear();
@@ -108,7 +115,8 @@ void Game::run()
             player.tick = 1;
         }
         window.clear();
-        window.draw(player.getAnimation().getSprite());
+        window.draw(player.getAnimation().getSprite()); 
+        text.setString(text.getString() + " You Lose!!!!");
         window.display();
     }
 }
