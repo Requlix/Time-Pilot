@@ -15,8 +15,8 @@ Enemy::~Enemy()
 void Enemy::move()
 {
     sf::Vector2f goal(0, 0);
-    goal.x = winSize.x / 2. - getPosition().x;
-    goal.y = winSize.y / 2. - getPosition().y;
+    goal.x = 896 / 2. - getPosition().x;
+    goal.y = 864 / 2.+128 - getPosition().y;
     int q = atan2(goal.y, goal.x) * 360. / 6.28;
     int agoal;
     if (q < 0)

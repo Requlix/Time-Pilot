@@ -70,7 +70,7 @@ void Game::run()
                 //shoots bullets
                 if (shoot != 0 && player.tick % 6 == 0)
                 {
-                    Bullet tempBullet(sf::Vector2f(448, 512), Player::rotation, "p");
+                    Bullet tempBullet(sf::Vector2f(448, 864/2+128), Player::rotation, "p");
                     bullets.push_back(tempBullet);
                     shoot--;
 
