@@ -15,6 +15,7 @@ Game::~Game()
 void Game::run()
 {
     window.setFramerateLimit(90);
+    int points = 1;
     Player player;
     int shoot = 0;
     int lives = 3;
@@ -39,7 +40,11 @@ void Game::run()
             {
                 //moves
                 player.move();
-
+                if (points % 1001==0)
+                {
+                    playerLiving = false;
+                    points += 100;
+                }
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
                 {
@@ -55,7 +60,7 @@ void Game::run()
 
                 }
 
-                if (player.tick >= 300 && grunts.size() < 7 && player.tick % 90 == 0 && rand() % 2 == 0)
+                if (player.tick >= 210 && grunts.size() < 7 && player.tick % 90 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
@@ -63,7 +68,6 @@ void Game::run()
                     tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     Grunt tempGrunt(1918, tempVec);
                     grunts.push_back(tempGrunt);
-                    std::cout << "GRUNT COUNT: " << grunts.size() << std::endl;
                 }
 
 
@@ -85,7 +89,7 @@ void Game::run()
                     shootable = true;
 
                 //draws
-                draw(bullets, grunts, cloud, player, lives, playerLiving);
+                draw(bullets, grunts, cloud, player, lives, playerLiving, points);
                 window.draw(player.getAnimation().getSprite());
 
                 window.display();
@@ -94,7 +98,7 @@ void Game::run()
             int pause = player.tick;
             while (player.tick - pause < 200)
             {
-                draw(bullets, grunts, cloud, player, lives, playerLiving);
+                draw(bullets, grunts, cloud, player, lives, playerLiving, points);
                 window.display();
                 window.clear();
                 player.tick += 1;
@@ -103,10 +107,13 @@ void Game::run()
             player.rotation = 0;
             player.tick = 1;
         }
+        window.clear();
+        window.draw(player.getAnimation().getSprite());
+        window.display();
     }
 }
 
-void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving)
+void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving, int& points)
 {
     window.draw(background);
     //Grunts
@@ -146,6 +153,8 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
                     i--;
                     grunts.erase(grunts.begin() + z);
                     z--;
+                    points += 100;
+                    std::cout << points-1 << std::endl;
                 }
     }
 }
