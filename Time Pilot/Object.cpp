@@ -99,10 +99,10 @@ void Object::outOfBounds()
 		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x + winSize.x + 64, animation.getSprite().getPosition().y));
 	if (animation.getSprite().getPosition().x > winSize.x + 32)
 		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x - (winSize.x + 64), animation.getSprite().getPosition().y));
-	if (animation.getSprite().getPosition().y < -32)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y + winSize.y + 64));
-	if (animation.getSprite().getPosition().y > winSize.y + 32)
-		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y - (winSize.y + 64)));
+	if (animation.getSprite().getPosition().y < 96)
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y + winSize.y-160 + 64));
+	if (animation.getSprite().getPosition().y > winSize.y)
+		animation.setPosition(sf::Vector2f(animation.getSprite().getPosition().x, animation.getSprite().getPosition().y - (winSize.y -160+ 64)));
 }
 
 void Object::rotate()
