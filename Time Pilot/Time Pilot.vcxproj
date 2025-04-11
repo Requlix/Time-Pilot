@@ -294,6 +294,9 @@
     <Image Include="player8.png" />
     <Image Include="player9.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="konami.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

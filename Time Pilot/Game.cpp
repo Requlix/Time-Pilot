@@ -20,7 +20,7 @@ void Game::run()
     Player player;
     sf::Text text;
     sf::Font font;
-    if (!font.loadFromFile("GameBubble.ttf")) {}
+    font.loadFromFile("konami.ttf");
     text.setFont(font);
     int shoot = 0;
     int lives = 3;
@@ -50,7 +50,7 @@ void Game::run()
                     playerLiving = false;
                     points += 100;
                 }
-                text.setString("Your Score: " + std::to_string(points-1));
+                text.setString("YOUR SCORE: " + std::to_string(points-1));
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
                 {
@@ -72,7 +72,7 @@ void Game::run()
                     sf::Vector2f tempVec(448, 512);
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    Grunt tempGrunt(1918, tempVec);
+                    Grunt tempGrunt(1970, tempVec);
                     grunts.push_back(tempGrunt);
                 }
 

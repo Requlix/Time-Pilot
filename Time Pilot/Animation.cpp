@@ -44,6 +44,7 @@ void Animation::setFrame(int angle)
 		texture.loadFromFile(row2 + std::to_string(angle) + ".png");
 
 	sprite.setTexture(texture);
+	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
 	tick++;
 }
 

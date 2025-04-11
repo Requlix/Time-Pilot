@@ -217,5 +217,251 @@
     <Image Include="background1918.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="1940planel0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planel9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1940planer9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1980plane9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="cloud0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player17.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player18.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player19.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player20.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player21.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player22.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player23.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player24.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player25.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player26.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player27.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player28.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player29.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player30.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player31.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="konami.ttf" />
   </ItemGroup>
 </Project>
