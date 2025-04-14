@@ -253,6 +253,10 @@
     <Image Include="1980plane7.png" />
     <Image Include="1980plane8.png" />
     <Image Include="1980plane9.png" />
+    <Image Include="2000plane0.png" />
+    <Image Include="2000plane1.png" />
+    <Image Include="2000plane2.png" />
+    <Image Include="2000plane3.png" />
     <Image Include="airman0.png" />
     <Image Include="airman1.png" />
     <Image Include="airman2.png" />

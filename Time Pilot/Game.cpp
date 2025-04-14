@@ -72,7 +72,7 @@ void Game::run()
                     sf::Vector2f tempVec(448, 512);
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    Grunt tempGrunt(1970, tempVec);
+                    Grunt tempGrunt(2000, tempVec);
                     grunts.push_back(tempGrunt);
                 }
 

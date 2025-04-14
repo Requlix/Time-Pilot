@@ -56,7 +56,7 @@ void Grunt::move()
 		animation.setFrame((int)(abs(abs(rotation-180)-180)/22.5));
 		break;
 	case 2000:
-		//animation.setFrame();
+		animation.setFrame(Player::tick % 4);
 		break;
 	default:
 		std::cout << "Error: Not a valid year of grunt" << std::endl;
