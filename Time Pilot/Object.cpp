@@ -72,6 +72,11 @@ void Object::setRotation(double angle)
 	rotation = angle;
 }
 
+double Object::getRotation()
+{
+	return rotation;
+}
+
 void Object::setVelocity(double x, double y)
 {
 	velocity.x = x;

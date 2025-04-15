@@ -5,7 +5,7 @@ class Enemy : public Object
 public:
 	Enemy();
 	~Enemy();
-	void move();
+	bool move();
 	void setVelocity();
 private:
 };

@@ -5,8 +5,7 @@ class Grunt : public Enemy
 public:
 	Grunt(int, sf::Vector2f);
 	~Grunt();
-	void move();
+	bool move();
 private:
 	int gruntType;
 };
-

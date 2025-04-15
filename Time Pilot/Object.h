@@ -20,6 +20,7 @@ public:
 	void setOffset();
 	void setVelocity(double, double);
 	void setRotation(double);
+	double getRotation();
 	void die();
 	void move();
 	void outOfBounds();

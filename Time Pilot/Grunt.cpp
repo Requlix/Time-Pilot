@@ -42,9 +42,11 @@ Grunt::~Grunt()
 
 }
 
-void Grunt::move()
+bool Grunt::move()
 {
-	Enemy::move();
+	bool shoot = false;
+	if (Enemy::move())
+		shoot = true;
 	switch (gruntType)
 	{
 	case 1920:
@@ -61,4 +63,5 @@ void Grunt::move()
 	default:
 		std::cout << "Error: Not a valid year of grunt" << std::endl;
 	}
+	return shoot;
 }
