@@ -9,6 +9,6 @@ public:
 	bool hit();
 private:
 	std::string year;
-	int hits = 8;
+	int hits = 0;
 };
 
