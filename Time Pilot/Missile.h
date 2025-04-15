@@ -3,8 +3,11 @@
 class Missile : public Enemy
 {
 public:
-	Missile();
+	Missile(int,sf::Vector2f);
 	~Missile();
+
+	void move();
 private:
+	int year;
 };
 
