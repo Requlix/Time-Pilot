@@ -23,7 +23,7 @@ void Game::run()
     font.loadFromFile("konami.ttf");
     text.setFont(font);
     int shoot = 0;
-    int lives =2;
+    int lives =3;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -63,7 +63,7 @@ void Game::run()
                     Boss boss(2000,tempVec);
                 }
                 */
-                text.setString("YOUR SCORE: " + std::to_string(points-1));
+                text.setString("YOUR SCORE: " + std::to_string(points-1)+"  YOUR LIVES "+ std::to_string(lives));
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
                 {
@@ -131,7 +131,7 @@ void Game::run()
         }
         window.clear();
         window.draw(player.getAnimation().getSprite()); 
-        text.setString("YOUR SCORE: " + std::to_string(points - 1) + "\n   You Lose!!!!");
+        text.setString(" YOUR SCORE:" + std::to_string(points - 1) + "\n  You Lose!!!!");
         text.setCharacterSize(100);
         window.draw(text);
         window.display();
