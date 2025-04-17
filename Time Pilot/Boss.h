@@ -3,8 +3,12 @@
 class Boss : Object
 {
 public:
-	Boss();
+	Boss(int, sf::Vector2f);
 	~Boss();
+	void move();
+	bool hit();
 private:
-	int health = 7;
+	std::string year;
+	int hits = 0;
 };
+
