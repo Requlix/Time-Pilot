@@ -13,7 +13,7 @@ class Game
 public:
 	Game();
 	~Game();
-	void draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving, int&, std::vector<Bullet>&);
+	void draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving, int&, std::vector<Bullet>&, int&);
 
 	void run();
 

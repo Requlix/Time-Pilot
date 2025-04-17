@@ -1,10 +1,10 @@
 #pragma once
-#include "Tgrunt.h"
-class Boss : public Tgrunt
+#include "Object.h"
+class Boss : Object
 {
 public:
 	Boss();
 	~Boss();
 private:
+	int health = 7;
 };
-

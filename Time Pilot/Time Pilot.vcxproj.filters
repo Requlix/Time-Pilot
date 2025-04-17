@@ -45,9 +45,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tgrunt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Grunt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tgrunt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Grunt.h">
@@ -458,6 +452,66 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="player9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1970missile9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2000plane0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2000plane1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2000plane2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2000plane3.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
