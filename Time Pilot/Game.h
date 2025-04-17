@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include <vector>
 #include <time.h>
+#include "Boss.h"
 
 class Game
 {

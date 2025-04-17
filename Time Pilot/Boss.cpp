@@ -20,7 +20,7 @@ Boss::Boss(int type, sf::Vector2f pos)
 	}
 
 	animation.setPosition(pos);
-		
+	Object::setVelocity(speed,0);
 }
 
 Boss::~Boss()
@@ -30,7 +30,6 @@ Boss::~Boss()
 
 void Boss::move()
 {
-	Enemy::setVelocity();
 	Object::move();
 	if (year == "2000")
 		animation.setFrame(Player::tick % 2);

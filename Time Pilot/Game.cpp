@@ -23,9 +23,9 @@ void Game::run()
     font.loadFromFile("konami.ttf");
     text.setFont(font);
     int shoot = 0;
-    int lives = 3;
+    int lives =2;
     int gruntsKilled = 0;
-    int threshhold = 1000;
+    int threshhold = 10001;
     bool shootable = true;
     std::vector<Bullet> bullets;
     std::vector<Bullet> ebullets;
@@ -48,15 +48,21 @@ void Game::run()
             {
                 //moves
                 player.move();
-                if (points % threshhold==0)
+                if (points % threshhold == 0)
                 {
                     lives++;
-                    threshhold *= 1.5;
+                    threshhold +=50000;
                 }
+                /*
                 if (gruntsKilled >= 1)
                 {
-                    
+                    int l = rand() % 60 - 30;
+                    sf::Vector2f tempVec(448, 512);
+                    tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                    tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                    Boss boss(2000,tempVec);
                 }
+                */
                 text.setString("YOUR SCORE: " + std::to_string(points-1));
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
@@ -111,11 +117,13 @@ void Game::run()
             int pause = player.tick;
             while (player.tick - pause < 200)
             {
+                int tempLives = lives;
                 window.draw(text);
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled);
                 window.display();
                 window.clear();
                 player.tick += 1;
+                lives = tempLives;
             }
             grunts.clear();
             player.rotation = 0;
@@ -195,6 +203,8 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             {
                 lives--;
                 playerLiving = false;
+                ebullets.erase(ebullets.begin() + i);
+                i--;
             }
         }
     }
