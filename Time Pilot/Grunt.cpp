@@ -19,7 +19,7 @@ Grunt::Grunt(int type, sf::Vector2f spawn)
 
 	switch (gruntType)
 	{
-	case 1920:
+	case 1918:
 	case 1940:
 		animation.setTextures(year + "planer", year + "planel", 16);
 		break;
@@ -49,7 +49,7 @@ bool Grunt::move()
 		shoot = true;
 	switch (gruntType)
 	{
-	case 1920:
+	case 1918:
 	case 1940:
 	case 1980:
 		animation.setFrame(((int)(abs(rotation - 360) / 22.5)) % 16);

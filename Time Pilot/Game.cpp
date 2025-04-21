@@ -29,12 +29,15 @@ void Game::run()
     int threshhold = 10001;
     bool shootable = true;
     bool bossSpawned = false;
+    bool bossDead = false;
     std::vector<Bullet> bullets;
     std::vector<Bullet> ebullets;
     std::vector<Grunt> grunts;
     Cloud cloud[4] = { 0,1,2,3 };
+    int levels[5] = { 1918,1940,1970,1980,2000 };
     background.setTexture(txt1918);
     background.setPosition(0, 128);
+    int level = 0;
     while (window.isOpen())
     {
         while (lives > 0)
@@ -83,13 +86,35 @@ void Game::run()
 
                 }
 
-                if (player.tick >= 210 && grunts.size() < 7 && player.tick % 90 == 0 && rand() % 2 == 0)
+                //boss collision
+                for(int i = 0 ; i < bullets.size(); i++)
+                    if (bullets[i].collision(boss))
+                    {
+                        bullets.erase(bullets.begin() + i);
+                        i--;
+                        if (boss.hit())
+                        {
+                            bossDead = true;
+                        }
+                    }
+                if(boss.collision(player))
+				{
+                    if (boss.hit())
+                    {
+                        bossDead = true;
+                    }
+					lives--;
+					playerLiving = false;
+					shoot = 0;
+				}
+
+                if (player.tick >= 210 && grunts.size() < 7 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    Grunt tempGrunt(1940, tempVec);
+                    Grunt tempGrunt(levels[level], tempVec);
                     grunts.push_back(tempGrunt);
                 }
 
@@ -113,7 +138,7 @@ void Game::run()
 
                 //draws
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot);
-                if (bossSpawned) {
+                if (bossSpawned && !bossDead) {
                     boss.move();
                     window.draw(boss.getAnimation().getSprite());
                 }
@@ -121,6 +146,12 @@ void Game::run()
                 window.draw(text);
                 window.display();
                 window.clear();
+
+                if (bossDead)
+                {
+					level++;
+					playerLiving = false;
+                }
 
             }
             int pause = player.tick;
