@@ -10,13 +10,13 @@ Boss::Boss(int type, sf::Vector2f pos)
 
 	if (abs(Player::rotation) > 90)
 	{
-		speed = 3;
+		speed = 2;
 		rotation = 180;
 	}
 	else
 	{
 		rotation = 0;
-		speed = -3;
+		speed = -2;
 	}
 
 	animation.setPosition(pos);
@@ -30,6 +30,9 @@ Boss::~Boss()
 
 void Boss::move()
 {
+	sf::Vector2f temp = velocity;
+	setOffset();
+	velocity += temp;
 	Object::move();
 	if (year == "2000")
 		animation.setFrame(Player::tick % 2);

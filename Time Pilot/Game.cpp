@@ -63,7 +63,7 @@ void Game::run()
                     sf::Vector2f tempVec(448, 512);
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    boss.getAnimation().setPosition({400,400});
+                    boss.getAnimation().setPosition(tempVec);
                     bossSpawned = true;
                     std::cout << "boss spawned";
                 }
