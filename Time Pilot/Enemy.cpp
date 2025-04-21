@@ -32,7 +32,7 @@ bool Enemy::move()
             range1 += 360;
         if (range2 > 180)
             range2 -= 360;
-        if (q > range1 && q < range2)
+        if (q > range1 && q < range2&&rand()%2==0)
         {
             shoot = true;
         }
