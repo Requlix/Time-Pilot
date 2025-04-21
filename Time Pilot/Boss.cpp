@@ -30,9 +30,8 @@ Boss::~Boss()
 
 void Boss::move()
 {
-	sf::Vector2f temp = velocity;
 	setOffset();
-	velocity += temp;
+	velocity += sf::Vector2f(speed,0);
 	Object::move();
 	if (year == "2000")
 		animation.setFrame(Player::tick % 2);
