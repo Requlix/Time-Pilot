@@ -47,3 +47,8 @@ bool Boss::hit()
 	hits++;
 	return hits > 9;
 }
+
+Animation& Boss::getAnimation()
+{
+	return animation;
+}

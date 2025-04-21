@@ -7,6 +7,7 @@ public:
 	~Boss();
 	void move();
 	bool hit();
+	Animation& getAnimation();
 private:
 	std::string year;
 	int hits = 0;

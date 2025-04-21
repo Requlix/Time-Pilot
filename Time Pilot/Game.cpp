@@ -18,6 +18,7 @@ void Game::run()
     window.setFramerateLimit(60);
     int points = 1;
     Player player;
+    Boss boss(1940, { -100,-100 });
     sf::Text text;
     sf::Font font;
     font.loadFromFile("konami.ttf");
@@ -27,6 +28,7 @@ void Game::run()
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
+    bool bossSpawned = false;
     std::vector<Bullet> bullets;
     std::vector<Bullet> ebullets;
     std::vector<Grunt> grunts;
@@ -53,17 +55,18 @@ void Game::run()
                     lives++;
                     threshhold +=50000;
                 }
-                /*
-                if (gruntsKilled >= 1)
+                text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
+                //boss
+                if (gruntsKilled >= 2&&!bossSpawned)
                 {
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    Boss boss(2000,tempVec);
+                    boss.getAnimation().setPosition({400,400});
+                    bossSpawned = true;
+                    std::cout << "boss spawned";
                 }
-                */
-                text.setString("YOUR SCORE: " + std::to_string(points-1)+"  YOUR LIVES "+ std::to_string(lives));
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
                 {
@@ -109,18 +112,23 @@ void Game::run()
                     shootable = true;
 
                 //draws
-                draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled);
+                draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot);
+                if (bossSpawned) {
+                    boss.move();
+                    window.draw(boss.getAnimation().getSprite());
+                }
                 window.draw(player.getAnimation().getSprite());
                 window.draw(text);
                 window.display();
                 window.clear();
+
             }
             int pause = player.tick;
             while (player.tick - pause < 200)
             {
                 int tempLives = lives;
                 window.draw(text);
-                draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled);
+                draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot);
                 window.display();
                 window.clear();
                 player.tick += 1;
@@ -139,7 +147,7 @@ void Game::run()
     }
 }
 
-void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving, int& points, std::vector<Bullet>& ebullets, int& gruntsKilled)
+void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving, int& points, std::vector<Bullet>& ebullets, int& gruntsKilled, int& shoot)
 {
     window.draw(background);
     //Grunts
@@ -204,6 +212,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             {
                 lives--;
                 playerLiving = false;
+                shoot = 0;
                 ebullets.erase(ebullets.begin() + i);
                 i--;
             }
