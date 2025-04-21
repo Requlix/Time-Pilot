@@ -75,6 +75,7 @@ void Game::run()
                         i--;
                         lives--;
                         playerLiving = false;
+                        shoot = 0;
                     }
 
                 }
