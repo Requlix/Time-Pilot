@@ -6,7 +6,6 @@ Game::Game()
         "Time Pilot");
     srand(time(NULL));
     txt1918.loadFromFile("background1918.png");
-    
 }
 
 Game::~Game()
@@ -60,7 +59,7 @@ void Game::run()
                 }
                 text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
                 //boss
-                if (gruntsKilled >= 2&&!bossSpawned)
+                if (gruntsKilled >= 1&&!bossSpawned)
                 {
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
@@ -69,6 +68,16 @@ void Game::run()
                     boss.getAnimation().setPosition(tempVec);
                     bossSpawned = true;
                     std::cout << "boss spawned";
+                    if (abs(Player::rotation) > 90)
+                    {
+                        boss.setRotation(180);
+						boss.setSpeed(2.);
+                    }
+                    else
+                    {
+                        boss.setRotation(0);
+                        boss.setSpeed(2.);
+                    }
                 }
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
@@ -97,6 +106,7 @@ void Game::run()
                             bossDead = true;
                         }
                     }
+                
                 if(boss.collision(player))
 				{
                     if (boss.hit())
@@ -104,11 +114,11 @@ void Game::run()
                         bossDead = true;
                     }
 					lives--;
-					playerLiving = false;
 					shoot = 0;
 				}
+                
 
-                if (player.tick >= 210 && grunts.size() < 7 && player.tick % 60 == 0 && rand() % 2 == 0)
+                if (player.tick >= 180 && grunts.size() < 7 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
@@ -150,11 +160,18 @@ void Game::run()
                 if (bossDead)
                 {
 					level++;
+                    bossDead = false;
 					playerLiving = false;
+                    boss.getAnimation().setPosition({ -100, -100 });
+					bossSpawned = false;
+                    gruntsKilled = 0;
+					boss.setSpeed(0);
+                    grunts.clear();
                 }
 
             }
             int pause = player.tick;
+            std::cout << level << std::endl;
             while (player.tick - pause < 200)
             {
                 int tempLives = lives;
@@ -164,6 +181,8 @@ void Game::run()
                 window.clear();
                 player.tick += 1;
                 lives = tempLives;
+                txt1918.loadFromFile("background"+ std::to_string(levels[level]) + ".png");
+				background.setTexture(txt1918);
             }
             grunts.clear();
             player.rotation = 0;

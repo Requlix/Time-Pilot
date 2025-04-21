@@ -44,8 +44,19 @@ void Boss::move()
 	}
 }
 
+void Boss::setSpeed(double newSpeed)
+{
+	speed = newSpeed;
+}
+
 bool Boss::hit()
 {
 	hits++;
-	return hits > 9;
+	if (hits > 9)
+	{
+		hits = 0;
+		return true;
+	}
+	else
+		return false;
 }
