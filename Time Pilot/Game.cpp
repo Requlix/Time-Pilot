@@ -76,7 +76,7 @@ void Game::run()
                     else
                     {
                         boss.setRotation(0);
-                        boss.setSpeed(2.);
+                        boss.setSpeed(-2.);
                     }
                 }
                 //Grunts
@@ -88,8 +88,8 @@ void Game::run()
                     {
                         grunts.erase(grunts.begin() + i);
                         i--;
-                        lives--;
-                        playerLiving = false;
+                        //lives--;
+                        //playerLiving = false;
                         shoot = 0;
                     }
 
@@ -109,11 +109,10 @@ void Game::run()
                 
                 if(boss.collision(player))
 				{
-                    if (boss.hit())
-                    {
-                        bossDead = true;
-                    }
+					boss.getAnimation().setPosition({ -100, -100 });
+                    bossDead = true;
 					lives--;
+                    playerLiving = false;
 					shoot = 0;
 				}
                 
@@ -124,7 +123,7 @@ void Game::run()
                     sf::Vector2f tempVec(448, 512);
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    Grunt tempGrunt(levels[level], tempVec);
+                    Grunt tempGrunt(levels[level%6], tempVec);
                     grunts.push_back(tempGrunt);
                 }
 
@@ -181,7 +180,7 @@ void Game::run()
                 window.clear();
                 player.tick += 1;
                 lives = tempLives;
-                txt1918.loadFromFile("background"+ std::to_string(levels[level]) + ".png");
+                txt1918.loadFromFile("background"+ std::to_string(levels[level%6]) + ".png");
 				background.setTexture(txt1918);
             }
             grunts.clear();
