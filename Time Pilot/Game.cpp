@@ -38,7 +38,8 @@ void Game::run()
     background.setTexture(txt1918);
     background.setPosition(0, 128);
     int level = 0;
-    bombs.push_back(Bomb(sf::Vector2f(100, 100)));
+    Bomb temp({ 100,100 });
+    bombs.push_back(temp);
     while (window.isOpen())
     {
         while (lives > 0)
