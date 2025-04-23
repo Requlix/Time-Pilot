@@ -32,11 +32,13 @@ void Game::run()
     std::vector<Bullet> bullets;
     std::vector<Bullet> ebullets;
     std::vector<Grunt> grunts;
+    std::vector<Bomb> bombs;
     Cloud cloud[4] = { 0,1,2,3 };
     int levels[5] = { 1918,1940,1970,1980,2000 };
     background.setTexture(txt1918);
     background.setPosition(0, 128);
     int level = 0;
+    bombs.push_back(Bomb(sf::Vector2f(100, 100)));
     while (window.isOpen())
     {
         while (lives > 0)
@@ -134,7 +136,6 @@ void Game::run()
                     Bullet tempBullet(sf::Vector2f(448, 864/2+128), Player::rotation, "p");
                     bullets.push_back(tempBullet);
                     shoot--;
-
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
                 {
@@ -150,6 +151,11 @@ void Game::run()
                 if (bossSpawned && !bossDead) {
                     boss.move();
                     window.draw(boss.getAnimation().getSprite());
+                }
+                for (int i = 0; i < bombs.size(); i++)
+                {
+                    bombs[i].move();
+                    window.draw(bombs[i].getAnimation().getSprite());
                 }
                 window.draw(player.getAnimation().getSprite());
                 window.draw(text);

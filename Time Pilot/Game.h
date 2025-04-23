@@ -9,6 +9,7 @@
 #include <time.h>
 #include "Boss.h"
 #include "Animation.h"
+#include "Bomb.h"
 
 class Game
 {
