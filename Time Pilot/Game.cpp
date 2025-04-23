@@ -88,8 +88,8 @@ void Game::run()
                     {
                         grunts.erase(grunts.begin() + i);
                         i--;
-                        //lives--;
-                        //playerLiving = false;
+                        lives--;
+                        playerLiving = false;
                         shoot = 0;
                     }
 
