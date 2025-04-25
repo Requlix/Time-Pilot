@@ -10,6 +10,7 @@
 #include "Boss.h"
 #include "Animation.h"
 #include "Bomb.h"
+#include "Missile.h"
 
 class Game
 {

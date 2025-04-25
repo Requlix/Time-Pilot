@@ -33,6 +33,7 @@ void Game::run()
     std::vector<Bullet> ebullets;
     std::vector<Grunt> grunts;
     std::vector<Bomb> bombs;
+	std::vector<Missile> missiles;
     Cloud cloud[4] = { 0,1,2,3 };
     int levels[5] = { 1918,1940,1970,1980,2000 };
     background.setTexture(txt1918);
@@ -127,6 +128,16 @@ void Game::run()
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     Grunt tempGrunt(levels[level%6], tempVec);
+                    grunts.push_back(tempGrunt);
+                }
+
+                if (player.tick >= 181 && missiles.size() < 2 && (player.tick - 181) % 600 == 0)
+                {
+                    int l = rand() % 60 - 30;
+                    sf::Vector2f tempVec(448, 512);
+                    tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                    tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                    Grunt tempGrunt(levels[level % 6], tempVec);
                     grunts.push_back(tempGrunt);
                 }
 

@@ -24,6 +24,7 @@ void Bomb::move()
 	setOffset();
 	velocity.x += speed;
 	velocity.y -= 2*(2.5 - .0855555555 * ( Player::tick-tick));
+	animation.setFrame(0);
 	Object::move();
 	//tick++;
 }
