@@ -4,7 +4,7 @@ Bomb::Bomb(sf::Vector2f place)
 {
 	animation.setTextures("airman", "airman", 1);
 	animation.setFrame(0);
-	speed = 9;
+	speed = 8.5;
 	animation.setPosition(place);
 	tick = Player::tick;
 	if (place.x > 112*4) 
