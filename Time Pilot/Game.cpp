@@ -231,7 +231,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             grunts[i].outOfBounds();
             window.draw(grunts[i].getAnimation().getSprite());
         }
-        if (grunts[i].getPosition().y < 560 && (grunts[i].getRotation() == 0 || grunts[i].getRotation() == 180) && rand() % 3 == 1)
+        if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==1)
         {
             Bomb tempBomb(grunts[i].getPosition());
             bombs.push_back(tempBomb);

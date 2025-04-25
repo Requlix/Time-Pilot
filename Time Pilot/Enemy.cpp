@@ -45,7 +45,7 @@ bool Enemy::move()
                 rotation += rotateSpeed;
         }
     }
-    if (rotation > 360)
+    if (rotation >= 360)
         rotation -= 360;
     if (rotation < 0)
         rotation += 360;
