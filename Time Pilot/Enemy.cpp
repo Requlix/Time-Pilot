@@ -15,6 +15,7 @@ Enemy::~Enemy()
 bool Enemy::move()
 {
     bool shoot = false;
+    bool see = false;
     sf::Vector2f goal(0, 0);
     goal.x = 896 / 2. - getPosition().x;
     goal.y = 864 / 2.+128 - getPosition().y;
@@ -36,16 +37,30 @@ bool Enemy::move()
         {
             shoot = true;
         }
-        else {
-            if (abs(agoal) > 180)
-                agoal *= -1;
-            if (agoal > 0)
-                rotation -= rotateSpeed;
+        else
+        {
+            //if you can't shoot get to player. this isnt right i also need to check if they can see the player.
+            int eyes = agoal;
+            if (abs(eyes > 180))
+            {
+                eyes = abs(abs(eyes) - 360) + rotation;
+            }
+            if (abs(eyes) < 45)
+                see = true;
             else
-                rotation += rotateSpeed;
+                see = false;
+            if (see)
+            {
+                if (abs(agoal) > 180)
+                    agoal *= -1;
+                if (agoal > 0)
+                    rotation -= rotateSpeed;
+                else
+                    rotation += rotateSpeed;
+            }
         }
-    }
-    if (rotation >= 360)
+    } 
+    if (rotation > 360)
         rotation -= 360;
     if (rotation < 0)
         rotation += 360;

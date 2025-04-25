@@ -121,7 +121,7 @@ void Game::run()
 				}
                 
 
-                if (player.tick >= 180 && grunts.size() < 7 && player.tick % 60 == 0 && rand() % 2 == 0)
+                if (player.tick >= 180 && grunts.size() < 1 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
@@ -292,7 +292,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             }
         }
     }
-    for (int i = 0; i < bombs.size(); i++)
+   /* for (int i = 0; i < bombs.size(); i++)
     {
         bombs[i].move();
         window.draw(bombs[i].getAnimation().getSprite());
