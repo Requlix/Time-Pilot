@@ -60,3 +60,18 @@ bool Boss::hit()
 	else
 		return false;
 }
+
+void Boss::outOfBounds()
+{
+	sf::Vector2f temp(448,512);
+	if (Player::rotation > -45 && Player::rotation < 45)
+	{
+		temp.x = -32;
+		temp.y -= tan(Player::rotation) * 448;
+	}
+	if (Player::rotation > 135 || Player::rotation < -135)
+	{
+		temp.x = 928;
+		temp.y -= tan(Player::rotation) * 448;
+	}
+}

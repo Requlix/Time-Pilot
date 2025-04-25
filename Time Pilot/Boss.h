@@ -8,6 +8,7 @@ public:
 	void move();
 	bool hit();
 	void setSpeed(double);
+	void outOfBounds();
 private:
 	std::string year;
 	int hits = 0;
