@@ -167,8 +167,7 @@ void Game::run()
                     boss.outOfBounds();
                     window.draw(boss.getAnimation().getSprite());
                 }
-                for (int i = 0; i < bombs.size(); i++)
-                    window.draw(bombs[i].getAnimation().getSprite());
+                
                 window.draw(player.getAnimation().getSprite());
                 window.draw(text);
                 window.display();
@@ -294,7 +293,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
     for (int i = 0; i < bombs.size(); i++)
     {
         bombs[i].move();
-        //window.draw(bombs[i].getAnimation().getSprite());
+        window.draw(bombs[i].getAnimation().getSprite());
         if (!bombs[i].inBounds())
         {
             bombs.erase(bombs.begin() + i);
