@@ -10,13 +10,14 @@
 #include "Boss.h"
 #include "Animation.h"
 #include "Bomb.h"
+#include "Missile.h"
 
 class Game
 {
 public:
 	Game();
 	~Game();
-	void draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving, int&, std::vector<Bullet>&, int&, int&,std::vector<Bomb>&);
+	void draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud cloud[], Player& player, int& lives, bool& playerLiving, int&, std::vector<Bullet>&, int&, int&,std::vector<Bomb>&, std::vector<Missile>&);
 
 	void run();
 
