@@ -65,23 +65,8 @@ void Game::run()
                 //boss
                 if (gruntsKilled >= 1&&!bossSpawned)
                 {
-                    int l = rand() % 60 - 30;
-                    sf::Vector2f tempVec(448, 512);
-                    tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    boss.getAnimation().setPosition(tempVec);
                     bossSpawned = true;
-                    std::cout << "boss spawned";
-                    if (abs(Player::rotation) > 90)
-                    {
-                        boss.setRotation(180);
-						boss.setSpeed(2.);
-                    }
-                    else
-                    {
-                        boss.setRotation(0);
-                        boss.setSpeed(-2.);
-                    }
+                    boss.outOfBounds();
                 }
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
@@ -200,7 +185,9 @@ void Game::run()
                 lives = tempLives;
                 txt1918.loadFromFile("background"+ std::to_string(levels[level%6]) + ".png");
 				background.setTexture(txt1918);
+                
             }
+            boss.getAnimation().setPosition({ -100, -100 });
             grunts.clear();
             player.rotation = 0;
             player.tick = 1;
@@ -292,7 +279,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             }
         }
     }
-   /* for (int i = 0; i < bombs.size(); i++)
+    for (int i = 0; i < bombs.size(); i++)
     {
         bombs[i].move();
         window.draw(bombs[i].getAnimation().getSprite());
