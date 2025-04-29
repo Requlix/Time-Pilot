@@ -8,5 +8,7 @@ public:
 	bool move();
 	void setVelocity();
 private:
+	int retreat=360;
+	int agression = rand() % 20 + 5;
 };
 
