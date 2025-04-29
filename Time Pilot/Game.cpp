@@ -124,7 +124,8 @@ void Game::run()
                     playerLiving = false;
 					shoot = 0;
 				}
-                
+                if (player.tick < 180)
+                    boss.getAnimation().setPosition({-100,-100});
 
                 if (player.tick >= 180 && grunts.size() < 1 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
