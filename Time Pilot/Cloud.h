@@ -5,6 +5,8 @@ class Cloud : public Object
 public:
 	Cloud(int);
 	~Cloud();
+	void setYear(int);
 private:
+	int pos;
 };
 
