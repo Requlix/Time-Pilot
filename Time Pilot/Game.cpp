@@ -38,9 +38,28 @@ void Game::run()
     int level = 0;
     Bomb temp({ 100,100 });
     bombs.push_back(temp);
+
+    sf::Text player1;
+	player1.setFont(font);
+	player1.setString("PLAYER 1");
+	player1.setCharacterSize(50);
+    player1.setPosition(320, 448);
+
+    sf::Text date;
+    date.setFont(font);
+    date.setCharacterSize(50);
+    date.setPosition(320, 586);
+
+    sf::Text stage;
+    stage.setFont(font);
+    stage.setCharacterSize(50);
+    stage.setPosition(320, 724);
+
     txt1918.loadFromFile("background" + std::to_string(levels[level % 6]) + ".png");
     background.setTexture(txt1918);
     background.setPosition(0, 128);
+
+    int colors = 0;
     while (window.isOpen())
     {
         while (lives > 0)
@@ -63,6 +82,7 @@ void Game::run()
                 }
                 text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
                 //boss
+
                 if (gruntsKilled >= 1&&!bossSpawned)
                 {
                     bossSpawned = true;
@@ -155,6 +175,22 @@ void Game::run()
                 
                 window.draw(player.getAnimation().getSprite());
                 window.draw(text);
+                if (player.tick <= 180)
+                {
+					if (player.tick % 20 == 0)
+						colors++;
+                    if(colors % 3 == 0)
+                        date.setFillColor(sf::Color::Blue);
+					else if (colors % 3 == 1)
+                        date.setFillColor(sf::Color::White);
+                    else
+                        date.setFillColor(sf::Color::Red);
+                    date.setString("A.D. " + std::to_string(levels[level%6]));
+					stage.setString("STAGE " + std::to_string(level + 1));
+                    window.draw(date);
+                    window.draw(stage);
+                    window.draw(player1);
+                }
                 window.display();
                 window.clear();
 
