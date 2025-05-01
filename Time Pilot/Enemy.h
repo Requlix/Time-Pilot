@@ -7,7 +7,9 @@ public:
 	~Enemy();
 	bool move();
 	void setVelocity();
+	bool retreating();
 private:
+	bool coward=false;
 	int retreat=360;
 	int agression = rand() % 20 + 5;
 };

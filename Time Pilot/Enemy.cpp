@@ -77,7 +77,7 @@ bool Enemy::move()
                     retreat -= rotateSpeed;
 
                 }
-
+                coward = true;
                 
                 
                 
@@ -99,4 +99,9 @@ void Enemy::setVelocity()
     setOffset();
     velocity.x += speed * cos(rotation * 6.28 / 360.);
     velocity.y += speed * sin(rotation * 6.28 / 360.);
+}
+
+bool Enemy::retreating()
+{
+    return coward;
 }
