@@ -280,6 +280,10 @@ void Game::run()
 		window.draw(background);
         window.draw(text);
         window.draw(player1);
+        window.draw(up1);
+        window.draw(highScore);
+        window.draw(score1);
+        window.draw(score2);
 		date.setString("GAME OVER");
         date.setFillColor(sf::Color::Red);
 		window.draw(date);
