@@ -69,6 +69,7 @@ void Game::run()
                     window.close();
             }
             bool playerLiving = true;
+            //loops while player alive
             while (playerLiving)
             {
                 //moves
@@ -78,16 +79,18 @@ void Game::run()
                     lives++;
                     threshhold +=50000;
                 }
+                //sets score board
                 text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
-                //boss
-
+                
+                
+                //boss spawn
                 if (gruntsKilled >= 1&&!bossSpawned)
                 {
                     boss.setYear(levels[level % 6]);
                     bossSpawned = true;
                     boss.outOfBounds();
                 }
-                //Grunts
+                //Grunts collision with player
                 for (int i = 0; i < grunts.size(); i++)
                 {
 
@@ -114,7 +117,7 @@ void Game::run()
                             bossDead = true;
                         }
                     }
-                
+				//boss collision with player
                 if(boss.collision(player))
 				{
 					boss.getAnimation().setPosition({ -100, -100 });
@@ -126,6 +129,7 @@ void Game::run()
                 if (player.tick < 180)
                     boss.getAnimation().setPosition({-100,-100});
 
+                //spawns grunts
                 if (player.tick >= 180 && grunts.size() < 1 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
