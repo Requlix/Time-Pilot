@@ -31,7 +31,7 @@ Boss::~Boss()
 void Boss::setYear(int type)
 {
 	year = std::to_string(type);
-	if (type >= 1980)
+	if (type >= 1980 || type == 1918)
 		animation.setTextures(year + "boss", year + "boss", 16);
 	else
 		animation.setTextures(year + "bossu", year + "bossd", 16);

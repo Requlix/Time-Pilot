@@ -83,6 +83,7 @@ void Game::run()
 
                 if (gruntsKilled >= 1&&!bossSpawned)
                 {
+                    boss.setYear(levels[level % 6]);
                     bossSpawned = true;
                     boss.outOfBounds();
                 }
