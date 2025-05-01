@@ -22,7 +22,7 @@ void Game::run()
     font.loadFromFile("konami.ttf");
     text.setFont(font);
     int shoot = 0;
-    int lives = 99;
+    int lives = 1;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -83,6 +83,7 @@ void Game::run()
 
                 if (gruntsKilled >= 1&&!bossSpawned)
                 {
+                    boss.setYear(levels[level % 6]);
                     bossSpawned = true;
                     boss.outOfBounds();
                 }
@@ -236,9 +237,12 @@ void Game::run()
             player.tick = 1;
         }
         window.clear();
-        window.draw(player.getAnimation().getSprite()); 
-        text.setString(" YOUR SCORE:" + std::to_string(points - 1) + "\n  You Lose!!!!");
-        text.setCharacterSize(100);
+		window.draw(background);
+        window.draw(text);
+        window.draw(player1);
+		date.setString("GAME OVER");
+        date.setFillColor(sf::Color::Red);
+		window.draw(date);
         window.draw(text);
         window.display();
     }
@@ -258,15 +262,26 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
         }
         if (grunts.size() > 0 && i >= 0)
         {
-            grunts[i].outOfBounds();
-            window.draw(grunts[i].getAnimation().getSprite());
+            if(!grunts[i].inBounds() && grunts[i].retreating())
+            {
+                grunts.erase(grunts.begin() + i);
+                i--;
+                std::cout << "executed coward";
+            }
+            else
+            {
+                grunts[i].outOfBounds();
+                window.draw(grunts[i].getAnimation().getSprite());
+            }
+            
         }
-        if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 0)
-        {
-            Bomb tempBomb(grunts[i].getPosition());
-            bombs.push_back(tempBomb);
-            bomb++;
-        }
+        if (grunts.size() > 0 && i >= 0)
+            if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 0)
+            {
+                Bomb tempBomb(grunts[i].getPosition());
+                bombs.push_back(tempBomb);
+                bomb++;
+            }
     }
     //clouds yay
     for (int i = 0; i < 8; i++)

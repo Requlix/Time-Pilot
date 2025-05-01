@@ -16,6 +16,8 @@ bool Enemy::move()
 {
     bool shoot = false;
     bool see = false;
+    bool hunting= false;
+  
     sf::Vector2f goal(0, 0);
     goal.x = 896 / 2. - getPosition().x;
     goal.y = 864 / 2.+128 - getPosition().y;
@@ -39,24 +41,46 @@ bool Enemy::move()
         }
         else
         {
-            //if you can't shoot get to player. this isnt right i also need to check if they can see the player.
-            int eyes = agoal;
-            if (abs(eyes > 180))
+            //if see player, fly to
+            if (agression > 0)
             {
-                eyes = abs(abs(eyes) - 360) + rotation;
-            }
-            if (abs(eyes) < 45)
-                see = true;
-            else
-                see = false;
-            if (see)
-            {
-                if (abs(agoal) > 180)
-                    agoal *= -1;
-                if (agoal > 0)
-                    rotation -= rotateSpeed;
+                int eyes = agoal;
+                if (abs(eyes > 180))
+                {
+                    eyes = abs(abs(eyes) - 360) + rotation;
+                }
+                if (abs(eyes) < 120)
+                    see = true;
                 else
-                    rotation += rotateSpeed;
+                    see = false;
+                if (see)
+                {
+
+                    if (agression > 0)
+
+                        if (abs(agoal) > 180)
+                            agoal *= -1;
+                    if (agoal > 0)
+                        rotation -= rotateSpeed;
+                    else
+                        rotation += rotateSpeed;
+                    agression--;
+
+                }
+            }
+            else
+            {
+                
+                if (retreat > 180)
+                {
+                    rotation -= rotateSpeed;
+                    retreat -= rotateSpeed;
+
+                }
+                coward = true;
+                
+                
+                
             }
         }
     } 
@@ -75,4 +99,9 @@ void Enemy::setVelocity()
     setOffset();
     velocity.x += speed * cos(rotation * 6.28 / 360.);
     velocity.y += speed * sin(rotation * 6.28 / 360.);
+}
+
+bool Enemy::retreating()
+{
+    return coward;
 }
