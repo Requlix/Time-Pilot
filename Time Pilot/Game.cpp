@@ -34,8 +34,6 @@ void Game::run()
     std::vector<Bomb> bombs;
 	std::vector<Missile> missiles;
     Cloud cloud[8] = { 0,1,2,3 ,4,5,6,7};
-    int levels[5] = { 1918,1940,1970,1980,2000 };
-    int level = 0;
     Bomb temp({ 100,100 });
     bombs.push_back(temp);
 
@@ -187,15 +185,6 @@ void Game::run()
                 }
                 if (player.tick <= 180)
                 {
-                    player.move();
-                    for (int i = 0; i < 8; i++)
-                    {
-                        cloud[i].setYear(levels[level % 6]);
-                        cloud[i].setOffset();
-                        cloud[i].move();
-                        cloud[i].outOfBounds();
-                        window.draw(cloud[i].getAnimation().getSprite());
-                    }
 					if (player.tick % 20 == 0)
 						colors++;
                     if(colors % 3 == 0)
@@ -271,7 +260,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             grunts[i].outOfBounds();
             window.draw(grunts[i].getAnimation().getSprite());
         }
-        if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3)
+        if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 0)
         {
             Bomb tempBomb(grunts[i].getPosition());
             bombs.push_back(tempBomb);

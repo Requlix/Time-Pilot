@@ -61,7 +61,6 @@ void Cloud::setYear(int type)
 		break;
 	case 2:
 	case 7:
-		std::cout << type << std::endl;
 		frame = 3;
 		break;
 	}
