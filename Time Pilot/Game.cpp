@@ -22,7 +22,7 @@ void Game::run()
     font.loadFromFile("konami.ttf");
     text.setFont(font);
     int shoot = 0;
-    int lives =3;
+    int lives = 99;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -33,9 +33,7 @@ void Game::run()
     std::vector<Grunt> grunts;
     std::vector<Bomb> bombs;
 	std::vector<Missile> missiles;
-    Cloud cloud[4] = { 0,1,2,3 };
-    int levels[5] = { 1918,1940,1970,1980,2000 };
-    int level = 0;
+    Cloud cloud[8] = { 0,1,2,3 ,4,5,6,7};
     Bomb temp({ 100,100 });
     bombs.push_back(temp);
 
@@ -85,23 +83,8 @@ void Game::run()
 
                 if (gruntsKilled >= 1&&!bossSpawned)
                 {
-                    int l = rand() % 60 - 30;
-                    sf::Vector2f tempVec(448, 512);
-                    tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    boss.getAnimation().setPosition(tempVec);
                     bossSpawned = true;
-                    std::cout << "boss spawned";
-                    if (abs(Player::rotation) > 90)
-                    {
-                        boss.setRotation(180);
-						boss.setSpeed(2.);
-                    }
-                    else
-                    {
-                        boss.setRotation(0);
-                        boss.setSpeed(-2.);
-                    }
+                    boss.outOfBounds();
                 }
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
@@ -139,7 +122,8 @@ void Game::run()
                     playerLiving = false;
 					shoot = 0;
 				}
-                
+                if (player.tick < 180)
+                    boss.getAnimation().setPosition({-100,-100});
 
                 if (player.tick >= 180 && grunts.size() < 1 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
@@ -190,6 +174,15 @@ void Game::run()
                 
                 window.draw(player.getAnimation().getSprite());
                 window.draw(text);
+
+                if (player.tick == 2)
+                {
+                    date.setString("A.D. " + std::to_string(levels[level % 6]));
+                    stage.setString("STAGE " + std::to_string(level + 1));
+
+                    for (int i = 0; i < 8; i++)
+						cloud[i].setYear(levels[level % 6]);
+                }
                 if (player.tick <= 180)
                 {
 					if (player.tick % 20 == 0)
@@ -200,8 +193,6 @@ void Game::run()
                         date.setFillColor(sf::Color::White);
                     else
                         date.setFillColor(sf::Color::Red);
-                    date.setString("A.D. " + std::to_string(levels[level%6]));
-					stage.setString("STAGE " + std::to_string(level + 1));
                     window.draw(date);
                     window.draw(stage);
                     window.draw(player1);
@@ -236,7 +227,9 @@ void Game::run()
                 lives = tempLives;
                 txt1918.loadFromFile("background"+ std::to_string(levels[level%6]) + ".png");
 				background.setTexture(txt1918);
+                
             }
+            boss.getAnimation().setPosition({ -100, -100 });
             grunts.clear();
             player.rotation = 0;
             player.tick = 1;
@@ -267,7 +260,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             grunts[i].outOfBounds();
             window.draw(grunts[i].getAnimation().getSprite());
         }
-        if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3)
+        if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 0)
         {
             Bomb tempBomb(grunts[i].getPosition());
             bombs.push_back(tempBomb);
@@ -275,7 +268,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
         }
     }
     //clouds yay
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 8; i++)
     {
         cloud[i].setOffset();
         cloud[i].move();
@@ -328,7 +321,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             }
         }
     }
-   for (int i = 0; i < bombs.size(); i++)
+    for (int i = 0; i < bombs.size(); i++)
     {
         bombs[i].move();
         window.draw(bombs[i].getAnimation().getSprite());
