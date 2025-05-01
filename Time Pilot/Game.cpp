@@ -261,15 +261,26 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
         }
         if (grunts.size() > 0 && i >= 0)
         {
-            grunts[i].outOfBounds();
-            window.draw(grunts[i].getAnimation().getSprite());
+            if(!grunts[i].inBounds() && grunts[i].retreating())
+            {
+                grunts.erase(grunts.begin() + i);
+                i--;
+                std::cout << "executed coward";
+            }
+            else
+            {
+                grunts[i].outOfBounds();
+                window.draw(grunts[i].getAnimation().getSprite());
+            }
+            
         }
-        if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 0)
-        {
-            Bomb tempBomb(grunts[i].getPosition());
-            bombs.push_back(tempBomb);
-            bomb++;
-        }
+        if (grunts.size() > 0 && i >= 0)
+            if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 0)
+            {
+                Bomb tempBomb(grunts[i].getPosition());
+                bombs.push_back(tempBomb);
+                bomb++;
+            }
     }
     //clouds yay
     for (int i = 0; i < 8; i++)
