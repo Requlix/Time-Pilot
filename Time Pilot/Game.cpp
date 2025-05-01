@@ -122,9 +122,7 @@ void Game::run()
                     playerLiving = false;
 					shoot = 0;
 				}
-                if (player.tick < 180)
-                    boss.getAnimation().setPosition({-100,-100});
-
+                
                 if (player.tick >= 180 && grunts.size() < 1 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
@@ -163,12 +161,15 @@ void Game::run()
                 }
                 else if (shoot <= 1)
                     shootable = true;
-
+                
                 //draws
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot,bombs, missiles);
                 if (bossSpawned && !bossDead) {
                     boss.move();
                     boss.outOfBounds();
+                    if (player.tick < 180)
+                        boss.getAnimation().setPosition({ -100,-100 });
+
                     window.draw(boss.getAnimation().getSprite());
                 }
                 
