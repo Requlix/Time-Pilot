@@ -94,10 +94,10 @@ void Game::run()
                     window.close();
             }
             bool playerLiving = true;
-            score1.setString(std::to_string(points));
-            score2.setString(std::to_string(points));
             while (playerLiving)
             {
+                score1.setString(std::to_string(points));
+                score2.setString(std::to_string(points));
                 //moves
                 player.move();
                 if (points % threshhold == 0)
