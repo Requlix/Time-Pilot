@@ -22,7 +22,7 @@ void Game::run()
     font.loadFromFile("konami.ttf");
     text.setFont(font);
     int shoot = 0;
-    int lives = 99;
+    int lives = 1;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -236,9 +236,12 @@ void Game::run()
             player.tick = 1;
         }
         window.clear();
-        window.draw(player.getAnimation().getSprite()); 
-        text.setString(" YOUR SCORE:" + std::to_string(points - 1) + "\n  You Lose!!!!");
-        text.setCharacterSize(100);
+		window.draw(background);
+        window.draw(text);
+        window.draw(player1);
+		date.setString("GAME OVER");
+        date.setFillColor(sf::Color::Red);
+		window.draw(date);
         window.draw(text);
         window.display();
     }
