@@ -29,25 +29,25 @@ void Game::run()
     text.setFont(font);
 
     sf::Text up1("1-UP", font, 50);
-    up1.setPosition(80, 0);
-	up1.setColor(sf::Color::Red);
+    up1.setPosition(80, -20);
+	up1.setFillColor(sf::Color::Red);
 
     sf::Text score1;
 	score1.setCharacterSize(50);
 	score1.setFont(font);
-	score1.setPosition(80, 64);
+	score1.setPosition(165, 10);
 
     sf::Text score2;
     score2.setCharacterSize(50);
     score2.setFont(font);
-    score2.setPosition(208, 64);
+    score2.setPosition(400, 10);
     
     sf::Text highScore("HI-SCORE", font, 50);
-    highScore.setPosition(208, 0);
-    highScore.setColor(sf::Color::Red);
+    highScore.setPosition(336, -20);
+    highScore.setFillColor(sf::Color::Red);
 
     int shoot = 0;
-    int lives = 1;
+    int lives = 2;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -96,8 +96,8 @@ void Game::run()
             bool playerLiving = true;
             while (playerLiving)
             {
-                score1.setString(std::to_string(points));
-                score2.setString(std::to_string(points));
+                score1.setString(std::to_string(points-1));
+                score2.setString(std::to_string(points-1));
                 //moves
                 player.move();
                 if (points % threshhold == 0)
