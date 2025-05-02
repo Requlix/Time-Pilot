@@ -18,6 +18,26 @@ void Game::run()
 	sf::Sprite livesSprite;
 	livesSprite.setTexture(livesText);
 
+    sf::RectangleShape topBorder;
+    topBorder.setSize({ 896,128 });
+	topBorder.setFillColor(sf::Color::Black);
+
+    sf::RectangleShape bottomBorder;
+    bottomBorder.setSize({ 896,32 });
+    bottomBorder.setFillColor(sf::Color::Black);
+	bottomBorder.setPosition(0, 992);
+
+    sf::RectangleShape killCover;
+    killCover.setSize({ 448,32 });
+    killCover.setFillColor(sf::Color::Black);
+    killCover.setPosition(464, 992);
+
+    sf::Texture killBoardTxt;
+    killBoardTxt.loadFromFile("killBoard.png");
+	sf::Sprite killBoard;
+	killBoard.setTexture(killBoardTxt);
+	killBoard.setPosition(16, 992);
+    
 	
     window.setFramerateLimit(60);
     int points = 1;
@@ -47,7 +67,7 @@ void Game::run()
     highScore.setFillColor(sf::Color::Red);
 
     int shoot = 0;
-    int lives = 2;
+    int lives = 13;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -109,7 +129,7 @@ void Game::run()
                 //text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
                 
                 //boss
-                if (gruntsKilled >= 1&&!bossSpawned)
+                if (gruntsKilled >= 56&&!bossSpawned)
                 {
                     boss.setYear(levels[level % 6]);
                     bossSpawned = true;
@@ -189,12 +209,18 @@ void Game::run()
                 else if (shoot <= 1)
                     shootable = true;
                 
+
+				killCover.setPosition(464-4*gruntsKilled, 992);
                 //draws
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot,bombs, missiles);
+				window.draw(topBorder);
+				window.draw(bottomBorder);
                 window.draw(up1);
                 window.draw(highScore);
 				window.draw(score1);
 				window.draw(score2);
+                window.draw(killBoard);
+				window.draw(killCover);
                 for(int i = 0; i < lives; i++)
                 {
                     livesSprite.setPosition(i * 64 + 16, 64);
@@ -251,6 +277,19 @@ void Game::run()
                 }
 
             }
+
+            for (int i = 0; i < lives; i++)
+            {
+                livesSprite.setPosition(i * 64 + 16, 64);
+                window.draw(livesSprite);
+            }
+            window.draw(up1);
+            window.draw(highScore);
+            window.draw(score1);
+            window.draw(score2);
+            window.draw(killBoard);
+            window.draw(killCover);
+
             int pause = player.tick;
             std::cout << level << std::endl;
             while (player.tick - pause < 200)
@@ -269,6 +308,18 @@ void Game::run()
                 lives = tempLives;
                 txt1918.loadFromFile("background"+ std::to_string(levels[level%6]) + ".png");
 				background.setTexture(txt1918);
+
+                for (int i = 0; i < lives; i++)
+                {
+                    livesSprite.setPosition(i * 64 + 16, 64);
+                    window.draw(livesSprite);
+                }
+                window.draw(up1);
+                window.draw(highScore);
+                window.draw(score1);
+                window.draw(score2);
+                window.draw(killBoard);
+                window.draw(killCover);
                 
             }
             boss.getAnimation().setPosition({ -100, -100 });
@@ -280,10 +331,17 @@ void Game::run()
 		window.draw(background);
         window.draw(text);
         window.draw(player1);
+        for (int i = 0; i < lives; i++)
+        {
+            livesSprite.setPosition(i * 64 + 16, 64);
+            window.draw(livesSprite);
+        }
         window.draw(up1);
         window.draw(highScore);
         window.draw(score1);
         window.draw(score2);
+        window.draw(killBoard);
+        window.draw(killCover);
 		date.setString("GAME OVER");
         date.setFillColor(sf::Color::Red);
 		window.draw(date);
