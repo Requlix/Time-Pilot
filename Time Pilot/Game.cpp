@@ -13,6 +13,12 @@ Game::~Game()
 
 void Game::run()
 {
+    sf::Texture livesText;
+	livesText.loadFromFile("player8.png");
+	sf::Sprite livesSprite;
+	livesSprite.setTexture(livesText);
+
+	
     window.setFramerateLimit(60);
     int points = 1;
     Player player;
@@ -21,6 +27,25 @@ void Game::run()
     sf::Font font;
     font.loadFromFile("konami.ttf");
     text.setFont(font);
+
+    sf::Text up1("1-UP", font, 50);
+    up1.setPosition(80, 0);
+	up1.setColor(sf::Color::Red);
+
+    sf::Text score1;
+	score1.setCharacterSize(50);
+	score1.setFont(font);
+	score1.setPosition(80, 64);
+
+    sf::Text score2;
+    score2.setCharacterSize(50);
+    score2.setFont(font);
+    score2.setPosition(208, 64);
+    
+    sf::Text highScore("HI-SCORE", font, 50);
+    highScore.setPosition(208, 0);
+    highScore.setColor(sf::Color::Red);
+
     int shoot = 0;
     int lives = 1;
     int gruntsKilled = 0;
@@ -71,6 +96,8 @@ void Game::run()
             bool playerLiving = true;
             while (playerLiving)
             {
+                score1.setString(std::to_string(points));
+                score2.setString(std::to_string(points));
                 //moves
                 player.move();
                 if (points % threshhold == 0)
@@ -78,9 +105,10 @@ void Game::run()
                     lives++;
                     threshhold +=50000;
                 }
-                text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
-                //boss
 
+                //text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
+                
+                //boss
                 if (gruntsKilled >= 1&&!bossSpawned)
                 {
                     boss.setYear(levels[level % 6]);
@@ -90,8 +118,6 @@ void Game::run()
                 //Grunts
                 for (int i = 0; i < grunts.size(); i++)
                 {
-
-
                     if (grunts[i].collision(player))
                     {
                         grunts.erase(grunts.begin() + i);
@@ -123,9 +149,7 @@ void Game::run()
                     playerLiving = false;
 					shoot = 0;
 				}
-                if (player.tick < 180)
-                    boss.getAnimation().setPosition({-100,-100});
-
+                
                 if (player.tick >= 180 && grunts.size() < 1 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
@@ -164,17 +188,29 @@ void Game::run()
                 }
                 else if (shoot <= 1)
                     shootable = true;
-
+                
                 //draws
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot,bombs, missiles);
+                window.draw(up1);
+                window.draw(highScore);
+				window.draw(score1);
+				window.draw(score2);
+                for(int i = 0; i < lives; i++)
+                {
+                    livesSprite.setPosition(i * 64 + 16, 64);
+                    window.draw(livesSprite);
+                }
                 if (bossSpawned && !bossDead) {
                     boss.move();
                     boss.outOfBounds();
+                    if (player.tick < 180)
+                        boss.getAnimation().setPosition({ -100,-100 });
+
                     window.draw(boss.getAnimation().getSprite());
                 }
                 
                 window.draw(player.getAnimation().getSprite());
-                window.draw(text);
+                //window.draw(text);
 
                 if (player.tick == 2)
                 {
@@ -222,6 +258,11 @@ void Game::run()
                 int tempLives = lives;
                 window.draw(text);
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot,bombs,missiles);
+                for(int i = 0; i < lives; i++)
+				{
+					livesSprite.setPosition(i * 64 + 16, 64);
+					window.draw(livesSprite);
+				}
                 window.display();
                 window.clear();
                 player.tick += 1;
@@ -239,10 +280,14 @@ void Game::run()
 		window.draw(background);
         window.draw(text);
         window.draw(player1);
+        window.draw(up1);
+        window.draw(highScore);
+        window.draw(score1);
+        window.draw(score2);
 		date.setString("GAME OVER");
         date.setFillColor(sf::Color::Red);
 		window.draw(date);
-        window.draw(text);
+        //window.draw(text);
         window.display();
     }
 }

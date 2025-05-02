@@ -18,7 +18,7 @@ Boss::Boss(int type, sf::Vector2f pos)
 		rotation = 0;
 		speed = -2;
 	}
-
+	animation.setOrigin({64,32});
 	animation.setPosition(pos);
 	Object::setVelocity(speed,0);
 }
@@ -72,19 +72,29 @@ bool Boss::hit()
 
 void Boss::outOfBounds()
 {
-	if(!inBounds())
+	if(!inBounds()&&rand()%20==1)
 	{
 		double radians = Player::rotation * 3.14 / 180.;
 		sf::Vector2f temp(448, 512);
-		if (Player::rotation > -45 && Player::rotation < 45)
+		if (Player::rotation > -45 && Player::rotation <= 0)
 		{
 			temp.x = 928;
-			temp.y -= tan(radians) * 448;
+			temp.y += Player::rotation / abs(Player::rotation)*tan(radians) * 448;
 		}
-		else if (Player::rotation > 135 || Player::rotation < -135)
+		else if (Player::rotation > 0 && Player::rotation < 45)
+		{
+			temp.x = 928;
+			temp.y -= Player::rotation / abs(Player::rotation) * tan(radians) * 448;
+		}
+		else if (Player::rotation > 135)
 		{
 			temp.x = -32;
-			temp.y -= tan(radians) * 448;
+			temp.y += Player::rotation / abs(Player::rotation)* tan(radians) * 448;
+		}
+		else if (Player::rotation < -135)
+		{
+			temp.x = -32;
+			temp.y -= Player::rotation / abs(Player::rotation) * tan(radians) * 448;
 		}
 		else if (abs(Player::rotation) > 90)
 		{
