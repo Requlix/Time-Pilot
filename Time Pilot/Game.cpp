@@ -66,6 +66,7 @@ void Game::run()
     highScore.setPosition(336, -20);
     highScore.setFillColor(sf::Color::Red);
 
+    int nextSpawn = 0;
     int shoot = 0;
     int lives = 2;
     int gruntsKilled = 0;
@@ -136,6 +137,21 @@ void Game::run()
                     airmen.push_back(tempMan);
                     airmanSpawn = false;
                 }
+                    
+
+                if (gruntsKilled > nextSpawn && gruntsKilled < 54 && levels[level % 6] == 1940 && gruntsKilled % 7 == 0)
+                {
+                    //std::cout<<"spawn tgrunt"
+                    sf::Vector2f tempVec(448, 512);
+                    tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
+                    tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
+                    Boss tempDude(1941, tempVec);
+                    tGrunts.push_back(tempDude);
+                }
+
+                if (gruntsKilled > 0 && gruntsKilled % 7 == 0)
+                    nextSpawn = gruntsKilled;
+
 
                 //text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
                 
@@ -236,6 +252,40 @@ void Game::run()
                         points += 1000 * (rand() % 2 + 1);
                     }
                 }
+                for (int i = 0; i < tGrunts.size(); i++)
+                {
+                    tGrunts[i].move();
+                    window.draw(tGrunts[i].getAnimation().getSprite());
+                    if (!tGrunts[i].inBounds())
+                    {
+                        tGrunts.erase(tGrunts.begin() + i);
+                        i--;
+                    }
+                    else if (tGrunts[i].collision(player))
+                    {
+                        tGrunts.erase(tGrunts.begin() + i);
+                        i--;
+                        playerLiving = false;
+                        lives--;
+                    }
+                    else
+                    {
+                        for(int z = 0; z < bullets.size() && tGrunts.size() > 0; z++)
+                            if (tGrunts[i].collision(bullets[z]))
+                            {
+                                bullets.erase(bullets.begin() + z);
+                                z--;
+                                if(tGrunts[i].hit())
+                                {
+                                    tGrunts.erase(tGrunts.begin() + i);
+                                    i--;
+                                }
+                                
+                                points += 100;
+                                gruntsKilled++;
+                            }
+                    }
+                }
 				window.draw(topBorder);
 				window.draw(bottomBorder);
                 window.draw(up1);
@@ -298,6 +348,7 @@ void Game::run()
                     grunts.clear();
                     missiles.clear();
                     airmanSpawn = true;
+                    nextSpawn = 0;
                 }
 
             }

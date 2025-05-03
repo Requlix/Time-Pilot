@@ -3,7 +3,7 @@
 Boss::Boss(int type, sf::Vector2f pos)
 {
 	year = std::to_string(type);
-	if(type == 2000)
+	if(type >= 1980 || type == 1918)
 		animation.setTextures(year + "boss", year + "boss", 16);
 	else
 		animation.setTextures(year + "bossu", year + "bossd", 16);
