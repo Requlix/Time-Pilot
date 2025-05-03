@@ -78,9 +78,12 @@ void Game::run()
     std::vector<Grunt> grunts;
     std::vector<Bomb> bombs;
 	std::vector<Missile> missiles;
+    std::vector<Airman> airmen;
     Cloud cloud[8] = { 0,1,2,3 ,4,5,6,7};
     Bomb temp({ 100,100 });
     bombs.push_back(temp);
+
+    bool airmanSpawn = true;
 
     sf::Text player1;
 	player1.setFont(font);
@@ -124,6 +127,13 @@ void Game::run()
                 {
                     lives++;
                     threshhold +=50000;
+                }
+
+                if (gruntsKilled == 27 && airmen.size() == 0 && airmanSpawn)
+                {
+                    Airman tempMan;
+                    airmen.push_back(tempMan);
+                    airmanSpawn = false;
                 }
 
                 //text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
@@ -213,6 +223,18 @@ void Game::run()
 				killCover.setPosition(464-4*gruntsKilled, 992);
                 //draws
                 draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot,bombs, missiles);
+                if (airmen.size() > 0)
+                {
+                    airmen[0].move();
+                    window.draw(airmen[0].getAnimation().getSprite());
+                    if (!airmen[0].inBounds())
+                        airmen.erase(airmen.begin());
+                    else if (airmen[0].collision(player))
+                    {
+                        airmen.erase(airmen.begin());
+                        points += 1000;
+                    }
+                }
 				window.draw(topBorder);
 				window.draw(bottomBorder);
                 window.draw(up1);
@@ -274,6 +296,7 @@ void Game::run()
 					boss.setSpeed(0);
                     grunts.clear();
                     missiles.clear();
+                    airmanSpawn = true;
                 }
 
             }
