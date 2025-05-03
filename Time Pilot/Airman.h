@@ -7,6 +7,7 @@ public:
 	~Airman();
 
 	void move();
+	bool inBounds();
 private:
 	int tick = 0;
 	int otherTick = 0;

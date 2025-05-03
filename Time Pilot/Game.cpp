@@ -79,6 +79,7 @@ void Game::run()
     std::vector<Bomb> bombs;
 	std::vector<Missile> missiles;
     std::vector<Airman> airmen;
+    std::vector<Boss> tGrunts;
     Cloud cloud[8] = { 0,1,2,3 ,4,5,6,7};
     Bomb temp({ 100,100 });
     bombs.push_back(temp);
@@ -129,7 +130,7 @@ void Game::run()
                     threshhold +=50000;
                 }
 
-                if (gruntsKilled == 27 && airmen.size() == 0 && airmanSpawn)
+                if (gruntsKilled == 27 && airmen.size() == 0 && airmanSpawn && levels[level%6]!=2000)
                 {
                     Airman tempMan;
                     airmen.push_back(tempMan);
@@ -232,7 +233,7 @@ void Game::run()
                     else if (airmen[0].collision(player))
                     {
                         airmen.erase(airmen.begin());
-                        points += 1000;
+                        points += 1000 * (rand() % 2 + 1);
                     }
                 }
 				window.draw(topBorder);

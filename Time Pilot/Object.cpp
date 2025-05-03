@@ -28,7 +28,6 @@ Animation& Object::getAnimation()
 bool Object::inBounds()
 {
 	//returns if objects is in bounds
-	int count = 0;
 
 	if (getPosition().y + animation.getSprite().getOrigin().y < 128 ||
 		getPosition().y - animation.getSprite().getOrigin().y > 992 ||
