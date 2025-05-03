@@ -8,4 +8,7 @@ public:
 	~Bullet();
 	void move();
 private:
+	std::string type;
+	int tick = 0;
+	int otherTick = 0;
 };

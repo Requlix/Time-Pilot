@@ -45,6 +45,7 @@ void Cloud::setYear(int type)
 {
 	animation.setTextures(std::to_string(type) + "cloud", std::to_string(type) + "cloud", 1);
 	int frame;
+	year = type;
 	switch (pos)
 	{
 	case 0:
@@ -96,4 +97,54 @@ void Cloud::setYear(int type)
 		//mini clouds
 		break;
 	}
+}
+
+void Cloud::move()
+{
+	double speedChange = 1.;
+	if (year == 2000)
+	{
+		switch (pos)
+		{
+		case 0:
+		case 4:
+		case 1:
+		case 6:
+		case 2:
+		case 7:
+			speedChange = .5;
+			break;
+		case 3:
+		case 5:
+			speedChange = 1.;
+			break;
+		}
+	}
+	else
+	{
+		switch (pos)
+		{
+		case 0:
+		case 4:
+		case 3:
+		case 5:
+			speedChange = .75;
+			break;
+		case 1:
+		case 6:
+			speedChange = .5;
+			break;
+		case 2:
+		case 7:
+			speedChange = 1.;
+			break;
+		}
+	}
+
+	//std::cout << speedChange << " " << pos << std::endl;
+
+	velocity.x *= speedChange;
+	velocity.y *= speedChange;
+
+	Object::move();
 }

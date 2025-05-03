@@ -23,7 +23,7 @@ Animation& Player::getAnimation()
 
 void Player::move()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         if (rotation != 180)
         {
@@ -33,7 +33,7 @@ void Player::move()
                 rotation -= rotateSpeed;
         }
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
         if (rotation != 0)
         {
@@ -43,7 +43,7 @@ void Player::move()
                 rotation += rotateSpeed;
         }
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         if (rotation != 90)
         {
@@ -53,7 +53,7 @@ void Player::move()
                 rotation -= rotateSpeed;
         }
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         if (rotation != -90)
         {

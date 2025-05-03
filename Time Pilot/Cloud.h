@@ -6,7 +6,9 @@ public:
 	Cloud(int);
 	~Cloud();
 	void setYear(int);
+	void move();
 private:
 	int pos;
+	int year;
 };
 

@@ -67,7 +67,7 @@ void Game::run()
     highScore.setFillColor(sf::Color::Red);
 
     int shoot = 0;
-    int lives = 13;
+    int lives = 2;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -359,7 +359,10 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
     {
         if (grunts[i].move())
         {
-            Bullet tempBullet(grunts[i].getPosition(), -grunts[i].getRotation(), "e");
+            std::string temp = "e";
+            if (levels[level] == 2000)
+                temp = "s";
+            Bullet tempBullet(grunts[i].getPosition(), -grunts[i].getRotation(), temp);
             ebullets.push_back(tempBullet);
         }
         if (grunts.size() > 0 && i >= 0)
@@ -469,13 +472,19 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
         {
             missiles[i].move();
             window.draw(missiles[i].getAnimation().getSprite());
-            missiles[i].outOfBounds();
+            //missiles[i].outOfBounds();
             if (missiles[i].collision(player))
             {
                 lives--;
                 playerLiving = false;
                 missiles.erase(missiles.begin() + i);
                 i--;
+            }
+            else if (!missiles[i].inBounds())
+            {
+                missiles.erase(missiles.begin() + i);
+                i--;
+                //std::cout << "boom" << std::endl;
             }
         }
     }
