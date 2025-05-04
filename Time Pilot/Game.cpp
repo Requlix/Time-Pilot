@@ -33,10 +33,9 @@ void Game::run()
     killCover.setPosition(464, 992);
 
     sf::Texture killBoardTxt;
-    killBoardTxt.loadFromFile("killBoard.png");
+    killBoardTxt.loadFromFile(killBoardStr[level % 6]);
 	sf::Sprite killBoard;
-	killBoard.setTexture(killBoardTxt);
-	killBoard.setPosition(16, 992);
+    killBoard.setTexture(killBoardTxt);
     
 	
     window.setFramerateLimit(60);
@@ -325,7 +324,11 @@ void Game::run()
                 window.draw(highScore);
 				window.draw(score1);
 				window.draw(score2);
-                window.draw(killBoard);
+                for (int i = 0; i < 7; i++)
+                {
+                    killBoard.setPosition(16 + 64 * i, 980);
+                    window.draw(killBoard);
+                }
 				window.draw(killCover);
                 for(int i = 0; i < lives; i++)
                 {
@@ -412,6 +415,8 @@ void Game::run()
                     missiles.clear();
                     airmanSpawn = true;
                     nextSpawn = 0;
+                    killBoardTxt.loadFromFile(killBoardStr[level % 6]);
+                    killBoard.setTexture(killBoardTxt);
                 }
 
             }
@@ -425,7 +430,11 @@ void Game::run()
             window.draw(highScore);
             window.draw(score1);
             window.draw(score2);
-            window.draw(killBoard);
+            for (int i = 0; i < 7; i++)
+            {
+                killBoard.setPosition(16 + 64 * i, 980);
+                window.draw(killBoard);
+            }
             window.draw(killCover);
 
             int pause = player.tick;
@@ -456,7 +465,11 @@ void Game::run()
                 window.draw(highScore);
                 window.draw(score1);
                 window.draw(score2);
-                window.draw(killBoard);
+                for (int i = 0; i < 7; i++)
+                {
+                    killBoard.setPosition(16 + 64 * i, 980);
+                    window.draw(killBoard);
+                }
                 window.draw(killCover);
                 
             }
@@ -478,7 +491,11 @@ void Game::run()
         window.draw(highScore);
         window.draw(score1);
         window.draw(score2);
-        window.draw(killBoard);
+        for (int i = 0; i < 7; i++)
+        {
+            killBoard.setPosition(16 + 64 * i, 980);
+            window.draw(killBoard);
+        }
         window.draw(killCover);
 		date.setString("GAME OVER");
         date.setFillColor(sf::Color::Red);

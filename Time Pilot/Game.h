@@ -25,7 +25,8 @@ public:
 private:
 	sf::RenderWindow window;
 	int levels[5] = { 1918,1940,1970,1980,2000 };
-	int level = 1;
+	std::string killBoardStr[5] = { "1918planer8.png","1940planer8.png","1970planer8.png","1980plane8.png","2000plane1.png"};
+	int level = 0;
 	int sizeMult = 4;
 	int winSizeX = 224 * sizeMult, winSizeY = 256 * sizeMult;
 	sf::Sprite background;
