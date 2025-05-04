@@ -66,6 +66,7 @@ void Game::run()
     highScore.setPosition(336, -20);
     highScore.setFillColor(sf::Color::Red);
 
+    int bossBullet = 0;
     int nextSpawn = 0;
     int shoot = 0;
     int lives = 2;
@@ -144,9 +145,10 @@ void Game::run()
                     //std::cout<<"spawn tgrunt"
                     sf::Vector2f tempVec(448, 512);
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
-                    tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
+                    tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
                     Boss tempDude(1941, tempVec);
                     tGrunts.push_back(tempDude);
+                    //std::cout << "HEY I SHOULD BE SPAWNING NOW" << std::endl;
                 }
 
                 if (gruntsKilled > 0 && gruntsKilled % 7 == 0)
@@ -156,7 +158,7 @@ void Game::run()
                 //text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
                 
                 //boss
-                if (gruntsKilled >= 56&&!bossSpawned)
+                if (gruntsKilled >= 54 &&!bossSpawned)
                 {
                     boss.setYear(levels[level % 6]);
                     bossSpawned = true;
@@ -202,7 +204,7 @@ void Game::run()
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
                     tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    tempVec.y += -448 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                    tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                     Grunt tempGrunt(levels[level%6], tempVec);
                     grunts.push_back(tempGrunt);
                 }
@@ -285,6 +287,37 @@ void Game::run()
                                 gruntsKilled++;
                             }
                     }
+
+                    if (tGrunts.size() > 0)
+                    {
+                        if (player.tick % 45 == 0)
+                        {
+                            sf::Vector2f posVec = tGrunts[i].getPosition();
+                            double velvetCake = 45;
+                            if (tGrunts[i].getPosition().x > 446)
+                                posVec.x -= 42;
+                            else
+                                posVec.x += 42;
+
+                            if (tGrunts[i].getPosition().y > 560)
+                                posVec.y -= 10;
+                            else
+                                posVec.y += 10;
+
+                            if (tGrunts[i].getPosition().x >= 446 && tGrunts[i].getPosition().y >= 560)
+                                velvetCake = 135;
+                            else if (tGrunts[i].getPosition().x <= 446 && tGrunts[i].getPosition().y >= 560)
+                                velvetCake = 45;
+                            else if (tGrunts[i].getPosition().x >= 446 && tGrunts[i].getPosition().y <= 560)
+                                velvetCake = 225;
+                            if (tGrunts[i].getPosition().x <= 446 && tGrunts[i].getPosition().y <= 560)
+                                velvetCake = 315;
+
+                            
+                            Bullet daBullet(posVec, velvetCake, "e");
+                            ebullets.push_back(daBullet);
+                        }
+                    }
                 }
 				window.draw(topBorder);
 				window.draw(bottomBorder);
@@ -306,6 +339,36 @@ void Game::run()
                         boss.getAnimation().setPosition({ -100,-100 });
 
                     window.draw(boss.getAnimation().getSprite());
+                }
+
+                if (player.tick % 45 == 0 && bossSpawned)
+                {
+                    sf::Vector2f posVec = boss.getPosition();
+                    double velvetCake = 45;
+                    if (boss.getPosition().x > 446)
+                        posVec.x -= 42;
+                    else
+                        posVec.x += 42;
+
+                    if (boss.getPosition().y > 560)
+                        posVec.y -= 10;
+                    else
+                        posVec.y += 10;
+
+                    if (boss.getPosition().x >= 446 && boss.getPosition().y >= 446)
+                        velvetCake = 135;
+                    else if (boss.getPosition().x <= 446 && boss.getPosition().y >= 446)
+                        velvetCake = 45;
+                    else if (boss.getPosition().x >= 446 && boss.getPosition().y <= 446)
+                        velvetCake = 225;
+                    if (boss.getPosition().x <= 446 && boss.getPosition().y <= 446)
+                        velvetCake = 315;
+
+                    sf::String temp = "e";
+                    if (levels[level % 6] == 2000)
+                        temp = "s";
+                    Bullet daBullet(posVec, velvetCake, temp);
+                    ebullets.push_back(daBullet);
                 }
                 
                 window.draw(player.getAnimation().getSprite());
