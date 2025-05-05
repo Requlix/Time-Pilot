@@ -12,6 +12,7 @@
 #include "Bomb.h"
 #include "Missile.h"
 #include "Airman.h"
+#include "Explosion.h"
 
 class Game
 {
@@ -31,4 +32,5 @@ private:
 	int winSizeX = 224 * sizeMult, winSizeY = 256 * sizeMult;
 	sf::Sprite background;
 	sf::Texture txt1918;
+	std::vector<Explosion> explosions;
 };

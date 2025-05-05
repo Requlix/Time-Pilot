@@ -686,4 +686,19 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             }
         }
     }
+
+    for (int i = 0; i < explosions.size()&&explosions.size() >0; i++)
+    {
+		if (explosions[i].getTick() < 30)
+		{
+            explosions[i].move();
+			window.draw(explosions[i].getAnimation().getSprite());
+		}
+        else
+        {
+            explosions.erase(explosions.begin() + i);
+            i--;
+        }
+			
+    }
 }

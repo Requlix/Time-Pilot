@@ -15,19 +15,6 @@ void Explosion::move()
 {
 	setOffset();
 	Object::move();
-	if ((type == "O"|| type == "C"|| type == "M"|| type == "B" || type == "P") && tick < 20)
-		animation.setFrame(tick / 5);
-	else if (type == "G" && tick < 30)
-		animation.setFrame(tick / 5);
-		
-
+	animation.setFrame(tick / 6);
 	tick++;
-}
-
-bool Explosion::over()
-{
-	if (type == "G")
-		return tick < 30;
-	else
-		return tick < 20;
 }
