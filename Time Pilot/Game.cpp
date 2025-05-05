@@ -198,7 +198,7 @@ void Game::run()
 					shoot = 0;
 				}
                 
-                if (player.tick >= 180 && grunts.size() < 1 && player.tick % 60 == 0 && rand() % 2 == 0)
+                if (player.tick >= 180 && grunts.size() < 7 && player.tick % 10 == 0  && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
