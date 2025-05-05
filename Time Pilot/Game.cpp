@@ -64,7 +64,6 @@ void Game::run()
     sf::Text highScore("HI-SCORE", font, 50);
     highScore.setPosition(336, -20);
     highScore.setFillColor(sf::Color::Red);
-
     int bossBullet = 0;
     int nextSpawn = 0;
     int shoot = 0;
@@ -164,6 +163,8 @@ void Game::run()
                 {
                     if (grunts[i].collision(player))
                     {
+                        Explosion tempExplosion("G", grunts[i].getPosition());
+                        explosions.push_back(tempExplosion);
                         grunts.erase(grunts.begin() + i);
                         i--;
                         lives--;
@@ -194,7 +195,7 @@ void Game::run()
 					shoot = 0;
 				}
                 //grunt spawning
-                if (player.tick >= 600 && grunts.size() < 5)
+                if (player.tick >= 900 && grunts.size() < 3 && player.tick % 300 == 0 && rand() % 2 == 0)
                 {
                     int fsize = 7 - grunts.size();
                     std::cout << "Formation Spawned of " << fsize<<"\n";
@@ -308,6 +309,8 @@ void Game::run()
                     }
                     else if (tGrunts[i].collision(player))
                     {
+                        Explosion tempExplosion("P", tGrunts[i].getPosition());
+                        explosions.push_back(tempExplosion);
                         tGrunts.erase(tGrunts.begin() + i);
                         i--;
                         playerLiving = false;
@@ -322,6 +325,8 @@ void Game::run()
                                 z--;
                                 if(tGrunts[i].hit())
                                 {
+                                    Explosion tempExplosion("P", tGrunts[i].getPosition());
+                                    explosions.push_back(tempExplosion);
                                     tGrunts.erase(tGrunts.begin() + i);
                                     i--;
                                 }
@@ -447,6 +452,8 @@ void Game::run()
 
                 if (bossDead)
                 {
+                    Explosion tempExplosion("P", boss.getPosition());
+                    explosions.push_back(tempExplosion);
 					level++;
                     bossDead = false;
 					playerLiving = false;
@@ -463,6 +470,9 @@ void Game::run()
                 }
 
             }
+
+            Explosion tempExplosion("P", {446,560});
+            explosions.push_back(tempExplosion);
 
             for (int i = 0; i < lives; i++)
             {
@@ -579,7 +589,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             
         }
         if (grunts.size() > 0 && i >= 0)
-            if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 0)
+            if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 1918)
             {
                 Bomb tempBomb(grunts[i].getPosition());
                 bombs.push_back(tempBomb);
@@ -611,6 +621,8 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
                 {
                     bullets.erase(bullets.begin() + i);
                     i--;
+                    Explosion tempExplosion("G", grunts[z].getPosition());
+                    explosions.push_back(tempExplosion);
                     grunts.erase(grunts.begin() + z);
                     z--;
                     points += 100;
@@ -628,16 +640,33 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             ebullets.erase(ebullets.begin() + i);
             i--;
         }
-        if (i >= 0)
+        
+        else if (ebullets[i].collision(player))
         {
-            if (ebullets[i].collision(player))
+            lives--;
+            playerLiving = false;
+            shoot = 0;
+            if (levels[level % 6] == 2000)
             {
-                lives--;
-                playerLiving = false;
-                shoot = 0;
-                ebullets.erase(ebullets.begin() + i);
-                i--;
+                Explosion tempExplosion("O", ebullets[i].getPosition());
+                explosions.push_back(tempExplosion);
             }
+            ebullets.erase(ebullets.begin() + i);
+            i--;
+        }
+        else if (levels[level % 6] == 2000)
+        {
+            for (int z = 0; z < bullets.size() && bullets.size() > 0 && ebullets.size() > 0; z++)
+                if (ebullets[i].collision(bullets[z]))
+                {
+                    Explosion tempExplosion("O", ebullets[i].getPosition());
+                    explosions.push_back(tempExplosion);
+                    ebullets.erase(ebullets.begin() + i);
+                    i--;
+                    bullets.erase(bullets.begin() + z);
+                    z--;
+
+                }
         }
     }
     for (int i = 0; i < bombs.size(); i++)
@@ -657,11 +686,25 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
                 lives--;
                 playerLiving = false;
                 shoot = 0;
+                Explosion tempExplosion("B", bombs[i].getPosition());
+                explosions.push_back(tempExplosion);
                 bombs.erase(bombs.begin() + i);
                 i--;
                 bomb = 0;
             }
         }
+        else
+            for (int z = 0; z < bullets.size() && bullets.size() > 0 && bombs.size() > 0; z++)
+                if (bombs[i].collision(bullets[z]))
+                {
+                    Explosion tempExplosion("B", bombs[i].getPosition());
+                    explosions.push_back(tempExplosion);
+                    bombs.erase(bombs.begin() + i);
+                    i--;
+                    bullets.erase(bullets.begin() + z);
+                    z--;
+
+                }
     }
 
     for (int i = 0; i < missiles.size(); i++)
@@ -675,6 +718,16 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             {
                 lives--;
                 playerLiving = false;
+                if (levels[level % 6] == 2000)
+                {
+                    Explosion tempExplosion("C", missiles[i].getPosition());
+                    explosions.push_back(tempExplosion);
+                }
+                else
+                {
+                    Explosion tempExplosion("M",missiles[i].getPosition());
+                    explosions.push_back(tempExplosion);
+                }
                 missiles.erase(missiles.begin() + i);
                 i--;
             }
@@ -684,12 +737,34 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
                 i--;
                 //std::cout << "boom" << std::endl;
             }
+            else
+            {
+                for (int z = 0; z < bullets.size() && bullets.size() > 0 && missiles.size() > 0; z++)
+                    if (missiles[i].collision(bullets[z]))
+                    {
+                        if (levels[level % 6] == 2000)
+                        {
+                            Explosion tempExplosion("C", missiles[i].getPosition());
+                            explosions.push_back(tempExplosion);
+                        }
+                        else
+                        {
+                            Explosion tempExplosion("M", missiles[i].getPosition());
+                            explosions.push_back(tempExplosion);
+                        }
+                        missiles.erase(missiles.begin() + i);
+                        i--;
+                        bullets.erase(bullets.begin() + z);
+                        z--;
+
+                    }
+            }
         }
     }
 
     for (int i = 0; i < explosions.size()&&explosions.size() >0; i++)
     {
-		if (explosions[i].getTick() < 30)
+		if (explosions[i].getTick() < 20)
 		{
             explosions[i].move();
 			window.draw(explosions[i].getAnimation().getSprite());

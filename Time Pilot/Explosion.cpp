@@ -15,6 +15,6 @@ void Explosion::move()
 {
 	setOffset();
 	Object::move();
-	animation.setFrame(tick / 6);
+	animation.setFrame(tick / 5);
 	tick++;
 }
