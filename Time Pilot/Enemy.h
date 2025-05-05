@@ -8,6 +8,7 @@ public:
 	bool move();
 	void setVelocity();
 	bool retreating();
+	int formation = 0;
 private:
 	bool coward=false;
 	int retreat=360;

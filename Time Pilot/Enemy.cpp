@@ -25,8 +25,8 @@ bool Enemy::move()
     int agoal;
     if (q < 0)
         q += 360;
-
-    if (Player::tick % 20 == 0)
+    
+    if (Player::tick % 20 == 0&&formation==0)
     {
         agoal = rotation - q;
         int range1 = rotation - 12;

@@ -9,6 +9,8 @@ Bullet::Bullet(sf::Vector2f position, double angle, std::string side)
 	animation.setPosition(position);
 	rotation = angle;
 	speed = 16;
+	if (side != "p")
+		speed = 8;
 }
 
 Bullet::~Bullet()

@@ -147,15 +147,11 @@ void Game::run()
                     tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
                     Boss tempDude(1941, tempVec);
                     tGrunts.push_back(tempDude);
-                    //std::cout << "HEY I SHOULD BE SPAWNING NOW" << std::endl;
                 }
 
                 if (gruntsKilled > 0 && gruntsKilled % 7 == 0)
                     nextSpawn = gruntsKilled;
 
-
-                //text.setString("YOUR SCORE: " + std::to_string(points - 1) + "  YOUR LIVES " + std::to_string(lives));
-                
                 //boss
                 if (gruntsKilled >= 54 &&!bossSpawned)
                 {
@@ -197,8 +193,56 @@ void Game::run()
                     playerLiving = false;
 					shoot = 0;
 				}
-                
-                if (player.tick >= 180 && grunts.size() < 7 && player.tick % 10 == 0  && rand() % 2 == 0)
+                //grunt spawning
+                if (player.tick >= 600 && grunts.size() < 5)
+                {
+                    int fsize = 7 - grunts.size();
+                    std::cout << "Formation Spawned of " << fsize<<"\n";
+                    for (int i = 0; i < fsize; i++)
+                    {
+                        int l = rand() % 60 - 30;
+                        sf::Vector2f tempVec(448, 512);
+                        tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                        tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                        Grunt tempGrunt(levels[level % 6], tempVec);
+                        tempGrunt.formation == fsize;
+                        double forot=tempGrunt.getRotation() + 180 % 360;
+                        if (fsize == 5 && i == 3)
+                            i++;
+                        switch (i)
+                        {
+                        case 1:
+                            tempVec.x += 100 * cos((forot + 315 % 360) * 3.14 / 180.);
+                            tempVec.y += 100 * sin((forot + 315 % 360) * 3.14 / 180.);
+                            break;
+                        case 2:
+                            tempVec.x += 100 * cos((forot + 45 % 360) * 3.14 / 180.);
+                            tempVec.y += 100 * sin((forot + 45 % 360) * 3.14 / 180.);
+                            break;
+                        case 3:
+                            tempVec.x += 200 * cos((forot) * 3.14 / 180.)/sqrt(2);
+                            tempVec.y += 200 * sin((forot) * 3.14 / 180.)/sqrt(2);
+                            break;
+                        case 4:
+                            tempVec.x += 200 * cos((forot + 315 % 360) * 3.14 / 180.);
+                            tempVec.y += 200 * sin((forot + 315 % 360) * 3.14 / 180.);
+                            break;
+                        case 5:
+                            tempVec.x += 200 * cos((forot + 45 % 360) * 3.14 / 180.);
+                            tempVec.y += 200 * sin((forot + 45 % 360) * 3.14 / 180.);
+                            break;
+                        case 6:
+                            tempVec.x += 300 * cos((forot) * 3.14 / 180.)/sqrt(2);
+                            tempVec.y += 300 * sin((forot) * 3.14 / 180.)/sqrt(2);
+                            break;
+                        default:
+                            break;
+                        }
+                        tempGrunt.getAnimation().setPosition(tempVec);
+                        grunts.push_back(tempGrunt);
+                    }
+                }
+                if (player.tick >= 180 && grunts.size() < 1 && player.tick % 60 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
                     sf::Vector2f tempVec(448, 512);
@@ -375,7 +419,6 @@ void Game::run()
                 }
                 
                 window.draw(player.getAnimation().getSprite());
-                //window.draw(text);
 
                 if (player.tick == 2)
                 {
@@ -500,7 +543,6 @@ void Game::run()
 		date.setString("GAME OVER");
         date.setFillColor(sf::Color::Red);
 		window.draw(date);
-        //window.draw(text);
         window.display();
     }
 }
@@ -526,10 +568,11 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             {
                 grunts.erase(grunts.begin() + i);
                 i--;
-                std::cout << "executed coward";
             }
             else
             {
+                if (!grunts[i].inBounds())
+                    grunts[i].formation = 0;
                 grunts[i].outOfBounds();
                 window.draw(grunts[i].getAnimation().getSprite());
             }
