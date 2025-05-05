@@ -695,16 +695,17 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
         }
         else
             for (int z = 0; z < bullets.size() && bullets.size() > 0 && bombs.size() > 0; z++)
-                if (bombs[i].collision(bullets[z]))
-                {
-                    Explosion tempExplosion("B", bombs[i].getPosition());
-                    explosions.push_back(tempExplosion);
-                    bombs.erase(bombs.begin() + i);
-                    i--;
-                    bullets.erase(bullets.begin() + z);
-                    z--;
+                if (i >= 0 && z >=0)
+                    if (bombs[i].collision(bullets[z]))
+                    {
+                        Explosion tempExplosion("B", bombs[i].getPosition());
+                        explosions.push_back(tempExplosion);
+                        bombs.erase(bombs.begin() + i);
+                        i--;
+                        bullets.erase(bullets.begin() + z);
+                        z--;
 
-                }
+                    }
     }
 
     for (int i = 0; i < missiles.size(); i++)
