@@ -3,6 +3,7 @@
 Enemy::Enemy()
 {
     speed = 2;
+    beige = Player::tick;
     rotation = ((int)(((int)(((int)(Player::rotation + 360) % 360) / 11.25) + 1) / 2) - 1) * 22.5;
     rotateSpeed = 22.5;
 }
@@ -25,8 +26,9 @@ bool Enemy::move()
     int agoal;
     if (q < 0)
         q += 360;
-    
-    if (Player::tick % 20 == 0&&formation==0)
+    if (formation && inBounds())
+        beige = true;
+    if (Player::tick % 20 == 0&&!formation)
     {
         agoal = rotation - q;
         int range1 = rotation - 12;
@@ -55,9 +57,7 @@ bool Enemy::move()
                     see = false;
                 if (see)
                 {
-
                     if (agression > 0)
-
                         if (abs(agoal) > 180)
                             agoal *= -1;
                     if (agoal > 0)
@@ -65,25 +65,21 @@ bool Enemy::move()
                     else
                         rotation += rotateSpeed;
                     agression--;
-
                 }
             }
             else
             {
-                
                 if (retreat > 180)
                 {
                     rotation -= rotateSpeed;
                     retreat -= rotateSpeed;
-
                 }
                 coward = true;
-                
-                
-                
             }
         }
-    } 
+    }
+    if (formation != 0)
+        rotation = rot;
     if (rotation > 360)
         rotation -= 360;
     if (rotation < 0)
@@ -93,6 +89,7 @@ bool Enemy::move()
     Object::move();
     return shoot;
 }
+
 
 void Enemy::setVelocity()
 {

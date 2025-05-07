@@ -8,10 +8,12 @@ public:
 	bool move();
 	void setVelocity();
 	bool retreating();
-	int formation = 0;
+	bool formation = false;
+	bool beige=false;
 private:
 	bool coward=false;
 	int retreat=360;
 	int agression = rand() % 20 + 5;
+	double rot;
 };
 

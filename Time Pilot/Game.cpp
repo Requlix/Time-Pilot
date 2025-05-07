@@ -38,7 +38,7 @@ void Game::run()
     killBoard.setTexture(killBoardTxt);
     
 	
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(6);
     int points = 1;
     Player player;
     Boss boss(1940, { -100,-100 });
@@ -195,18 +195,18 @@ void Game::run()
 					shoot = 0;
 				}
                 //grunt spawning
-                if (player.tick >= 900 && grunts.size() < 3 && player.tick % 300 == 0 && rand() % 2 == 0)
+                if (/*player.tick >= 900 && grunts.size() + missiles.size() + tGrunts.size()< 5 && player.tick % 300 == 0 && rand() % 2 == 0 && !bossSpawned*/player.tick==1)
                 {
+                    int l = rand() % 60 - 30;
                     int fsize = 7 - grunts.size();
-                    std::cout << "Formation Spawned of " << fsize<<"\n";
                     for (int i = 0; i < fsize; i++)
                     {
-                        int l = rand() % 60 - 30;
+                        
                         sf::Vector2f tempVec(448, 512);
                         tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                         tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                         Grunt tempGrunt(levels[level % 6], tempVec);
-                        tempGrunt.formation == fsize;
+                        tempGrunt.formation = true;
                         double forot=tempGrunt.getRotation() + 180 % 360;
                         if (fsize == 5 && i == 3)
                             i++;
@@ -243,6 +243,10 @@ void Game::run()
                         grunts.push_back(tempGrunt);
                     }
                 }
+                if (player.tick == 1)
+                    std::cout << grunts[2].formation << true;
+                if (player.tick == 5)
+                    std::cout << grunts[2].formation<<true;
                 if (player.tick >= 180 && grunts.size() < 7 && player.tick % 20 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
@@ -581,15 +585,16 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             }
             else
             {
-                if (!grunts[i].inBounds())
-                    grunts[i].formation = 0;
-                grunts[i].outOfBounds();
+                if (!grunts[i].inBounds()&&grunts[i].beige)
+                    grunts[i].formation = false;
+                else
+                    grunts[i].outOfBounds();
                 window.draw(grunts[i].getAnimation().getSprite());
             }
             
         }
         if (grunts.size() > 0 && i >= 0)
-            if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<3 && levels[level%6] == 1918)
+            if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bomb<2 && levels[level%6] == 1918)
             {
                 Bomb tempBomb(grunts[i].getPosition());
                 bombs.push_back(tempBomb);
