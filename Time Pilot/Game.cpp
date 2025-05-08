@@ -655,7 +655,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
         }
         else if (levels[level % 6] == 2000)
         {
-            for (int z = 0; z < bullets.size() && bullets.size() > 0 && ebullets.size() > 0; z++)
+            for (int z = 0; z < bullets.size() && bullets.size() > 0 && ebullets.size() > 0 && i>=0; z++)
                 if (ebullets[i].collision(bullets[z]))
                 {
                     Explosion tempExplosion("O", ebullets[i].getPosition());
