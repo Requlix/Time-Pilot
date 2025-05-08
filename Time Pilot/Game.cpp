@@ -254,7 +254,7 @@ void Game::run()
                     grunts.push_back(tempGrunt);
                 }
 
-                if (grunts.size() > 0 && missiles.size() < 2 && player.tick % 300 == 0 && levels[level % 6] >= 1970)
+                if (grunts.size() > 0 && missiles.size() < 2 && player.tick % 10 == 0 && levels[level % 6] >= 1970)
                 {
                     int ranGrunt = rand() % grunts.size();
                     int tempLevel;
@@ -737,7 +737,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             }
             else
             {
-                for (int z = 0; z < bullets.size() && bullets.size() > 0 && missiles.size() > 0; z++)
+                for (int z = 0; z < bullets.size() && bullets.size() > 0 && missiles.size() > 0 && i>=0; z++)
                     if (missiles[i].collision(bullets[z]))
                     {
                         if (levels[level % 6] == 2000)
