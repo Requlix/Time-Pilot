@@ -6,6 +6,8 @@ Enemy::Enemy()
     beige = Player::tick;
     rotation = ((int)(((int)(((int)(Player::rotation + 360) % 360) / 11.25) + 1) / 2) - 1) * 22.5;
     rotateSpeed = 22.5;
+    rot = std::round((((int)(Player::rotation + 360) % 360 / 11.25 + 1) / 2 - 1) * 22.5 - 180);
+    rot = (360 - (int)rot) % 360;
 }
 
 Enemy::~Enemy()
@@ -78,7 +80,7 @@ bool Enemy::move()
             }
         }
     }
-    if (formation != 0)
+    if (formation)
         rotation = rot;
     if (rotation > 360)
         rotation -= 360;

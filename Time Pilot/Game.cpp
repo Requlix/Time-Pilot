@@ -38,7 +38,7 @@ void Game::run()
     killBoard.setTexture(killBoardTxt);
     
 	
-    window.setFramerateLimit(6);
+    window.setFramerateLimit(60);
     int points = 1;
     Player player;
     Boss boss(1940, { -100,-100 });
@@ -194,7 +194,8 @@ void Game::run()
 					shoot = 0;
 				}
                 //grunt spawning
-                if (/*player.tick >= 900 && grunts.size() + missiles.size() + tGrunts.size()< 5 && player.tick % 300 == 0 && rand() % 2 == 0 && !bossSpawned*/player.tick==1)
+                
+                if (player.tick >= 900 && grunts.size() + missiles.size() + tGrunts.size()< 5 && player.tick % 300 == 0 && !bossSpawned)
                 {
                     int l = rand() % 60 - 30;
                     int fsize = 7 - grunts.size();
@@ -242,6 +243,7 @@ void Game::run()
                         grunts.push_back(tempGrunt);
                     }
                 }
+                
                 if (player.tick >= 180 && grunts.size() < 7 && player.tick % 20 == 0 && rand() % 2 == 0)
                 {
                     int l = rand() % 60 - 30;
