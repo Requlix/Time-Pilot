@@ -296,7 +296,7 @@ void Game::run()
                     else if (airmen[0].collision(player))
                     {
                         airmen.erase(airmen.begin());
-                        points += 1000 * (rand() % 2 + 1);
+                        points += 200;
                     }
                 }
                 for (int i = 0; i < tGrunts.size(); i++)
@@ -468,6 +468,7 @@ void Game::run()
                     nextSpawn = 0;
                     killBoardTxt.loadFromFile(killBoardStr[level % 6]);
                     killBoard.setTexture(killBoardTxt);
+                    points += 2000;
                 }
 
             }
@@ -753,7 +754,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
                         i--;
                         bullets.erase(bullets.begin() + z);
                         z--;
-
+                        points += 150;
                     }
             }
         }
