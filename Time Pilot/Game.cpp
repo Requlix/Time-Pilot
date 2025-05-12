@@ -84,6 +84,20 @@ void Game::run()
     Bomb temp({ 100,100 });
     bombs.push_back(temp);
 
+
+    int menuTimer = 0;
+    sf::Texture coinTxt;
+	coinTxt.loadFromFile("insertCoin.png");
+    sf::Sprite coin;
+	coin.setTexture(coinTxt);
+	coin.setScale(4, 4);
+
+    sf::Texture leaderBoardTxt;
+	leaderBoardTxt.loadFromFile("leaderBoard.png");
+	sf::Sprite leaderBoard;
+	leaderBoard.setTexture(leaderBoardTxt);
+    leaderBoard.setScale(4, 4);
+
     bool airmanSpawn = true;
 
     sf::Text player1;
@@ -109,406 +123,388 @@ void Game::run()
     int colors = 0;
     while (window.isOpen())
     {
-        while (lives > 0)
+        if (menuTimer < 300)
         {
-            sf::Event event;
-            while (window.pollEvent(event))
+            window.draw(coin);
+            window.display();
+            window.clear();
+			menuTimer++;
+        }
+        else if (menuTimer < 600)
+        {
+            window.draw(leaderBoard);
+            window.display();
+            window.clear();
+			menuTimer++;
+        }
+        else 
+        {
+            while (lives > 0)
             {
-                if (event.type == sf::Event::Closed)
-                    window.close();
-            }
-            bool playerLiving = true;
-            while (playerLiving)
-            {
-                score1.setString(std::to_string(points-1));
-                score2.setString(std::to_string(points-1));
-                //moves
-                player.move();
-                if (points % threshhold == 0)
+                sf::Event event;
+                while (window.pollEvent(event))
                 {
-                    lives++;
-                    threshhold +=50000;
+                    if (event.type == sf::Event::Closed)
+                        window.close();
                 }
-
-                if (gruntsKilled == 27 && airmen.size() == 0 && airmanSpawn && levels[level%6]!=2000)
+                bool playerLiving = true;
+                while (playerLiving)
                 {
-                    Airman tempMan;
-                    airmen.push_back(tempMan);
-                    airmanSpawn = false;
-                }
-                    
-
-                if (gruntsKilled > nextSpawn && gruntsKilled < 54 && levels[level % 6] == 1940 && gruntsKilled % 7 == 0)
-                {
-                    sf::Vector2f tempVec(448, 512);
-                    tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
-                    tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
-                    Boss tempDude(1941, tempVec);
-                    tGrunts.push_back(tempDude);
-                }
-
-                if (gruntsKilled > 0 && gruntsKilled % 7 == 0)
-                    nextSpawn = gruntsKilled;
-
-                //boss
-                if (gruntsKilled >= 54 &&!bossSpawned)
-                {
-                    boss.setYear(levels[level % 6]);
-                    bossSpawned = true;
-                    boss.outOfBounds();
-                }
-                //Grunts
-                for (int i = 0; i < grunts.size(); i++)
-                {
-                    if (grunts[i].collision(player))
+                    score1.setString(std::to_string(points - 1));
+                    score2.setString(std::to_string(points - 1));
+                    //moves
+                    player.move();
+                    if (points % threshhold == 0)
                     {
-                        Explosion tempExplosion("G", grunts[i].getPosition());
-                        explosions.push_back(tempExplosion);
-                        grunts.erase(grunts.begin() + i);
-                        i--;
+                        lives++;
+                        threshhold += 50000;
+                    }
+
+                    if (gruntsKilled == 27 && airmen.size() == 0 && airmanSpawn && levels[level % 6] != 2000)
+                    {
+                        Airman tempMan;
+                        airmen.push_back(tempMan);
+                        airmanSpawn = false;
+                    }
+
+
+                    if (gruntsKilled > nextSpawn && gruntsKilled < 54 && levels[level % 6] == 1940 && gruntsKilled % 7 == 0)
+                    {
+                        sf::Vector2f tempVec(448, 512);
+                        tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
+                        tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
+                        Boss tempDude(1941, tempVec);
+                        tGrunts.push_back(tempDude);
+                    }
+
+                    if (gruntsKilled > 0 && gruntsKilled % 7 == 0)
+                        nextSpawn = gruntsKilled;
+
+                    //boss
+                    if (gruntsKilled >= 54 && !bossSpawned)
+                    {
+                        boss.setYear(levels[level % 6]);
+                        bossSpawned = true;
+                        boss.outOfBounds();
+                    }
+                    //Grunts
+                    for (int i = 0; i < grunts.size(); i++)
+                    {
+                        if (grunts[i].collision(player))
+                        {
+                            Explosion tempExplosion("G", grunts[i].getPosition());
+                            explosions.push_back(tempExplosion);
+                            grunts.erase(grunts.begin() + i);
+                            i--;
+                            lives--;
+                            playerLiving = false;
+                            shoot = 0;
+                        }
+
+                    }
+
+                    //boss collision
+                    for (int i = 0; i < bullets.size(); i++)
+                        if (bullets[i].collision(boss))
+                        {
+                            bullets.erase(bullets.begin() + i);
+                            i--;
+                            if (boss.hit())
+                            {
+                                bossDead = true;
+                            }
+                        }
+
+                    if (boss.collision(player))
+                    {
+                        boss.getAnimation().setPosition({ -100, -100 });
+                        bossDead = true;
                         lives--;
                         playerLiving = false;
                         shoot = 0;
                     }
+                    //grunt spawning
 
-                }
-
-                //boss collision
-                for(int i = 0 ; i < bullets.size(); i++)
-                    if (bullets[i].collision(boss))
+                    if (player.tick >= 900 && grunts.size() + missiles.size() + tGrunts.size() < 5 && player.tick % 300 == 0 && !bossSpawned)
                     {
-                        bullets.erase(bullets.begin() + i);
-                        i--;
-                        if (boss.hit())
+                        int l = rand() % 60 - 30;
+                        int fsize = 7 - grunts.size();
+                        for (int i = 0; i < fsize; i++)
                         {
-                            bossDead = true;
+
+                            sf::Vector2f tempVec(448, 512);
+                            tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                            tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
+                            Grunt tempGrunt(levels[level % 6], tempVec);
+                            tempGrunt.formation = true;
+                            double forot = tempGrunt.getRotation() + 180 % 360;
+                            if (fsize == 5 && i == 3)
+                                i++;
+                            switch (i)
+                            {
+                            case 1:
+                                tempVec.x += 100 * cos((forot + 315 % 360) * 3.14 / 180.);
+                                tempVec.y += 100 * sin((forot + 315 % 360) * 3.14 / 180.);
+                                break;
+                            case 2:
+                                tempVec.x += 100 * cos((forot + 45 % 360) * 3.14 / 180.);
+                                tempVec.y += 100 * sin((forot + 45 % 360) * 3.14 / 180.);
+                                break;
+                            case 3:
+                                tempVec.x += 200 * cos((forot) * 3.14 / 180.) / sqrt(2);
+                                tempVec.y += 200 * sin((forot) * 3.14 / 180.) / sqrt(2);
+                                break;
+                            case 4:
+                                tempVec.x += 200 * cos((forot + 315 % 360) * 3.14 / 180.);
+                                tempVec.y += 200 * sin((forot + 315 % 360) * 3.14 / 180.);
+                                break;
+                            case 5:
+                                tempVec.x += 200 * cos((forot + 45 % 360) * 3.14 / 180.);
+                                tempVec.y += 200 * sin((forot + 45 % 360) * 3.14 / 180.);
+                                break;
+                            case 6:
+                                tempVec.x += 300 * cos((forot) * 3.14 / 180.) / sqrt(2);
+                                tempVec.y += 300 * sin((forot) * 3.14 / 180.) / sqrt(2);
+                                break;
+                            default:
+                                break;
+                            }
+                            tempGrunt.getAnimation().setPosition(tempVec);
+                            grunts.push_back(tempGrunt);
                         }
                     }
-                
-                if(boss.collision(player))
-				{
-					boss.getAnimation().setPosition({ -100, -100 });
-                    bossDead = true;
-					lives--;
-                    playerLiving = false;
-					shoot = 0;
-				}
-                //grunt spawning
-                
-                if (player.tick >= 900 && grunts.size() + missiles.size() + tGrunts.size()< 5 && player.tick % 300 == 0 && !bossSpawned)
-                {
-                    int l = rand() % 60 - 30;
-                    int fsize = 7 - grunts.size();
-                    for (int i = 0; i < fsize; i++)
+
+                    if (player.tick >= 180 && grunts.size() < 7 && player.tick % 20 == 0 && rand() % 2 == 0)
                     {
-                        
+                        int l = rand() % 60 - 30;
                         sf::Vector2f tempVec(448, 512);
                         tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                         tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                         Grunt tempGrunt(levels[level % 6], tempVec);
-                        tempGrunt.formation = true;
-                        double forot=tempGrunt.getRotation() + 180 % 360;
-                        if (fsize == 5 && i == 3)
-                            i++;
-                        switch (i)
-                        {
-                        case 1:
-                            tempVec.x += 100 * cos((forot + 315 % 360) * 3.14 / 180.);
-                            tempVec.y += 100 * sin((forot + 315 % 360) * 3.14 / 180.);
-                            break;
-                        case 2:
-                            tempVec.x += 100 * cos((forot + 45 % 360) * 3.14 / 180.);
-                            tempVec.y += 100 * sin((forot + 45 % 360) * 3.14 / 180.);
-                            break;
-                        case 3:
-                            tempVec.x += 200 * cos((forot) * 3.14 / 180.)/sqrt(2);
-                            tempVec.y += 200 * sin((forot) * 3.14 / 180.)/sqrt(2);
-                            break;
-                        case 4:
-                            tempVec.x += 200 * cos((forot + 315 % 360) * 3.14 / 180.);
-                            tempVec.y += 200 * sin((forot + 315 % 360) * 3.14 / 180.);
-                            break;
-                        case 5:
-                            tempVec.x += 200 * cos((forot + 45 % 360) * 3.14 / 180.);
-                            tempVec.y += 200 * sin((forot + 45 % 360) * 3.14 / 180.);
-                            break;
-                        case 6:
-                            tempVec.x += 300 * cos((forot) * 3.14 / 180.)/sqrt(2);
-                            tempVec.y += 300 * sin((forot) * 3.14 / 180.)/sqrt(2);
-                            break;
-                        default:
-                            break;
-                        }
-                        tempGrunt.getAnimation().setPosition(tempVec);
                         grunts.push_back(tempGrunt);
                     }
-                }
-                
-                if (player.tick >= 180 && grunts.size() < 7 && player.tick % 20 == 0 && rand() % 2 == 0)
-                {
-                    int l = rand() % 60 - 30;
-                    sf::Vector2f tempVec(448, 512);
-                    tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                    Grunt tempGrunt(levels[level%6], tempVec);
-                    grunts.push_back(tempGrunt);
-                }
 
-                if (grunts.size() > 0 && missiles.size() < 2 && player.tick % 10 == 0 && levels[level % 6] >= 1970)
-                {
-                    int ranGrunt = rand() % grunts.size();
-                    int tempLevel;
-                    if (levels[level] < 2000)
-                        tempLevel = 1970;
-                    else
-						tempLevel = 2000;
-                    Missile tempMissile(tempLevel, grunts[ranGrunt].getPosition());
-                    missiles.push_back(tempMissile);
-                }
-                
-
-                //shoots bullets
-                if (shoot != 0 && player.tick % 6 == 0)
-                {
-                    Bullet tempBullet(sf::Vector2f(448, 864/2+128), Player::rotation, "p");
-                    bullets.push_back(tempBullet);
-                    shoot--;
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-                {
-                    if (shootable == true)
-                        shoot = 3;
-                    shootable = false;
-                }
-                else if (shoot <= 1)
-                    shootable = true;
-                
-
-				killCover.setPosition(464-4*gruntsKilled, 992);
-                //draws
-                draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot,bombs, missiles);
-                if (airmen.size() > 0)
-                {
-                    airmen[0].move();
-                    window.draw(airmen[0].getAnimation().getSprite());
-                    if (!airmen[0].inBounds())
-                        airmen.erase(airmen.begin());
-                    else if (airmen[0].collision(player))
+                    if (grunts.size() > 0 && missiles.size() < 2 && player.tick % 10 == 0 && levels[level % 6] >= 1970)
                     {
-                        airmen.erase(airmen.begin());
-                        points += 200;
-                    }
-                }
-                for (int i = 0; i < tGrunts.size(); i++)
-                {
-                    tGrunts[i].move();
-                    window.draw(tGrunts[i].getAnimation().getSprite());
-                    if (!tGrunts[i].inBounds())
-                    {
-                        tGrunts.erase(tGrunts.begin() + i);
-                        i--;
-                    }
-                    else if (tGrunts[i].collision(player))
-                    {
-                        Explosion tempExplosion("P", tGrunts[i].getPosition());
-                        explosions.push_back(tempExplosion);
-                        tGrunts.erase(tGrunts.begin() + i);
-                        i--;
-                        playerLiving = false;
-                        lives--;
-                    }
-                    else
-                    {
-                        for(int z = 0; z < bullets.size() && tGrunts.size() > 0; z++)
-                            if (tGrunts[i].collision(bullets[z]))
-                            {
-                                bullets.erase(bullets.begin() + z);
-                                z--;
-                                if(tGrunts[i].hit())
-                                {
-                                    Explosion tempExplosion("P", tGrunts[i].getPosition());
-                                    explosions.push_back(tempExplosion);
-                                    tGrunts.erase(tGrunts.begin() + i);
-                                    i--;
-                                }
-                                
-                                points += 100;
-                                gruntsKilled++;
-                            }
+                        int ranGrunt = rand() % grunts.size();
+                        int tempLevel;
+                        if (levels[level] < 2000)
+                            tempLevel = 1970;
+                        else
+                            tempLevel = 2000;
+                        Missile tempMissile(tempLevel, grunts[ranGrunt].getPosition());
+                        missiles.push_back(tempMissile);
                     }
 
-                    if (tGrunts.size() > 0)
+
+                    //shoots bullets
+                    if (shoot != 0 && player.tick % 6 == 0)
                     {
-                        if (player.tick % 45 == 0)
+                        Bullet tempBullet(sf::Vector2f(448, 864 / 2 + 128), Player::rotation, "p");
+                        bullets.push_back(tempBullet);
+                        shoot--;
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                    {
+                        if (shootable == true)
+                            shoot = 3;
+                        shootable = false;
+                    }
+                    else if (shoot <= 1)
+                        shootable = true;
+
+
+                    killCover.setPosition(464 - 4 * gruntsKilled, 992);
+                    //draws
+                    draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled, shoot, bombs, missiles);
+                    if (airmen.size() > 0)
+                    {
+                        airmen[0].move();
+                        window.draw(airmen[0].getAnimation().getSprite());
+                        if (!airmen[0].inBounds())
+                            airmen.erase(airmen.begin());
+                        else if (airmen[0].collision(player))
                         {
-                            sf::Vector2f posVec = tGrunts[i].getPosition();
-                            double velvetCake = 45;
-                            if (tGrunts[i].getPosition().x > 446)
-                                posVec.x -= 42;
-                            else
-                                posVec.x += 42;
-
-                            if (tGrunts[i].getPosition().y > 560)
-                                posVec.y -= 10;
-                            else
-                                posVec.y += 10;
-
-                            if (tGrunts[i].getPosition().x >= 446 && tGrunts[i].getPosition().y >= 560)
-                                velvetCake = 135;
-                            else if (tGrunts[i].getPosition().x <= 446 && tGrunts[i].getPosition().y >= 560)
-                                velvetCake = 45;
-                            else if (tGrunts[i].getPosition().x >= 446 && tGrunts[i].getPosition().y <= 560)
-                                velvetCake = 225;
-                            if (tGrunts[i].getPosition().x <= 446 && tGrunts[i].getPosition().y <= 560)
-                                velvetCake = 315;
-
-                            
-                            Bullet daBullet(posVec, velvetCake, "e");
-                            ebullets.push_back(daBullet);
+                            airmen.erase(airmen.begin());
+                            points += 200;
                         }
                     }
+                    for (int i = 0; i < tGrunts.size(); i++)
+                    {
+                        tGrunts[i].move();
+                        window.draw(tGrunts[i].getAnimation().getSprite());
+                        if (!tGrunts[i].inBounds())
+                        {
+                            tGrunts.erase(tGrunts.begin() + i);
+                            i--;
+                        }
+                        else if (tGrunts[i].collision(player))
+                        {
+                            Explosion tempExplosion("P", tGrunts[i].getPosition());
+                            explosions.push_back(tempExplosion);
+                            tGrunts.erase(tGrunts.begin() + i);
+                            i--;
+                            playerLiving = false;
+                            lives--;
+                        }
+                        else
+                        {
+                            for (int z = 0; z < bullets.size() && tGrunts.size() > 0; z++)
+                                if (tGrunts[i].collision(bullets[z]))
+                                {
+                                    bullets.erase(bullets.begin() + z);
+                                    z--;
+                                    if (tGrunts[i].hit())
+                                    {
+                                        Explosion tempExplosion("P", tGrunts[i].getPosition());
+                                        explosions.push_back(tempExplosion);
+                                        tGrunts.erase(tGrunts.begin() + i);
+                                        i--;
+                                    }
+
+                                    points += 100;
+                                    gruntsKilled++;
+                                }
+                        }
+
+                        if (tGrunts.size() > 0)
+                        {
+                            if (player.tick % 45 == 0)
+                            {
+                                sf::Vector2f posVec = tGrunts[i].getPosition();
+                                double velvetCake = 45;
+                                if (tGrunts[i].getPosition().x > 446)
+                                    posVec.x -= 42;
+                                else
+                                    posVec.x += 42;
+
+                                if (tGrunts[i].getPosition().y > 560)
+                                    posVec.y -= 10;
+                                else
+                                    posVec.y += 10;
+
+                                if (tGrunts[i].getPosition().x >= 446 && tGrunts[i].getPosition().y >= 560)
+                                    velvetCake = 135;
+                                else if (tGrunts[i].getPosition().x <= 446 && tGrunts[i].getPosition().y >= 560)
+                                    velvetCake = 45;
+                                else if (tGrunts[i].getPosition().x >= 446 && tGrunts[i].getPosition().y <= 560)
+                                    velvetCake = 225;
+                                if (tGrunts[i].getPosition().x <= 446 && tGrunts[i].getPosition().y <= 560)
+                                    velvetCake = 315;
+
+
+                                Bullet daBullet(posVec, velvetCake, "e");
+                                ebullets.push_back(daBullet);
+                            }
+                        }
+                    }
+                    window.draw(topBorder);
+                    window.draw(bottomBorder);
+                    window.draw(up1);
+                    window.draw(highScore);
+                    window.draw(score1);
+                    window.draw(score2);
+                    for (int i = 0; i < 7; i++)
+                    {
+                        killBoard.setPosition(16 + 64 * i, 980);
+                        window.draw(killBoard);
+                    }
+                    window.draw(killCover);
+                    for (int i = 0; i < lives; i++)
+                    {
+                        livesSprite.setPosition(i * 64 + 16, 64);
+                        window.draw(livesSprite);
+                    }
+                    if (bossSpawned && !bossDead) {
+                        boss.move();
+                        boss.outOfBounds();
+                        if (player.tick < 180)
+                            boss.getAnimation().setPosition({ -100,-100 });
+
+                        window.draw(boss.getAnimation().getSprite());
+                    }
+
+                    if (player.tick % 45 == 0 && bossSpawned)
+                    {
+                        sf::Vector2f posVec = boss.getPosition();
+                        double velvetCake = 45;
+                        if (boss.getPosition().x > 446)
+                            posVec.x -= 42;
+                        else
+                            posVec.x += 42;
+
+                        if (boss.getPosition().y > 560)
+                            posVec.y -= 10;
+                        else
+                            posVec.y += 10;
+
+                        if (boss.getPosition().x >= 446 && boss.getPosition().y >= 446)
+                            velvetCake = 135;
+                        else if (boss.getPosition().x <= 446 && boss.getPosition().y >= 446)
+                            velvetCake = 45;
+                        else if (boss.getPosition().x >= 446 && boss.getPosition().y <= 446)
+                            velvetCake = 225;
+                        if (boss.getPosition().x <= 446 && boss.getPosition().y <= 446)
+                            velvetCake = 315;
+
+                        sf::String temp = "e";
+                        if (levels[level % 6] == 2000)
+                            temp = "s";
+                        Bullet daBullet(posVec, velvetCake, temp);
+                        ebullets.push_back(daBullet);
+                    }
+
+                    window.draw(player.getAnimation().getSprite());
+
+                    if (player.tick == 2)
+                    {
+                        date.setString("A.D. " + std::to_string(levels[level % 6]));
+                        stage.setString("STAGE " + std::to_string(level + 1));
+
+                        for (int i = 0; i < 8; i++)
+                            cloud[i].setYear(levels[level % 6]);
+                    }
+                    if (player.tick <= 180)
+                    {
+                        if (player.tick % 20 == 0)
+                            colors++;
+                        if (colors % 3 == 0)
+                            date.setFillColor(sf::Color::Blue);
+                        else if (colors % 3 == 1)
+                            date.setFillColor(sf::Color::White);
+                        else
+                            date.setFillColor(sf::Color::Red);
+                        window.draw(date);
+                        window.draw(stage);
+                        window.draw(player1);
+                    }
+                    window.display();
+                    window.clear();
+
+                    if (bossDead)
+                    {
+                        Explosion tempExplosion("P", boss.getPosition());
+                        explosions.push_back(tempExplosion);
+                        level++;
+                        bossDead = false;
+                        playerLiving = false;
+                        boss.getAnimation().setPosition({ -100, -100 });
+                        bossSpawned = false;
+                        gruntsKilled = 0;
+                        boss.setSpeed(0);
+                        grunts.clear();
+                        missiles.clear();
+                        airmanSpawn = true;
+                        nextSpawn = 0;
+                        killBoardTxt.loadFromFile(killBoardStr[level % 6]);
+                        killBoard.setTexture(killBoardTxt);
+                        points += 2000;
+                    }
+
                 }
-				window.draw(topBorder);
-				window.draw(bottomBorder);
-                window.draw(up1);
-                window.draw(highScore);
-				window.draw(score1);
-				window.draw(score2);
-                for (int i = 0; i < 7; i++)
-                {
-                    killBoard.setPosition(16 + 64 * i, 980);
-                    window.draw(killBoard);
-                }
-				window.draw(killCover);
-                for(int i = 0; i < lives; i++)
-                {
-                    livesSprite.setPosition(i * 64 + 16, 64);
-                    window.draw(livesSprite);
-                }
-                if (bossSpawned && !bossDead) {
-                    boss.move();
-                    boss.outOfBounds();
-                    if (player.tick < 180)
-                        boss.getAnimation().setPosition({ -100,-100 });
 
-                    window.draw(boss.getAnimation().getSprite());
-                }
-
-                if (player.tick % 45 == 0 && bossSpawned)
-                {
-                    sf::Vector2f posVec = boss.getPosition();
-                    double velvetCake = 45;
-                    if (boss.getPosition().x > 446)
-                        posVec.x -= 42;
-                    else
-                        posVec.x += 42;
-
-                    if (boss.getPosition().y > 560)
-                        posVec.y -= 10;
-                    else
-                        posVec.y += 10;
-
-                    if (boss.getPosition().x >= 446 && boss.getPosition().y >= 446)
-                        velvetCake = 135;
-                    else if (boss.getPosition().x <= 446 && boss.getPosition().y >= 446)
-                        velvetCake = 45;
-                    else if (boss.getPosition().x >= 446 && boss.getPosition().y <= 446)
-                        velvetCake = 225;
-                    if (boss.getPosition().x <= 446 && boss.getPosition().y <= 446)
-                        velvetCake = 315;
-
-                    sf::String temp = "e";
-                    if (levels[level % 6] == 2000)
-                        temp = "s";
-                    Bullet daBullet(posVec, velvetCake, temp);
-                    ebullets.push_back(daBullet);
-                }
-                
-                window.draw(player.getAnimation().getSprite());
-
-                if (player.tick == 2)
-                {
-                    date.setString("A.D. " + std::to_string(levels[level % 6]));
-                    stage.setString("STAGE " + std::to_string(level + 1));
-
-                    for (int i = 0; i < 8; i++)
-						cloud[i].setYear(levels[level % 6]);
-                }
-                if (player.tick <= 180)
-                {
-					if (player.tick % 20 == 0)
-						colors++;
-                    if(colors % 3 == 0)
-                        date.setFillColor(sf::Color::Blue);
-					else if (colors % 3 == 1)
-                        date.setFillColor(sf::Color::White);
-                    else
-                        date.setFillColor(sf::Color::Red);
-                    window.draw(date);
-                    window.draw(stage);
-                    window.draw(player1);
-                }
-                window.display();
-                window.clear();
-
-                if (bossDead)
-                {
-                    Explosion tempExplosion("P", boss.getPosition());
-                    explosions.push_back(tempExplosion);
-					level++;
-                    bossDead = false;
-					playerLiving = false;
-                    boss.getAnimation().setPosition({ -100, -100 });
-					bossSpawned = false;
-                    gruntsKilled = 0;
-					boss.setSpeed(0);
-                    grunts.clear();
-                    missiles.clear();
-                    airmanSpawn = true;
-                    nextSpawn = 0;
-                    killBoardTxt.loadFromFile(killBoardStr[level % 6]);
-                    killBoard.setTexture(killBoardTxt);
-                    points += 2000;
-                }
-
-            }
-
-            Explosion tempExplosion("P", {446,560});
-            explosions.push_back(tempExplosion);
-
-            for (int i = 0; i < lives; i++)
-            {
-                livesSprite.setPosition(i * 64 + 16, 64);
-                window.draw(livesSprite);
-            }
-            window.draw(up1);
-            window.draw(highScore);
-            window.draw(score1);
-            window.draw(score2);
-            for (int i = 0; i < 7; i++)
-            {
-                killBoard.setPosition(16 + 64 * i, 980);
-                window.draw(killBoard);
-            }
-            window.draw(killCover);
-
-            int pause = player.tick;
-            while (player.tick - pause < 200)
-            {
-                int tempLives = lives;
-                window.draw(text);
-                draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled,shoot,bombs,missiles);
-                for(int i = 0; i < lives; i++)
-				{
-					livesSprite.setPosition(i * 64 + 16, 64);
-					window.draw(livesSprite);
-				}
-                window.display();
-                window.clear();
-                player.tick += 1;
-                lives = tempLives;
-                txt1918.loadFromFile("background"+ std::to_string(levels[level%6]) + ".png");
-				background.setTexture(txt1918);
+                Explosion tempExplosion("P", { 446,560 });
+                explosions.push_back(tempExplosion);
 
                 for (int i = 0; i < lives; i++)
                 {
@@ -525,36 +521,71 @@ void Game::run()
                     window.draw(killBoard);
                 }
                 window.draw(killCover);
-                
+
+                int pause = player.tick;
+                while (player.tick - pause < 200)
+                {
+                    int tempLives = lives;
+                    window.draw(text);
+                    draw(bullets, grunts, cloud, player, lives, playerLiving, points, ebullets, gruntsKilled, shoot, bombs, missiles);
+                    for (int i = 0; i < lives; i++)
+                    {
+                        livesSprite.setPosition(i * 64 + 16, 64);
+                        window.draw(livesSprite);
+                    }
+                    window.display();
+                    window.clear();
+                    player.tick += 1;
+                    lives = tempLives;
+                    txt1918.loadFromFile("background" + std::to_string(levels[level % 6]) + ".png");
+                    background.setTexture(txt1918);
+
+                    for (int i = 0; i < lives; i++)
+                    {
+                        livesSprite.setPosition(i * 64 + 16, 64);
+                        window.draw(livesSprite);
+                    }
+                    window.draw(up1);
+                    window.draw(highScore);
+                    window.draw(score1);
+                    window.draw(score2);
+                    for (int i = 0; i < 7; i++)
+                    {
+                        killBoard.setPosition(16 + 64 * i, 980);
+                        window.draw(killBoard);
+                    }
+                    window.draw(killCover);
+
+                }
+                boss.getAnimation().setPosition({ -100, -100 });
+                grunts.clear();
+                player.rotation = 0;
+                player.tick = 1;
             }
-            boss.getAnimation().setPosition({ -100, -100 });
-            grunts.clear();
-            player.rotation = 0;
-            player.tick = 1;
+            window.clear();
+            window.draw(background);
+            window.draw(text);
+            window.draw(player1);
+            for (int i = 0; i < lives; i++)
+            {
+                livesSprite.setPosition(i * 64 + 16, 64);
+                window.draw(livesSprite);
+            }
+            window.draw(up1);
+            window.draw(highScore);
+            window.draw(score1);
+            window.draw(score2);
+            for (int i = 0; i < 7; i++)
+            {
+                killBoard.setPosition(16 + 64 * i, 980);
+                window.draw(killBoard);
+            }
+            window.draw(killCover);
+            date.setString("GAME OVER");
+            date.setFillColor(sf::Color::Red);
+            window.draw(date);
+            window.display();
         }
-        window.clear();
-		window.draw(background);
-        window.draw(text);
-        window.draw(player1);
-        for (int i = 0; i < lives; i++)
-        {
-            livesSprite.setPosition(i * 64 + 16, 64);
-            window.draw(livesSprite);
-        }
-        window.draw(up1);
-        window.draw(highScore);
-        window.draw(score1);
-        window.draw(score2);
-        for (int i = 0; i < 7; i++)
-        {
-            killBoard.setPosition(16 + 64 * i, 980);
-            window.draw(killBoard);
-        }
-        window.draw(killCover);
-		date.setString("GAME OVER");
-        date.setFillColor(sf::Color::Red);
-		window.draw(date);
-        window.display();
     }
 }
 
