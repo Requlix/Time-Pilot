@@ -33,7 +33,7 @@ void Game::run()
     killCover.setPosition(464, 992);
 
     sf::Texture killBoardTxt;
-    killBoardTxt.loadFromFile(killBoardStr[level % 6]);
+    killBoardTxt.loadFromFile(killBoardStr[level % 5]);
 	sf::Sprite killBoard;
     killBoard.setTexture(killBoardTxt);
     
@@ -67,7 +67,7 @@ void Game::run()
     int bossBullet = 0;
     int nextSpawn = 0;
     int shoot = 0;
-    int lives = 2;
+    int lives = 13;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -116,7 +116,7 @@ void Game::run()
     stage.setCharacterSize(50);
     stage.setPosition(320, 724);
 
-    txt1918.loadFromFile("background" + std::to_string(levels[level % 6]) + ".png");
+    txt1918.loadFromFile("background" + std::to_string(levels[level % 5]) + ".png");
     background.setTexture(txt1918);
     background.setPosition(0, 128);
 
@@ -160,7 +160,7 @@ void Game::run()
                         threshhold += 50000;
                     }
 
-                    if (gruntsKilled == 27 && airmen.size() == 0 && airmanSpawn && levels[level % 6] != 2000)
+                    if (gruntsKilled == 27 && airmen.size() == 0 && airmanSpawn && levels[level % 5] != 2000)
                     {
                         Airman tempMan;
                         airmen.push_back(tempMan);
@@ -168,7 +168,7 @@ void Game::run()
                     }
 
 
-                    if (gruntsKilled > nextSpawn && gruntsKilled < 54 && levels[level % 6] == 1940 && gruntsKilled % 7 == 0)
+                    if (gruntsKilled > nextSpawn && gruntsKilled < 54 && levels[level % 5] == 1940 && gruntsKilled % 7 == 0)
                     {
                         sf::Vector2f tempVec(448, 512);
                         tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360) * (3.14 / 180.0));
@@ -181,9 +181,9 @@ void Game::run()
                         nextSpawn = gruntsKilled;
 
                     //boss
-                    if (gruntsKilled >= 54 && !bossSpawned)
+                    if (gruntsKilled >= 5 && !bossSpawned)
                     {
-                        boss.setYear(levels[level % 6]);
+                        boss.setYear(levels[level % 5]);
                         bossSpawned = true;
                         boss.outOfBounds();
                     }
@@ -228,14 +228,14 @@ void Game::run()
                     if (player.tick >= 900 && grunts.size() + missiles.size() + tGrunts.size() < 5 && player.tick % 300 == 0 && !bossSpawned)
                     {
                         int l = rand() % 60 - 30;
-                        int fsize = 7 - grunts.size();
+                        int fsize = 6 - grunts.size();
                         for (int i = 0; i < fsize; i++)
                         {
 
                             sf::Vector2f tempVec(448, 512);
                             tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                             tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                            Grunt tempGrunt(levels[level % 6], tempVec);
+                            Grunt tempGrunt(levels[level % 5], tempVec);
                             tempGrunt.formation = true;
                             double forot = tempGrunt.getRotation() + 180 % 360;
                             if (fsize == 5 && i == 3)
@@ -280,11 +280,11 @@ void Game::run()
                         sf::Vector2f tempVec(448, 512);
                         tempVec.x += 448 * cos(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
                         tempVec.y += -432 * sin(((int)(player.rotation + 360) % 360 + l) * (3.14 / 180.0));
-                        Grunt tempGrunt(levels[level % 6], tempVec);
+                        Grunt tempGrunt(levels[level % 5], tempVec);
                         grunts.push_back(tempGrunt);
                     }
 
-                    if (grunts.size() > 0 && missiles.size() < 2 && player.tick % 10 == 0 && levels[level % 6] >= 1970)
+                    if (grunts.size() > 0 && missiles.size() < 2 && player.tick % 60 == 0 && levels[level % 5] >= 1970)
                     {
                         int ranGrunt = rand() % grunts.size();
                         int tempLevel;
@@ -448,7 +448,7 @@ void Game::run()
                             velvetCake = 315;
 
                         sf::String temp = "e";
-                        if (levels[level % 6] == 2000)
+                        if (levels[level % 5] == 2000)
                             temp = "s";
                         Bullet daBullet(posVec, velvetCake, temp);
                         ebullets.push_back(daBullet);
@@ -458,11 +458,11 @@ void Game::run()
 
                     if (player.tick == 2)
                     {
-                        date.setString("A.D. " + std::to_string(levels[level % 6]));
+                        date.setString("A.D. " + std::to_string(levels[level % 5]));
                         stage.setString("STAGE " + std::to_string(level + 1));
 
                         for (int i = 0; i < 8; i++)
-                            cloud[i].setYear(levels[level % 6]);
+                            cloud[i].setYear(levels[level % 5]);
                     }
                     if (player.tick <= 180)
                     {
@@ -496,7 +496,7 @@ void Game::run()
                         missiles.clear();
                         airmanSpawn = true;
                         nextSpawn = 0;
-                        killBoardTxt.loadFromFile(killBoardStr[level % 6]);
+                        killBoardTxt.loadFromFile(killBoardStr[level % 5]);
                         killBoard.setTexture(killBoardTxt);
                         points += 2000;
                     }
@@ -537,7 +537,7 @@ void Game::run()
                     window.clear();
                     player.tick += 1;
                     lives = tempLives;
-                    txt1918.loadFromFile("background" + std::to_string(levels[level % 6]) + ".png");
+                    txt1918.loadFromFile("background" + std::to_string(levels[level % 5]) + ".png");
                     background.setTexture(txt1918);
 
                     for (int i = 0; i < lives; i++)
@@ -621,7 +621,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             
         }
         if (grunts.size() > 0 && i >= 0)
-            if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%40==i&&bombs.size()<3 && levels[level%6] == 1918)
+            if (grunts[i].getPosition().y < 600 && ((grunts[i].getRotation() <=22.5||grunts[i].getRotation()>=337.5) || (grunts[i].getRotation() <=202.5 && grunts[i].getRotation()>=157.5))&&rand()%70==i&&bombs.size()<3 && levels[level%6] == 1918)
             {
                 Bomb tempBomb(grunts[i].getPosition());
                 bombs.push_back(tempBomb);
@@ -676,7 +676,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             lives--;
             playerLiving = false;
             shoot = 0;
-            if (levels[level % 6] == 2000)
+            if (levels[level % 5] == 2000)
             {
                 Explosion tempExplosion("O", ebullets[i].getPosition());
                 explosions.push_back(tempExplosion);
@@ -684,7 +684,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             ebullets.erase(ebullets.begin() + i);
             i--;
         }
-        else if (levels[level % 6] == 2000)
+        else if (levels[level % 5] == 2000)
         {
             for (int z = 0; z < bullets.size() && bullets.size() > 0 && ebullets.size() > 0 && i>=0; z++)
                 if (ebullets[i].collision(bullets[z]))
@@ -747,7 +747,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
             {
                 lives--;
                 playerLiving = false;
-                if (levels[level % 6] == 2000)
+                if (levels[level % 5] == 2000)
                 {
                     Explosion tempExplosion("C", missiles[i].getPosition());
                     explosions.push_back(tempExplosion);
@@ -771,7 +771,7 @@ void Game::draw(std::vector<Bullet>& bullets, std::vector<Grunt>& grunts, Cloud 
                 for (int z = 0; z < bullets.size() && bullets.size() > 0 && missiles.size() > 0 && i>=0; z++)
                     if (missiles[i].collision(bullets[z]))
                     {
-                        if (levels[level % 6] == 2000)
+                        if (levels[level % 5] == 2000)
                         {
                             Explosion tempExplosion("C", missiles[i].getPosition());
                             explosions.push_back(tempExplosion);
