@@ -2,6 +2,7 @@
 
 Boss::Boss(int type, sf::Vector2f pos)
 {
+	//boss spawns and either moves left or right, no angles
 	year = std::to_string(type);
 	if(type >= 1980 || type == 1918)
 		animation.setTextures(year + "boss", year + "boss", 16);
@@ -39,6 +40,7 @@ void Boss::setYear(int type)
 
 void Boss::move()
 {
+	//Boss gets no targeting
 	setOffset();
 	velocity += sf::Vector2f(speed,0);
 	Object::move();
@@ -72,8 +74,10 @@ bool Boss::hit()
 
 void Boss::outOfBounds()
 {
+	//This is used to set bosses position when he goes offscreen
 	if(!inBounds()&&rand()%20==1)
 	{
+		//Checks which quadrant the player is facing, only spawns facing player if player is facing an edge
 		double radians = Player::rotation * 3.14 / 180.;
 		sf::Vector2f temp(448, 512);
 		if (Player::rotation > -45 && Player::rotation <= 0)

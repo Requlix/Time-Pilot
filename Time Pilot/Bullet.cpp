@@ -2,6 +2,8 @@
 
 Bullet::Bullet(sf::Vector2f position, double angle, std::string side)
 {
+	//bullets are colored based off of whether you shot them or an enemy. 
+	//Enemy bullets and boss bullets are slower
 	type = side;
 	animation.setTextures(side + "Bullet", side + "Bullet", 1);
 	animation.setFrame(0);

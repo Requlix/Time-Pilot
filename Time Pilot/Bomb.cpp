@@ -22,6 +22,7 @@ Bomb::~Bomb()
 }
 void Bomb::move()
 {
+	//This calculates the parabolic motion of the bomb
 	setOffset();
 	velocity.x += speed;
 	velocity.y -= 2*(2.5 - .0855555555 * ( Player::tick-tick));

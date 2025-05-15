@@ -2,6 +2,7 @@
 
 Missile::Missile(int type, sf::Vector2f spawn)
 {
+    //Missiles spawn directly on enemies and face the player
 	year = type;
 	sf::String yearStr = std::to_string(type);
 
@@ -25,6 +26,8 @@ Missile::~Missile()
 
 void Missile::move()
 {
+    //This is the same hunting algorith as the old enemy AI
+    //It hunts down the player with no distractions
     bool shoot = false;
     sf::Vector2f goal(0, 0);
     goal.x = 896 / 2. - getPosition().x;

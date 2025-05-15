@@ -2,6 +2,7 @@
 
 Cloud::Cloud(int number)
 {
+	//Clouds start at a set position that is always the same and loop around.
 	pos = number;
 	switch (number)
 	{
@@ -43,6 +44,7 @@ Cloud::~Cloud()
 
 void Cloud::setYear(int type)
 {
+	//Sets the type of cloud depending on the level
 	animation.setTextures(std::to_string(type) + "cloud", std::to_string(type) + "cloud", 1);
 	int frame;
 	year = type;
@@ -101,6 +103,7 @@ void Cloud::setYear(int type)
 
 void Cloud::move()
 {
+	//Some clouds are used to go faster and some are slower, creating a depth effect
 	double speedChange = 1.;
 	if (year == 2000)
 	{

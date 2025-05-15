@@ -13,6 +13,7 @@ Airman::~Airman()
 
 void Airman::move()
 {
+	//airman moves in a straight line down, affected by player movement
 	Object::setOffset();
 
 	if ((tick++) % 30 == 0)
