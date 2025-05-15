@@ -67,7 +67,7 @@ void Game::run()
     int bossBullet = 0;
     int nextSpawn = 0;
     int shoot = 0;
-    int lives = 13;
+    int lives = 2;
     int gruntsKilled = 0;
     int threshhold = 10001;
     bool shootable = true;
@@ -181,7 +181,7 @@ void Game::run()
                         nextSpawn = gruntsKilled;
 
                     //boss
-                    if (gruntsKilled >= 5 && !bossSpawned)
+                    if (gruntsKilled >= 54 && !bossSpawned)
                     {
                         boss.setYear(levels[level % 5]);
                         bossSpawned = true;
